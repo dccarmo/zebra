@@ -12,6 +12,9 @@ const store = createStore(reducers, {
     boletos: [
       {
         number: ""
+      },
+      {
+        number: ""
       }
     ]
   }

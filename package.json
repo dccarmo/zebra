@@ -7,11 +7,14 @@
 		"test": "jest --coverage",
 		"tsc": "tsc",
 		"clean": "rimraf build",
-		"build": "npm run clean && npm run tsc --"
+		"build": "yarn run clean && yarn run tsc --"
 	},
 	"dependencies": {
+		"@types/react-redux": "^4.4.45",
 		"react": "16.0.0-alpha.12",
-		"react-native": "0.45.1"
+		"react-native": "0.45.1",
+		"react-redux": "^5.0.5",
+		"redux": "^3.7.1"
 	},
 	"devDependencies": {
 		"@types/jest": "^20.0.2",
@@ -31,13 +34,13 @@
 		"testRegex": "build/__tests__/.+\\.(test|spec).js$",
 		"coverageDirectory": "coverage",
 		"coverageReporters": [
-		"text-summary",
-		"html"
+			"text-summary",
+			"html"
 		],
 		"collectCoverageFrom": [
-		"build/**/*.js",
-		"!build/**/*.spec.js",
-		"!build/**/*.index.js"
+			"build/**/*.js",
+			"!build/**/*.spec.js",
+			"!build/**/*.index.js"
 		]
-  }
+	}
 }

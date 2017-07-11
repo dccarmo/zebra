@@ -1,23 +1,20 @@
 import { combineReducers } from "redux";
+import { Action } from "redux";
+import { isType } from "typescript-fsa";
 
-import { AddBoletoAction, OtherAction } from "../actions";
-import { ADD_BOLETO } from "../constants";
-import AppStore from "../stores/AppStore";
+import { AddBoletoAction } from "../actions";
+import Boleto from "../models/Boleto";
 
 const reducers = combineReducers({
-    data: boletoReducer,
+    boletos: boletoReducer,
 });
 
 export default reducers;
 
-type BoletoAction = AddBoletoAction | OtherAction;
-
-function boletoReducer(state: AppStore = {} as AppStore, action: BoletoAction = OtherAction) {
-    switch (action.type) {
-        case ADD_BOLETO:
-            return state;
-
-        default:
-            return state;
+function boletoReducer(state: Boleto[] = [], action: Action): Boleto[] {
+    if (isType(action, AddBoletoAction)) {
+        return [...state, { data: action.payload.data }];
     }
+
+    return state;
 }

@@ -8,17 +8,9 @@ const dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r
 
 const mapStateToProps = (state: AppStore): BoletoListProps => {
   return {
-    dataSource: dataSource.cloneWithRows(state.data.boletos)
+    dataSource: dataSource.cloneWithRows(state.boletos)
   };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onTodoClick: id => {
-//       dispatch(toggleTodo(id))
-//     }
-//   }
-// }
 
 const BoletoListContainer = connect(
   mapStateToProps

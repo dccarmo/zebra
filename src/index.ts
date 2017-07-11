@@ -5,23 +5,23 @@ import { createStore } from "redux";
 
 import reducers from "./reducers";
 import BoletoListScreen from "./screens/BoletoListScreen";
+import BoletoReaderScreen from "./screens/BoletoReaderScreen";
 import AppStore from "./stores/AppStore";
 
 const store = createStore(reducers, {
-  data: {
-    boletos: [
+  boletos: [
       {
-        number: ""
+        data: ""
       },
       {
-        number: ""
+        data: ""
       }
     ]
-  }
 } as AppStore);
 
 export const startApp = () => {
   Navigation.registerComponent("zebra.BoletoListScreen", () => BoletoListScreen, store, Provider);
+  Navigation.registerComponent("zebra.BoletoReaderScreen", () => BoletoReaderScreen, store, Provider);
 
   Navigation.startTabBasedApp({
     tabs: [

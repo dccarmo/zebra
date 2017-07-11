@@ -4,7 +4,7 @@ import { Platform, View } from "react-native";
 import AddBoletoButton from "../components/AddBoletoButton";
 import BoletoListContainer from "../containers/BoletoListContainer";
 
-export default class BoletoListScreen extends React.Component {
+class BoletoListScreen extends React.Component {
   static navigatorButtons = BoletoListScreen.getNavigatorButtons();
 
   static getNavigatorButtons() {
@@ -38,7 +38,12 @@ export default class BoletoListScreen extends React.Component {
   }
 
   navigateToBoletoReader() {
-    console.log("Navigating!");
+    (this.props as any).navigator.showModal({
+      navigatorStyle: {
+        navBarHidden: true
+      },
+      screen: "zebra.BoletoReaderScreen"
+    });
   }
 
   render() {
@@ -54,3 +59,5 @@ export default class BoletoListScreen extends React.Component {
     );
   }
 }
+
+export default BoletoListScreen;

@@ -1,9 +1,7 @@
 import Boleto from "../models/Boleto";
 
-interface Store {
-    data: {
-        boletos: [Boleto];
-    };
+interface AppStore {
+    boletos: Boleto[];
 }
 
-export default Store;
+export default AppStore;

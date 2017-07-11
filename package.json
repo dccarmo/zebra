@@ -15,18 +15,22 @@
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.45.1",
 		"react-native-action-button": "^2.7.1",
+		"react-native-camera": "^0.9.4",
 		"react-native-navigation": "^1.1.133",
 		"react-redux": "^5.0.5",
-		"redux": "^3.7.1"
+		"redux": "^3.7.1",
+		"typescript-fsa": "^2.3.1"
 	},
 	"devDependencies": {
 		"@types/jest": "^20.0.2",
+		"@types/lodash": "^4.14.68",
 		"@types/react": "^15.0.33",
 		"@types/react-native": "^0.44.14",
 		"babel-jest": "20.0.3",
 		"babel-preset-react-native": "2.0.0",
 		"concurrently": "^3.5.0",
 		"jest": "20.0.4",
+		"lodash": "^4.17.4",
 		"nodemon": "^1.11.0",
 		"react-test-renderer": "16.0.0-alpha.12",
 		"rimraf": "^2.6.1",

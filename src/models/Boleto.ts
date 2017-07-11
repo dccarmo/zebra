@@ -1,5 +1,5 @@
 interface Boleto {
-    number: string;
+    data: string;
 }
 
 export default Boleto;

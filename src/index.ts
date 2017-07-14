@@ -11,12 +11,12 @@ import AppStore from "./stores/AppStore";
 const store = createStore(reducers, {
   boletos: [
       {
-        data: ""
+        data: "",
       },
       {
-        data: ""
-      }
-    ]
+        data: "",
+      },
+    ],
 } as AppStore);
 
 export const startApp = () => {
@@ -29,8 +29,8 @@ export const startApp = () => {
         icon: require("../imgs/boleto_tab_icon.png"),
         label: "Boletos",
         screen: "zebra.BoletoListScreen",
-        title: "Boletos"
-      }
-    ]
+        title: "Boletos",
+      },
+    ],
   });
 };

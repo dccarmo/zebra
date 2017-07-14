@@ -7,17 +7,17 @@ const styles = StyleSheet.create({
         color: "#000",
         flex: 0,
         margin: 40,
-        padding: 10
+        padding: 10,
     },
     container: {
+        alignItems: "stretch",
         flex: 1,
-        flexDirection: "row"
     },
     preview: {
         alignItems: "center",
         flex: 1,
-        justifyContent: "flex-end"
-    }
+        justifyContent: "flex-end",
+    },
 });
 
 export default styles;

@@ -1,12 +1,13 @@
 import _ from "lodash";
 import React from "react";
-import { View } from "react-native";
+import { Button, View } from "react-native";
 import Camera from "react-native-camera";
 
 import styles from "./styles";
 
 export interface BoletoReaderProps {
     onBarCodeRead: (data: string) => void;
+    onDismiss: () => void;
 }
 
 class BoletoReader extends React.Component<BoletoReaderProps> {
@@ -21,22 +22,17 @@ class BoletoReader extends React.Component<BoletoReaderProps> {
     render() {
         return (
             <View style={styles.container}>
-                <Camera
-                    style={styles.preview}
-                    aspect={Camera.constants.Aspect.fill}
-                    onBarCodeRead={this.onBarCodeRead}
-                    keepAwake={true}
+                 <Camera
+                 style={styles.preview}
+                 aspect={Camera.constants.Aspect.fill}
+                 onBarCodeRead={this.onBarCodeRead}
+                 keepAwake={true}
                 />
-                <View style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.8)",
-                    bottom: 0,
-                    left: 0,
-                    position: "absolute",
-                    right: 0,
-                    top: 0
-                    }}
-                >
-                </View>
+                <Button
+                onPress={this.props.onDismiss}
+                title="Fechar"
+                color="#841584"
+                />
             </View>
         );
     }

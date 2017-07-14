@@ -5,6 +5,7 @@ import BoletoReader, { BoletoReaderProps } from "../components/BoletoReader";
 
 export interface BoletoReaderContainerProps {
     onBoletoAdded: () => void;
+    onDismiss: () => void;
 }
 
 const mapDispatchToProps = (dispatch, ownProps: BoletoReaderContainerProps): BoletoReaderProps => {
@@ -12,13 +13,14 @@ const mapDispatchToProps = (dispatch, ownProps: BoletoReaderContainerProps): Bol
     onBarCodeRead: (data) => {
       dispatch(AddBoletoAction({ data }));
       ownProps.onBoletoAdded();
-    }
+    },
+    onDismiss: ownProps.onDismiss,
   };
 };
 
 const BoletoReaderContainer = connect<null, BoletoReaderProps, BoletoReaderContainerProps>(
   null,
-  mapDispatchToProps
-)(BoletoReader);
+  mapDispatchToProps,
+)(BoletoReader as any);
 
 export default BoletoReaderContainer;

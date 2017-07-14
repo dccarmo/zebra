@@ -11,6 +11,7 @@ class BoletoReaderScreen extends React.Component {
         return (
             <BoletoReaderContainer
                 onBoletoAdded={ () => this.navigateToBoletoList() }
+                onDismiss={ () => this.navigateToBoletoList() }
             />
         );
     }

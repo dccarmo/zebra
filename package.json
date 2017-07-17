@@ -5,10 +5,11 @@
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"test": "jest --coverage",
+		"test-watch": "jest --watch --coverage",
 		"tsc": "tsc",
 		"clean": "rimraf build",
 		"build": "yarn run clean && yarn run tsc --",
-		"watch": "nodemon -e ts,tsx -w ./src -x yarn run build"
+		"build-watch": "nodemon -e ts,tsx -w ./src -x yarn run build"
 	},
 	"dependencies": {
 		"@types/react-redux": "^4.4.45",
@@ -26,29 +27,29 @@
 		"@types/lodash": "^4.14.68",
 		"@types/react": "^15.0.33",
 		"@types/react-native": "^0.44.14",
-		"babel-jest": "20.0.3",
-		"babel-preset-react-native": "2.0.0",
+		"babel-jest": "^20.0.3",
+		"babel-preset-react-native": "^2.1.0",
 		"concurrently": "^3.5.0",
 		"jest": "20.0.4",
 		"lodash": "^4.17.4",
 		"nodemon": "^1.11.0",
 		"react-test-renderer": "16.0.0-alpha.12",
 		"rimraf": "^2.6.1",
+		"ts-jest": "^20.0.7",
 		"tslint": "^5.4.3",
 		"typescript": "^2.4.1"
 	},
 	"jest": {
 		"preset": "react-native",
-		"testRegex": "build/__tests__/.+\\.(test|spec).js$",
-		"coverageDirectory": "coverage",
-		"coverageReporters": [
-			"text-summary",
-			"html"
-		],
-		"collectCoverageFrom": [
-			"build/**/*.js",
-			"!build/**/*.spec.js",
-			"!build/**/*.index.js"
+		"transform": {
+			"^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+			".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+		},
+		"testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx)$",
+		"moduleFileExtensions": [
+			"ts",
+			"tsx",
+			"js"
 		]
 	}
 }

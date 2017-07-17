@@ -2,24 +2,38 @@ import React from "react";
 import { Platform, View } from "react-native";
 
 import AddBoletoButton from "../components/AddBoletoButton";
+import { colors } from "../constants";
 import BoletoListContainer from "../containers/BoletoListContainer";
 
 class BoletoListScreen extends React.Component {
+  static navigatorStyle = {
+    navBarBackgroundColor: colors.monza,
+    navBarButtonColor: colors.white,
+    navBarTextColor: colors.white,
+    statusBarColor: colors.burgundy,
+  };
+
   static navigatorButtons = BoletoListScreen.getNavigatorButtons();
 
   static getNavigatorButtons() {
     if (Platform.OS === "android") {
-      return {};
+      return {
+        leftButtons: [
+          {
+            icon: require("../../imgs/drawer_icon.png"),
+            id: "addBoletoButton",
+          },
+        ],
+      };
     }
 
     return {
       rightButtons: [
         {
-          buttonFontSize: 24,
+          icon: require("../../imgs/navigation_add_icon.png"),
           id: "addBoletoButton",
-          title: "+"
-        }
-      ]
+        },
+      ],
     };
   }
 
@@ -40,9 +54,9 @@ class BoletoListScreen extends React.Component {
   navigateToBoletoReader() {
     (this.props as any).navigator.showModal({
       navigatorStyle: {
-        navBarHidden: true
+        navBarHidden: true,
       },
-      screen: "zebra.BoletoReaderScreen"
+      screen: "zebra.BoletoReaderScreen",
     });
   }
 

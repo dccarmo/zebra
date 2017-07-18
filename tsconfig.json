@@ -13,7 +13,10 @@
     "sourceMap": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "paths": {
+      "*": ["*", "*.ios", "*.android"]
+    }
   },
   "filesGlob": [
     "typings/index.d.ts",

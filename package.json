@@ -18,6 +18,7 @@
 		"react-native-action-button": "^2.7.1",
 		"react-native-camera": "^0.9.4",
 		"react-native-navigation": "^1.1.133",
+		"react-native-tab-view": "^0.0.67",
 		"react-redux": "^5.0.5",
 		"redux": "^3.7.1",
 		"typescript-fsa": "^2.3.1"

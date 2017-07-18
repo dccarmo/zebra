@@ -2,15 +2,17 @@ import React from "react";
 import { Platform, View } from "react-native";
 
 import AddBoletoButton from "../components/AddBoletoButton";
+import BoletoListSwitcher from "../components/BoletoListSwitcher";
 import { colors } from "../constants";
-import BoletoListContainer from "../containers/BoletoListContainer";
 
 class BoletoListScreen extends React.Component {
   static navigatorStyle = {
     navBarBackgroundColor: colors.monza,
     navBarButtonColor: colors.white,
+    navBarNoBorder: true,
     navBarTextColor: colors.white,
     statusBarColor: colors.burgundy,
+    topBarElevationShadowEnabled: false,
   };
 
   static navigatorButtons = BoletoListScreen.getNavigatorButtons();
@@ -63,12 +65,12 @@ class BoletoListScreen extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <BoletoListContainer />
-        { Platform.OS === "android" &&
-          <AddBoletoButton
-            onPress={this.navigateToBoletoReader}
+          <BoletoListSwitcher />
+          { Platform.OS === "android" &&
+            <AddBoletoButton
+              onPress={this.navigateToBoletoReader.bind(this)}
           />
-        }
+          }
       </View>
     );
   }

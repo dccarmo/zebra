@@ -1,7 +1,8 @@
 import React from "react";
+import { Image } from "react-native";
 import ActionButton from "react-native-action-button";
 
-import { colors } from "../../constants";
+import { customStyles } from "./styles";
 
 export interface AddBoletoButtonProps {
     onPress: () => void;
@@ -9,8 +10,11 @@ export interface AddBoletoButtonProps {
 
 const AddBoletoButton: React.SFC<AddBoletoButtonProps> = (props) => (
     <ActionButton
-        buttonColor={colors.monza}
+        buttonColor={customStyles.button.color}
         onPress={props.onPress}
+        offsetX={customStyles.button.offsetX}
+        offsetY={customStyles.button.offsetY}
+        icon={(<Image source={require("../../../imgs/add_button_icon.png")} />)}
     />
 );
 

@@ -5,6 +5,11 @@ import AddBoletoButton from "../components/AddBoletoButton";
 import BoletoListSwitcher from "../components/BoletoListSwitcher";
 import { colors } from "../constants";
 
+const navigatorButtonIds = {
+  addBoletoButton: "addBoletoButton",
+  toggleDrawerButton: "toggleDrawerButton",
+};
+
 class BoletoListScreen extends React.Component {
   static navigatorStyle = {
     navBarBackgroundColor: colors.monza,
@@ -23,7 +28,7 @@ class BoletoListScreen extends React.Component {
         leftButtons: [
           {
             icon: require("../../imgs/drawer_icon.png"),
-            id: "addBoletoButton",
+            id: navigatorButtonIds.toggleDrawerButton,
           },
         ],
       };
@@ -33,7 +38,7 @@ class BoletoListScreen extends React.Component {
       rightButtons: [
         {
           icon: require("../../imgs/navigation_add_icon.png"),
-          id: "addBoletoButton",
+          id: navigatorButtonIds.addBoletoButton,
         },
       ],
     };
@@ -47,10 +52,21 @@ class BoletoListScreen extends React.Component {
 
   onNavigatorEvent(event) {
     if (event.type === "NavBarButtonPress") {
-      if (event.id === "addBoletoButton") {
+      if (event.id === navigatorButtonIds.addBoletoButton) {
         this.navigateToBoletoReader();
       }
+
+      if (event.id === navigatorButtonIds.toggleDrawerButton) {
+        this.toggleDrawer();
+      }
     }
+  }
+
+  toggleDrawer() {
+    (this.props as any).navigator.toggleDrawer({
+      animated: true,
+      side: "left",
+    });
   }
 
   navigateToBoletoReader() {

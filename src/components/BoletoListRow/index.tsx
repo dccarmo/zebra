@@ -3,11 +3,6 @@ import { Text, View } from "react-native";
 
 import styles from "./styles";
 
-export interface BoletoListRowProps {
-    onBarCodeRead: (data: string) => void;
-    onDismiss: () => void;
-}
-
 const BoletoListRow: React.SFC = () =>  (
     <View style={styles.container}>
         <View style={styles.cell}>

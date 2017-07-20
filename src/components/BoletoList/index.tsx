@@ -1,10 +1,10 @@
 import React from "react";
 import { ListView, ListViewDataSource } from "react-native";
 
-import { colors } from "../../constants";
 import BoletoListRow from "../BoletoListRow";
+import BoletoListSection from "../BoletoListSection";
 
-// import styles from "./styles";
+import styles from "./styles";
 
 export interface BoletoListProps {
     dataSource: ListViewDataSource;
@@ -12,9 +12,10 @@ export interface BoletoListProps {
 
 const BoletoList: React.SFC<BoletoListProps> = (props) => (
     <ListView
-        style={{ backgroundColor: colors.alabaster }}
+        style={styles.list}
         dataSource={props.dataSource}
-        renderRow={() => <BoletoListRow />}
+        renderRow={() => (<BoletoListRow />)}
+        renderSectionHeader={() => (<BoletoListSection />)}
     />
 );
 

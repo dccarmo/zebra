@@ -9,7 +9,7 @@
 		"tsc": "tsc",
 		"clean": "rimraf build",
 		"build": "yarn run clean && yarn run tsc --",
-		"build-watch": "nodemon -e ts,tsx -w ./src -x yarn run build"
+		"build-watch": "tsc --watch"
 	},
 	"dependencies": {
 		"@types/react-redux": "^4.4.45",

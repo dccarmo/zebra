@@ -6,9 +6,9 @@ const mockData = "02191618900000166510010847800017732009402163";
 
 describe("boleto reducer", () => {
     it("should add a boleto", () => {
-        expect(boletoReducer([], AddBoletoAction({ data: mockData }))).toEqual([
+        expect(boletoReducer([], AddBoletoAction({ barCode: mockData }))).toEqual([
             {
-                data: mockData,
+                barCode: mockData,
             },
         ]);
     });
@@ -16,10 +16,10 @@ describe("boleto reducer", () => {
     it("shouldn't add the same boleto twice", () => {
         let state: Boleto[] = [];
 
-        state = boletoReducer(state, AddBoletoAction({ data: mockData }));
-        expect(boletoReducer(state, AddBoletoAction({ data: mockData }))).toEqual([
+        state = boletoReducer(state, AddBoletoAction({ barCode: mockData }));
+        expect(boletoReducer(state, AddBoletoAction({ barCode: mockData }))).toEqual([
             {
-                data: mockData,
+                barCode: mockData,
             },
         ]);
     });

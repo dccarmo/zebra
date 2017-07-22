@@ -13,10 +13,13 @@ import AppStore from "./stores/AppStore";
 const store = createStore(reducers, {
   boletos: [
       {
-        data: "",
+        barCode: "02191618900000166510010847800017732009402163",
       },
       {
-        data: "",
+        barCode: "39991611800001264300010847800017732009402163",
+      },
+      {
+        barCode: "85680000001200000820999989421070019693993499",
       },
     ],
 } as AppStore);

@@ -1,6 +1,7 @@
 import actionCreatorFactory from "typescript-fsa";
 
 import { ADD_BOLETO } from "../constants";
+import Boleto from "../models/Boleto";
 
 // export type AddBoletoAction = {
 //     type: ADD_BOLETO,
@@ -12,4 +13,4 @@ import { ADD_BOLETO } from "../constants";
 
 const actionCreator = actionCreatorFactory();
 
-export const AddBoletoAction = actionCreator<{data: string}>(ADD_BOLETO);
+export const AddBoletoAction = actionCreator<Boleto>(ADD_BOLETO);

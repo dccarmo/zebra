@@ -12,10 +12,11 @@ export interface BoletoListProps {
 
 const BoletoList: React.SFC<BoletoListProps> = (props) => (
     <ListView
-        style={styles.list}
         dataSource={props.dataSource}
         renderRow={() => (<BoletoListRow />)}
         renderSectionHeader={() => (<BoletoListSection />)}
+        stickySectionHeadersEnabled={false}
+        style={styles.list}
     />
 );
 

@@ -11,7 +11,7 @@ export interface BoletoReaderContainerProps {
 const mapDispatchToProps = (dispatch, ownProps: BoletoReaderContainerProps): BoletoReaderProps => {
   return {
     onBarCodeRead: (data) => {
-      dispatch(AddBoletoAction({ data }));
+      dispatch(AddBoletoAction({ barCode: data }));
       ownProps.onBoletoAdded();
     },
     onDismiss: ownProps.onDismiss,

@@ -1,5 +1,8 @@
 import * as checkdigit from "checkdigit";
 
+import { bankName } from "../constants/banks";
+import { segmentName } from "../constants/segments";
+
 interface Boleto {
     barCode: string;
     title?: string;
@@ -44,9 +47,22 @@ export function getFormattedTypeableLine(boleto: Boleto): string {
 
         return `${seqs[0]}-${seqs[1]} ${seqs[2]}-${seqs[3]} ${seqs[4]}-${seqs[5]} ${seqs[6]}-${seqs[7]}`;
     }
+
     const seqs = getBankTypeableLineSeq(boleto.barCode);
 
     return `${seqs[0]}.${seqs[1]} ${seqs[2]}.${seqs[3]} ${seqs[4]}.${seqs[5]} ${seqs[6]} ${seqs[7]}`;
+}
+
+export function getBank(boleto: Boleto): string {
+    const code = boleto.barCode.substring(0, 3);
+
+    return bankName(code);
+}
+
+export function getSegment(boleto: Boleto): string {
+    const code = boleto.barCode.substring(1, 2);
+
+    return segmentName(code);
 }
 
 function getCollectionTypeableLineSeqs(barCode: string): string[] {

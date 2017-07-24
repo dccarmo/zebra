@@ -3,6 +3,7 @@ import { BoletoType,
     getBoletoType,
     getBoletoTypeableLine,
     getBoletoTypeableLineSeqs,
+    getDueDate,
     getFormattedTypeableLine,
     getSegment } from "../models/Boleto";
 
@@ -55,8 +56,14 @@ describe("boleto model", () => {
         .toEqual("BANESTES");
     });
 
-    it("should return the segment", () => {
+    it("should return the segment name", () => {
         expect(getSegment({ barCode: collectionBarCode }))
         .toEqual("Energia Életrica/Gás");
+    });
+
+    it("should return the due date", () => {
+        console.log(bankBarCode.substring(5, 9));
+        expect(getDueDate({ barCode: bankBarCode }))
+        .toEqual(new Date(2014, 8, 17));
     });
 });

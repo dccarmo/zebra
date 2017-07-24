@@ -1,6 +1,7 @@
 import * as checkdigit from "checkdigit";
 
 import { bankName } from "../constants/banks";
+import { baseDay, baseMonth, baseYear } from "../constants/dates";
 import { segmentName } from "../constants/segments";
 
 interface Boleto {
@@ -63,6 +64,15 @@ export function getSegment(boleto: Boleto): string {
     const code = boleto.barCode.substring(1, 2);
 
     return segmentName(code);
+}
+
+export function getDueDate(boleto: Boleto): Date {
+    const dateDelta = Number(boleto.barCode.substring(5, 9));
+    const date = new Date(baseYear, baseMonth, baseDay);
+
+    date.setDate(date.getDate() + dateDelta);
+
+    return date;
 }
 
 function getCollectionTypeableLineSeqs(barCode: string): string[] {

@@ -3,15 +3,23 @@ import { Text, View } from "react-native";
 
 import styles from "./styles";
 
-const BoletoListRow: React.SFC = () =>  (
+export interface BoletoListRowProps {
+    amount: string;
+    bank: string|null;
+    dueDate: Date|null;
+    segment: string|null;
+    title: string|null;
+}
+
+const BoletoListRow: React.SFC<BoletoListRowProps> = (props) =>  (
     <View style={styles.container}>
         <View style={styles.cell}>
             <View style={styles.infoContainer}>
-                <Text style={styles.title}>Unimed (Itaú)</Text>
-                <Text style={styles.dueDate}>16/07/2017</Text>
+                <Text style={styles.title}>{props.bank}</Text>
+                <Text style={styles.dueDate}>{props.dueDate ? props.dueDate.toDateString() : ""}</Text>
             </View>
             <View style={styles.amountContainer}>
-                <Text style={styles.amount}>R$206,35</Text>
+                <Text style={styles.amount}>{props.amount}</Text>
             </View>
         </View>
     </View>

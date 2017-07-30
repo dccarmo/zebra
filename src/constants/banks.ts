@@ -1,5 +1,11 @@
-export function bankName(code: string): string {
-    return banks.find((bank) => bank.code === code).name;
+export function bankName(code: string): string|null {
+    const selectedBank = banks.find((bank) => bank.code === code);
+
+    if (selectedBank) {
+        return selectedBank.name;
+    }
+
+    return null;
 }
 
 const banks = [

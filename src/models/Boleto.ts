@@ -5,8 +5,9 @@ import { baseDay, baseMonth, baseYear } from "../constants/dates";
 import { segmentName } from "../constants/segments";
 
 interface Boleto {
-    barCode: string;
-    title?: string;
+    barcode: string;
+    title: string|null;
+    paid: boolean;
 }
 
 export enum BoletoType {
@@ -14,60 +15,72 @@ export enum BoletoType {
     Collection,
 }
 
-export function getBoletoType(boleto: Boleto): BoletoType {
-    if (boleto.barCode.charAt(0) === "8") {
+export function getType(boleto: Boleto): BoletoType {
+    if (boleto.barcode.charAt(0) === "8") {
         return BoletoType.Collection;
     }
 
     return BoletoType.Bank;
 }
 
-export function getBoletoTypeableLine(boleto: Boleto): string {
+export function getTypeableLine(boleto: Boleto): string {
     let seqs: string[];
 
-    if (getBoletoType(boleto) === BoletoType.Collection) {
-        seqs = getCollectionTypeableLineSeqs(boleto.barCode);
+    if (getType(boleto) === BoletoType.Collection) {
+        seqs = getCollectionTypeableLineSeqs(boleto.barcode);
     } else {
-        seqs = getBankTypeableLineSeq(boleto.barCode);
+        seqs = getBankTypeableLineSeq(boleto.barcode);
     }
 
     return seqs.reduce((typeableLine, seq) => typeableLine + seq);
 }
 
-export function getBoletoTypeableLineSeqs(boleto: Boleto): string[] {
-    if (getBoletoType(boleto) === BoletoType.Collection) {
-        return getCollectionTypeableLineSeqs(boleto.barCode);
+export function getTypeableLineSeqs(boleto: Boleto): string[] {
+    if (getType(boleto) === BoletoType.Collection) {
+        return getCollectionTypeableLineSeqs(boleto.barcode);
     }
 
-    return getBankTypeableLineSeq(boleto.barCode);
+    return getBankTypeableLineSeq(boleto.barcode);
 }
 
 export function getFormattedTypeableLine(boleto: Boleto): string {
-    if (getBoletoType(boleto) === BoletoType.Collection) {
-        const seqs = getCollectionTypeableLineSeqs(boleto.barCode);
+    if (getType(boleto) === BoletoType.Collection) {
+        const seqs = getCollectionTypeableLineSeqs(boleto.barcode);
 
         return `${seqs[0]}-${seqs[1]} ${seqs[2]}-${seqs[3]} ${seqs[4]}-${seqs[5]} ${seqs[6]}-${seqs[7]}`;
     }
 
-    const seqs = getBankTypeableLineSeq(boleto.barCode);
+    const seqs = getBankTypeableLineSeq(boleto.barcode);
 
     return `${seqs[0]}.${seqs[1]} ${seqs[2]}.${seqs[3]} ${seqs[4]}.${seqs[5]} ${seqs[6]} ${seqs[7]}`;
 }
 
-export function getBank(boleto: Boleto): string {
-    const code = boleto.barCode.substring(0, 3);
+export function getBank(boleto: Boleto): string|null {
+    if (getType(boleto) === BoletoType.Collection) {
+        return null;
+    }
+
+    const code = boleto.barcode.substring(0, 3);
 
     return bankName(code);
 }
 
-export function getSegment(boleto: Boleto): string {
-    const code = boleto.barCode.substring(1, 2);
+export function getSegment(boleto: Boleto): string|null {
+    if (getType(boleto) === BoletoType.Bank) {
+        return null;
+    }
+
+    const code = boleto.barcode.substring(1, 2);
 
     return segmentName(code);
 }
 
-export function getDueDate(boleto: Boleto): Date {
-    const dateDelta = Number(boleto.barCode.substring(5, 9));
+export function getDueDate(boleto: Boleto): Date|null {
+    if (getType(boleto) === BoletoType.Collection) {
+        return null;
+    }
+
+    const dateDelta = Number(boleto.barcode.substring(5, 9));
     const date = new Date(baseYear, baseMonth, baseDay);
 
     date.setDate(date.getDate() + dateDelta);
@@ -75,11 +88,11 @@ export function getDueDate(boleto: Boleto): Date {
     return date;
 }
 
-function getCollectionTypeableLineSeqs(barCode: string): string[] {
-    const firstSeq = barCode.substring(0, 11);
-    const secondSeq = barCode.substring(11, 22);
-    const thirdSeq = barCode.substring(22, 33);
-    const fourthSeq = barCode.substring(33, 44);
+function getCollectionTypeableLineSeqs(barcode: string): string[] {
+    const firstSeq = barcode.substring(0, 11);
+    const secondSeq = barcode.substring(11, 22);
+    const thirdSeq = barcode.substring(22, 33);
+    const fourthSeq = barcode.substring(33, 44);
 
     return [firstSeq,
         checkdigit.mod10.create(firstSeq),
@@ -92,19 +105,19 @@ function getCollectionTypeableLineSeqs(barCode: string): string[] {
     ];
 }
 
-function getBankTypeableLineSeq(barCode: string): string[] {
-    let firstSeq = barCode.substring(0, 4) + barCode.substring(19, 20) + barCode.substring(20, 24);
+function getBankTypeableLineSeq(barcode: string): string[] {
+    let firstSeq = barcode.substring(0, 4) + barcode.substring(19, 20) + barcode.substring(20, 24);
     firstSeq += checkdigit.mod10.create(firstSeq);
 
-    let secondSeq = barCode.substring(24, 29) + barCode.substring(29, 34);
+    let secondSeq = barcode.substring(24, 29) + barcode.substring(29, 34);
     secondSeq += checkdigit.mod10.create(secondSeq);
 
-    let thirdSeq = barCode.substring(34, 39) + barCode.substring(39, 44);
+    let thirdSeq = barcode.substring(34, 39) + barcode.substring(39, 44);
     thirdSeq += checkdigit.mod10.create(thirdSeq);
 
-    const fourthSeq = barCode.substring(4, 5);
+    const fourthSeq = barcode.substring(4, 5);
 
-    const fifthSeq = barCode.substring(5, 19);
+    const fifthSeq = barcode.substring(5, 19);
 
     const typeableLine = [firstSeq,
         secondSeq,

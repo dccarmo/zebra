@@ -1,5 +1,11 @@
-export function segmentName(code: string): string {
-    return segments.find((segment) => segment.code === code).name;
+export function segmentName(code: string): string|null {
+    const selectedSegment = segments.find((segment) => segment.code === code);
+
+    if (selectedSegment) {
+        return selectedSegment.name;
+    }
+
+    return null;
 }
 
 const segments = [

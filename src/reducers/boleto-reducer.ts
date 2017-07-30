@@ -6,8 +6,8 @@ import Boleto from "../models/Boleto";
 
 export default function boletoReducer(state: Boleto[] = [], action: Action): Boleto[] {
     if (isType(action, AddBoletoAction)) {
-        if (!state.find((boleto) => boleto.barCode === action.payload.barCode)) {
-            return [...state, { barCode: action.payload.barCode }];
+        if (!state.find((boleto) => boleto.barcode === action.payload.barcode)) {
+            return [...state, { ...action.payload }];
         }
     }
 

@@ -15,72 +15,72 @@ export enum BoletoType {
     Collection,
 }
 
-export function getType(boleto: Boleto): BoletoType {
-    if (boleto.barcode.charAt(0) === "8") {
+export function getType(barcode: string): BoletoType {
+    if (barcode.charAt(0) === "8") {
         return BoletoType.Collection;
     }
 
     return BoletoType.Bank;
 }
 
-export function getTypeableLine(boleto: Boleto): string {
+export function getTypeableLine(barcode: string): string {
     let seqs: string[];
 
-    if (getType(boleto) === BoletoType.Collection) {
-        seqs = getCollectionTypeableLineSeqs(boleto.barcode);
+    if (getType(barcode) === BoletoType.Collection) {
+        seqs = getCollectionTypeableLineSeqs(barcode);
     } else {
-        seqs = getBankTypeableLineSeq(boleto.barcode);
+        seqs = getBankTypeableLineSeq(barcode);
     }
 
     return seqs.reduce((typeableLine, seq) => typeableLine + seq);
 }
 
-export function getTypeableLineSeqs(boleto: Boleto): string[] {
-    if (getType(boleto) === BoletoType.Collection) {
-        return getCollectionTypeableLineSeqs(boleto.barcode);
+export function getTypeableLineSeqs(barcode: string): string[] {
+    if (getType(barcode) === BoletoType.Collection) {
+        return getCollectionTypeableLineSeqs(barcode);
     }
 
-    return getBankTypeableLineSeq(boleto.barcode);
+    return getBankTypeableLineSeq(barcode);
 }
 
-export function getFormattedTypeableLine(boleto: Boleto): string {
-    if (getType(boleto) === BoletoType.Collection) {
-        const seqs = getCollectionTypeableLineSeqs(boleto.barcode);
+export function getFormattedTypeableLine(barcode: string): string {
+    if (getType(barcode) === BoletoType.Collection) {
+        const seqs = getCollectionTypeableLineSeqs(barcode);
 
         return `${seqs[0]}-${seqs[1]} ${seqs[2]}-${seqs[3]} ${seqs[4]}-${seqs[5]} ${seqs[6]}-${seqs[7]}`;
     }
 
-    const seqs = getBankTypeableLineSeq(boleto.barcode);
+    const seqs = getBankTypeableLineSeq(barcode);
 
     return `${seqs[0]}.${seqs[1]} ${seqs[2]}.${seqs[3]} ${seqs[4]}.${seqs[5]} ${seqs[6]} ${seqs[7]}`;
 }
 
-export function getBank(boleto: Boleto): string|null {
-    if (getType(boleto) === BoletoType.Collection) {
+export function getBank(barcode: string): string|null {
+    if (getType(barcode) === BoletoType.Collection) {
         return null;
     }
 
-    const code = boleto.barcode.substring(0, 3);
+    const code = barcode.substring(0, 3);
 
     return bankName(code);
 }
 
-export function getSegment(boleto: Boleto): string|null {
-    if (getType(boleto) === BoletoType.Bank) {
+export function getSegment(barcode: string): string|null {
+    if (getType(barcode) === BoletoType.Bank) {
         return null;
     }
 
-    const code = boleto.barcode.substring(1, 2);
+    const code = barcode.substring(1, 2);
 
     return segmentName(code);
 }
 
-export function getDueDate(boleto: Boleto): Date|null {
-    if (getType(boleto) === BoletoType.Collection) {
+export function getDueDate(barcode: string): Date|null {
+    if (getType(barcode) === BoletoType.Collection) {
         return null;
     }
 
-    const dateDelta = Number(boleto.barcode.substring(5, 9));
+    const dateDelta = Number(barcode.substring(5, 9));
     const date = new Date(baseYear, baseMonth, baseDay);
 
     date.setDate(date.getDate() + dateDelta);

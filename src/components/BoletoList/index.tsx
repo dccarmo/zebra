@@ -15,9 +15,9 @@ function renderRow(boleto: Boleto): JSX.Element  {
     return (
         <BoletoListRow
             amount= {""}
-            bank= {getBank(boleto)}
-            dueDate= {getDueDate(boleto)}
-            segment= {getSegment(boleto)}
+            bank= {getBank(boleto.barcode)}
+            dueDate= {getDueDate(boleto.barcode)}
+            segment= {getSegment(boleto.barcode)}
             title= {boleto.title}
         />
     );

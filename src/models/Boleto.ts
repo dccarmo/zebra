@@ -92,9 +92,9 @@ export function getAmount(barcode: string): number {
     let amount: string;
 
     if (getType(barcode) === BoletoType.Collection) {
-        amount = `${barcode.substring(4, 13)}.${barcode.substring(13, 15)}`;
+        amount = `${barcode.substring(4, 13)}${barcode.substring(13, 15)}`;
     } else {
-        amount = `${barcode.substring(9, 17)}.${barcode.substring(17, 19)}`;
+        amount = `${barcode.substring(9, 17)}${barcode.substring(17, 19)}`;
     }
 
     return Number(amount);

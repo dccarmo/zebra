@@ -1,23 +1,37 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View, ViewStyle } from "react-native";
 
 import styles from "./styles";
 
 export interface BoletoListRowProps {
     amount: string;
-    bank: string|null;
     dueDate: Date|null;
-    segment: string|null;
     title: string|null;
+}
+
+function getInfoContainerStyle(dueDate: Date|null): ViewStyle {
+    if (dueDate) {
+        return StyleSheet.flatten([styles.infoContainer, styles.infoContainerDouble]);
+    }
+
+    return StyleSheet.flatten([styles.infoContainer, styles.infoContainerSingle]);
+}
+
+function renderInfo(title: string|null, dueDate: Date|null): JSX.Element {
+    return (
+        <View style={getInfoContainerStyle(dueDate)}>
+            <Text style={styles.title}>{title ? title : "Desconhecido"}</Text>
+            { dueDate &&
+                <Text style={styles.dueDate}>{dueDate.toDateString()}</Text>
+            }
+        </View>
+    );
 }
 
 const BoletoListRow: React.SFC<BoletoListRowProps> = (props) =>  (
     <View style={styles.container}>
         <View style={styles.cell}>
-            <View style={styles.infoContainer}>
-                <Text style={styles.title}>{props.bank}</Text>
-                <Text style={styles.dueDate}>{props.dueDate ? props.dueDate.toDateString() : ""}</Text>
-            </View>
+            {renderInfo(props.title, props.dueDate)}
             <View style={styles.amountContainer}>
                 <Text style={styles.amount}>{props.amount}</Text>
             </View>

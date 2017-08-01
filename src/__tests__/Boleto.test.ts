@@ -1,10 +1,10 @@
 import { BoletoType,
-    getAmount,
-    getBank,
-    getDueDate,
+    getBarcodeAmount,
+    getBarcodeBank,
+    getBarcodeDueDate,
+    getBarcodeSegment,
+    getBarcodeType,
     getFormattedTypeableLine,
-    getSegment,
-    getType,
     getTypeableLine,
     getTypeableLineSeqs,
 } from "../models/Boleto";
@@ -15,7 +15,7 @@ const mockInvalidBankBankBarcode = "39991611800001264300010847800017732009402163
 
 describe("boleto model", () => {
     it("should return the collection boleto type", () => {
-        expect(getType(mockColletionBarcode))
+        expect(getBarcodeType(mockColletionBarcode))
         .toEqual(BoletoType.Collection);
     });
 
@@ -25,7 +25,7 @@ describe("boleto model", () => {
     });
 
     it("should return the bank boleto type", () => {
-        expect(getType(mockBankBarcode))
+        expect(getBarcodeType(mockBankBarcode))
         .toEqual(BoletoType.Bank);
     });
 
@@ -55,32 +55,32 @@ describe("boleto model", () => {
     });
 
     it("should return the bank name", () => {
-        expect(getBank(mockBankBarcode))
+        expect(getBarcodeBank(mockBankBarcode))
         .toEqual("BANESTES");
     });
 
     it("should return null for the bank", () => {
-        expect(getBank(mockInvalidBankBankBarcode))
+        expect(getBarcodeBank(mockInvalidBankBankBarcode))
         .toBeNull();
     });
 
     it("should return the segment name", () => {
-        expect(getSegment(mockColletionBarcode))
+        expect(getBarcodeSegment(mockColletionBarcode))
         .toEqual("Energia Életrica/Gás");
     });
 
     it("should return the due date", () => {
-        expect(getDueDate(mockBankBarcode))
+        expect(getBarcodeDueDate(mockBankBarcode))
         .toEqual(new Date(2014, 8, 17));
     });
 
     it("should return the amount for the collection barcode", () => {
-        expect(getAmount(mockColletionBarcode))
+        expect(getBarcodeAmount(mockColletionBarcode))
         .toEqual(56.00);
     });
 
     it("should return the amount for the bank barcode", () => {
-        expect(getAmount(mockBankBarcode))
+        expect(getBarcodeAmount(mockBankBarcode))
         .toEqual(166.51);
     });
 });

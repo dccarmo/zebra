@@ -1,7 +1,13 @@
+import * as accounting from "accounting";
 import React from "react";
 import { ListView, ListViewDataSource } from "react-native";
 
-import Boleto, { getBank, getDueDate, getSegment } from "../../models/Boleto";
+import Boleto, {BoletoType,
+    getBarcodeAmount,
+    getBarcodeBank,
+    getBarcodeDueDate,
+    getBarcodeSegment,
+    getBarcodeType } from "../../models/Boleto";
 import BoletoListRow from "../BoletoListRow";
 import BoletoListSection from "../BoletoListSection";
 
@@ -11,14 +17,34 @@ export interface BoletoListProps {
     dataSource: ListViewDataSource;
 }
 
+const accountingSettings = {
+    decimal: ",",
+    symbol: "R$",
+    thousand: ".",
+};
+
+function getAmount(barcode: string): string {
+    return `${accounting.formatMoney(getBarcodeAmount(barcode), accountingSettings)}`;
+}
+
+function getTitle(boleto: Boleto): string|null {
+    if (boleto.title) {
+        return boleto.title;
+    }
+
+    if (getBarcodeType(boleto.barcode) === BoletoType.Bank) {
+        return getBarcodeBank(boleto.barcode);
+    }
+
+    return getBarcodeSegment(boleto.barcode);
+}
+
 function renderRow(boleto: Boleto): JSX.Element  {
     return (
         <BoletoListRow
-            amount= {""}
-            bank= {getBank(boleto.barcode)}
-            dueDate= {getDueDate(boleto.barcode)}
-            segment= {getSegment(boleto.barcode)}
-            title= {boleto.title}
+            amount={getAmount(boleto.barcode)}
+            dueDate={getBarcodeDueDate(boleto.barcode)}
+            title={getTitle(boleto)}
         />
     );
 }

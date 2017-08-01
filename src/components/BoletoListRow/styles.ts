@@ -36,7 +36,12 @@ const styles = StyleSheet.create({
     },
     infoContainer: {
         flex: 1,
+    },
+    infoContainerDouble: {
         justifyContent: "space-between",
+    },
+    infoContainerSingle: {
+        justifyContent: "center",
     },
     title: {
         color: colors.black,

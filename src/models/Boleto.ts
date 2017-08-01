@@ -15,7 +15,7 @@ export enum BoletoType {
     Collection,
 }
 
-export function getType(barcode: string): BoletoType {
+export function getBarcodeType(barcode: string): BoletoType {
     if (barcode.charAt(0) === "8") {
         return BoletoType.Collection;
     }
@@ -26,7 +26,7 @@ export function getType(barcode: string): BoletoType {
 export function getTypeableLine(barcode: string): string {
     let seqs: string[];
 
-    if (getType(barcode) === BoletoType.Collection) {
+    if (getBarcodeType(barcode) === BoletoType.Collection) {
         seqs = getCollectionTypeableLineSeqs(barcode);
     } else {
         seqs = getBankTypeableLineSeq(barcode);
@@ -36,7 +36,7 @@ export function getTypeableLine(barcode: string): string {
 }
 
 export function getTypeableLineSeqs(barcode: string): string[] {
-    if (getType(barcode) === BoletoType.Collection) {
+    if (getBarcodeType(barcode) === BoletoType.Collection) {
         return getCollectionTypeableLineSeqs(barcode);
     }
 
@@ -44,7 +44,7 @@ export function getTypeableLineSeqs(barcode: string): string[] {
 }
 
 export function getFormattedTypeableLine(barcode: string): string {
-    if (getType(barcode) === BoletoType.Collection) {
+    if (getBarcodeType(barcode) === BoletoType.Collection) {
         const seqs = getCollectionTypeableLineSeqs(barcode);
 
         return `${seqs[0]}-${seqs[1]} ${seqs[2]}-${seqs[3]} ${seqs[4]}-${seqs[5]} ${seqs[6]}-${seqs[7]}`;
@@ -55,8 +55,8 @@ export function getFormattedTypeableLine(barcode: string): string {
     return `${seqs[0]}.${seqs[1]} ${seqs[2]}.${seqs[3]} ${seqs[4]}.${seqs[5]} ${seqs[6]} ${seqs[7]}`;
 }
 
-export function getBank(barcode: string): string|null {
-    if (getType(barcode) === BoletoType.Collection) {
+export function getBarcodeBank(barcode: string): string|null {
+    if (getBarcodeType(barcode) === BoletoType.Collection) {
         return null;
     }
 
@@ -65,8 +65,8 @@ export function getBank(barcode: string): string|null {
     return bankName(code);
 }
 
-export function getSegment(barcode: string): string|null {
-    if (getType(barcode) === BoletoType.Bank) {
+export function getBarcodeSegment(barcode: string): string|null {
+    if (getBarcodeType(barcode) === BoletoType.Bank) {
         return null;
     }
 
@@ -75,8 +75,8 @@ export function getSegment(barcode: string): string|null {
     return segmentName(code);
 }
 
-export function getDueDate(barcode: string): Date|null {
-    if (getType(barcode) === BoletoType.Collection) {
+export function getBarcodeDueDate(barcode: string): Date|null {
+    if (getBarcodeType(barcode) === BoletoType.Collection) {
         return null;
     }
 
@@ -88,10 +88,10 @@ export function getDueDate(barcode: string): Date|null {
     return date;
 }
 
-export function getAmount(barcode: string): number {
+export function getBarcodeAmount(barcode: string): number {
     let amount: string;
 
-    if (getType(barcode) === BoletoType.Collection) {
+    if (getBarcodeType(barcode) === BoletoType.Collection) {
         amount = `${barcode.substring(4, 13)}.${barcode.substring(13, 15)}`;
     } else {
         amount = `${barcode.substring(9, 17)}.${barcode.substring(17, 19)}`;

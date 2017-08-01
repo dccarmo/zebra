@@ -76,11 +76,11 @@ describe("boleto model", () => {
 
     it("should return the amount for the collection barcode", () => {
         expect(getAmount(mockColletionBarcode))
-        .toEqual(5600);
+        .toEqual(56.00);
     });
 
     it("should return the amount for the bank barcode", () => {
         expect(getAmount(mockBankBarcode))
-        .toEqual(16651);
+        .toEqual(166.51);
     });
 });

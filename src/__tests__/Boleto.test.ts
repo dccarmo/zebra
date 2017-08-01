@@ -1,4 +1,5 @@
 import { BoletoType,
+    getAmount,
     getBank,
     getDueDate,
     getFormattedTypeableLine,
@@ -71,5 +72,15 @@ describe("boleto model", () => {
     it("should return the due date", () => {
         expect(getDueDate(mockBankBarcode))
         .toEqual(new Date(2014, 8, 17));
+    });
+
+    it("should return the amount for the collection barcode", () => {
+        expect(getAmount(mockColletionBarcode))
+        .toEqual(56.00);
+    });
+
+    it("should return the amount for the bank barcode", () => {
+        expect(getAmount(mockBankBarcode))
+        .toEqual(166.51);
     });
 });

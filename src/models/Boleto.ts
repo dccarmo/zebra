@@ -88,6 +88,18 @@ export function getDueDate(barcode: string): Date|null {
     return date;
 }
 
+export function getAmount(barcode: string): number {
+    let amount: string;
+
+    if (getType(barcode) === BoletoType.Collection) {
+        amount = `${barcode.substring(4, 13)}.${barcode.substring(13, 15)}`;
+    } else {
+        amount = `${barcode.substring(9, 17)}.${barcode.substring(17, 19)}`;
+    }
+
+    return Number(amount);
+}
+
 function getCollectionTypeableLineSeqs(barcode: string): string[] {
     const firstSeq = barcode.substring(0, 11);
     const secondSeq = barcode.substring(11, 22);

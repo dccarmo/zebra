@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View, ViewStyle } from "react-native";
 
+import { colors } from "../../constants";
+import Card from "../Card";
 import styles from "./styles";
 
 export interface BoletoListRowProps {
@@ -28,14 +30,14 @@ function renderInfo(title: string|null, dueDate: Date|null): JSX.Element {
     );
 }
 
-const BoletoListRow: React.SFC<BoletoListRowProps> = (props) =>  (
+const BoletoListRow: React.SFC<BoletoListRowProps> = (props) => (
     <View style={styles.container}>
-        <View style={styles.cell}>
+        <Card backgroundColor={colors.white}>
             {renderInfo(props.title, props.dueDate)}
             <View style={styles.amountContainer}>
                 <Text style={styles.amount}>{props.amount}</Text>
             </View>
-        </View>
+        </Card>
     </View>
 );
 

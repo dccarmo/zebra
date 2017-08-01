@@ -2,7 +2,7 @@ export type ADD_BOLETO = "App/ADD_BOLETO";
 export const ADD_BOLETO: ADD_BOLETO = "App/ADD_BOLETO";
 
 export const colors = {
-    alabaster: "#FBFBFB",
+    alabaster: "#F9F9F9",
     black: "#000000",
     boulder: "#747474",
     burgundy: "#850024",

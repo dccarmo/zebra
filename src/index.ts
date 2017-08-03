@@ -5,7 +5,9 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 
 import { colors } from "./constants";
+import { screens } from "./constants/screens";
 import reducers from "./reducers";
+import BoletoDetailScreen from "./screens/BoletoDetailScreen";
 import BoletoListScreen from "./screens/BoletoListScreen";
 import BoletoReaderScreen from "./screens/BoletoReaderScreen";
 import AppStore from "./stores/AppStore";
@@ -25,19 +27,20 @@ const store = createStore(reducers, {
 } as AppStore);
 
 export const startApp = () => {
-  Navigation.registerComponent("zebra.BoletoListScreen", () => BoletoListScreen, store, Provider);
-  Navigation.registerComponent("zebra.BoletoReaderScreen", () => BoletoReaderScreen, store, Provider);
+  Navigation.registerComponent(screens.BoletoListScreen, () => BoletoListScreen, store, Provider);
+  Navigation.registerComponent(screens.BoletoReaderScreen, () => BoletoReaderScreen, store, Provider);
+  Navigation.registerComponent(screens.BoletoDetailScreen, () => BoletoDetailScreen, store, Provider);
 
   if (Platform.OS === "android") {
     Navigation.startSingleScreenApp({
       drawer: {
         disableOpenGesture: false,
         left: {
-          screen: "zebra.BoletoListScreen",
+          screen: screens.BoletoListScreen,
         },
       },
       screen: {
-        screen: "zebra.BoletoListScreen",
+        screen: screens.BoletoListScreen,
         title: "Boletos",
       },
     });
@@ -47,13 +50,13 @@ export const startApp = () => {
       {
         icon: require("../imgs/boleto_tab_icon.png"),
         label: "Boletos",
-        screen: "zebra.BoletoListScreen",
+        screen: screens.BoletoListScreen,
         title: "Boletos",
       },
       {
         icon: require("../imgs/boleto_tab_icon.png"),
         label: "Opções",
-        screen: "zebra.BoletoListScreen",
+        screen: screens.BoletoListScreen,
         title: "Opções",
       },
     ],

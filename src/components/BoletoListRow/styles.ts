@@ -12,22 +12,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
     },
-    cell: {
-        backgroundColor: colors.white,
-        borderRadius: 5,
-        elevation: 4,
-        flex: 1,
-        flexDirection: "row",
-        height: 74,
-        paddingHorizontal: 16,
-        paddingVertical: 16,
-        shadowColor: colors.black,
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.09,
-        shadowRadius: 6,
-    },
     container: {
-        marginTop: 20,
+        marginVertical: 10,
         paddingHorizontal: 16,
     },
     dueDate: {

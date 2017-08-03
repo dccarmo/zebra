@@ -7,14 +7,12 @@
     "outDir": "build",
     "rootDir": "src",
     "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false,
     "preserveConstEnums": true,
     "allowJs": false,
     "sourceMap": true,
-    "strictNullChecks": true,
+    "strict": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
-    "noUnusedLocals": true,
     "noUnusedLocals": true
   },
   "filesGlob": [

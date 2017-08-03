@@ -1,6 +1,7 @@
 import * as accounting from "accounting";
+import * as _ from "lodash";
 import React from "react";
-import { ListView, ListViewDataSource } from "react-native";
+import { ListView, ListViewDataSource, TouchableHighlight, View } from "react-native";
 
 import Boleto, {BoletoType,
     getBarcodeAmount,
@@ -15,6 +16,7 @@ import styles from "./styles";
 
 export interface BoletoListProps {
     dataSource: ListViewDataSource;
+    onSelectBoleto: (boleto: Boleto) => void;
 }
 
 const accountingSettings = {
@@ -39,20 +41,24 @@ function getTitle(boleto: Boleto): string|null {
     return getBarcodeSegment(boleto.barcode);
 }
 
-function renderRow(boleto: Boleto): JSX.Element  {
+function renderRow(boleto: Boleto, onSelectBoleto: (boleto: Boleto) => void): JSX.Element  {
     return (
-        <BoletoListRow
-            amount={getAmount(boleto.barcode)}
-            dueDate={getBarcodeDueDate(boleto.barcode)}
-            title={getTitle(boleto)}
-        />
+        <TouchableHighlight onPress={() => (onSelectBoleto(boleto))}>
+            <View>
+                <BoletoListRow
+                    amount={getAmount(boleto.barcode)}
+                    dueDate={getBarcodeDueDate(boleto.barcode)}
+                    title={getTitle(boleto)}
+                />
+            </View>
+        </TouchableHighlight>
     );
 }
 
 const BoletoList: React.SFC<BoletoListProps> = (props) => (
     <ListView
         dataSource={props.dataSource}
-        renderRow={renderRow}
+        renderRow={(data) => renderRow(data, props.onSelectBoleto)}
         renderSectionHeader={() => (<BoletoListSection />)}
         stickySectionHeadersEnabled={false}
         style={styles.list}

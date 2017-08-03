@@ -3,7 +3,8 @@ import { Platform, View } from "react-native";
 
 import AddBoletoButton from "../components/AddBoletoButton";
 import BoletoListSwitcher from "../components/BoletoListSwitcher";
-import { colors } from "../constants";
+import { colors, screens } from "../constants";
+import Boleto from "../models/Boleto";
 
 const navigatorButtonIds = {
   addBoletoButton: "addBoletoButton",
@@ -44,13 +45,26 @@ class BoletoListScreen extends React.Component {
     };
   }
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
 
-    (this.props as any).navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  onNavigatorEvent(event) {
+  render() {
+    return (
+      <View style={{flex: 1}}>
+          <BoletoListSwitcher onSelectBoleto={this.navigateToBoletoDetail.bind(this)} />
+          { Platform.OS === "android" &&
+            <AddBoletoButton
+              onPress={this.navigateToBoletoReader.bind(this)}
+          />
+          }
+      </View>
+    );
+  }
+
+  private onNavigatorEvent(event: any) {
     if (event.type === "NavBarButtonPress") {
       if (event.id === navigatorButtonIds.addBoletoButton) {
         this.navigateToBoletoReader();
@@ -62,33 +76,28 @@ class BoletoListScreen extends React.Component {
     }
   }
 
-  toggleDrawer() {
+  private toggleDrawer() {
     (this.props as any).navigator.toggleDrawer({
       animated: true,
       side: "left",
     });
   }
 
-  navigateToBoletoReader() {
+  private navigateToBoletoReader() {
     (this.props as any).navigator.showModal({
       navigatorStyle: {
         navBarHidden: true,
       },
-      screen: "zebra.BoletoReaderScreen",
+      screen: screens.BoletoReaderScreen,
     });
   }
 
-  render() {
-    return (
-      <View style={{flex: 1}}>
-          <BoletoListSwitcher />
-          { Platform.OS === "android" &&
-            <AddBoletoButton
-              onPress={this.navigateToBoletoReader.bind(this)}
-          />
-          }
-      </View>
-    );
+  private navigateToBoletoDetail(boleto: Boleto) {
+    (this.props as any).navigator.push({
+      passProps: boleto,
+      screen: screens.BoletoDetailScreen,
+      title: "Boleto",
+    });
   }
 }
 

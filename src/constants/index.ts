@@ -10,3 +10,13 @@ export const colors = {
     monza: "#D0023A",
     white: "#FFFFFF",
 };
+
+export const baseYear = 1997;
+export const baseMonth = 9;
+export const baseDay = 7;
+
+export const screens = {
+  BoletoDetailScreen: "zebra.BoletoDetailScreen",
+  BoletoListScreen: "zebra.BoletoListScreen",
+  BoletoReaderScreen: "zebra.BoletoReaderScreen",
+};

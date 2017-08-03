@@ -3673,9 +3673,9 @@ react-native-camera@^0.9.4:
   dependencies:
     opencollective "^1.0.3"
 
-react-native-navigation@^1.1.133:
-  version "1.1.133"
-  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.133.tgz#e09ae7d959169bf38049f688d017b5d045fab93e"
+react-native-navigation@^1.1.178:
+  version "1.1.178"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.178.tgz#fbae764a812b8b964aaa96ad9ae73244293f77a5"
   dependencies:
     lodash "4.x.x"
 

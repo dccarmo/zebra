@@ -8,19 +8,17 @@ export interface BoletoReaderContainerProps {
     onDismiss: () => void;
 }
 
-const mapDispatchToProps = (dispatch, ownProps: BoletoReaderContainerProps): BoletoReaderProps => {
-  return {
-    onBarCodeRead: (data) => {
-      dispatch(AddBoletoAction({ barcode: data, title: "", paid: true }));
-      ownProps.onBoletoAdded();
-    },
-    onDismiss: ownProps.onDismiss,
-  };
-};
-
 const BoletoReaderContainer = connect<null, BoletoReaderProps, BoletoReaderContainerProps>(
-  null,
-  mapDispatchToProps,
+    null,
+    (dispatch: any, ownProps: BoletoReaderContainerProps): BoletoReaderProps => {
+        return {
+            onBarCodeRead: (data) => {
+            dispatch(AddBoletoAction({ barcode: data, title: "", paid: true }));
+            ownProps.onBoletoAdded();
+            },
+            onDismiss: ownProps.onDismiss,
+        };
+    },
 )(BoletoReader as any);
 
 export default BoletoReaderContainer;

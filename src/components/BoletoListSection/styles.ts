@@ -4,7 +4,7 @@ import { colors } from "../../constants";
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
+        marginVertical: 20,
         paddingHorizontal: 16,
     },
     title: {

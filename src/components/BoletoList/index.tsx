@@ -1,7 +1,7 @@
 import * as accounting from "accounting";
 import * as _ from "lodash";
 import React from "react";
-import { ListView, ListViewDataSource, TouchableHighlight, View } from "react-native";
+import { ListView, ListViewDataSource } from "react-native";
 
 import Boleto, {BoletoType,
     getBarcodeAmount,
@@ -43,15 +43,11 @@ function getTitle(boleto: Boleto): string|null {
 
 function renderRow(boleto: Boleto, onSelectBoleto: (boleto: Boleto) => void): JSX.Element  {
     return (
-        <TouchableHighlight onPress={() => (onSelectBoleto(boleto))}>
-            <View>
-                <BoletoListRow
-                    amount={getAmount(boleto.barcode)}
-                    dueDate={getBarcodeDueDate(boleto.barcode)}
-                    title={getTitle(boleto)}
-                />
-            </View>
-        </TouchableHighlight>
+        <BoletoListRow
+            amount={getAmount(boleto.barcode)}
+            dueDate={getBarcodeDueDate(boleto.barcode)}
+            title={getTitle(boleto)}
+        />
     );
 }
 

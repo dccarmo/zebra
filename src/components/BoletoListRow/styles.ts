@@ -12,9 +12,15 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
     },
+    cardContainer: {
+        flex: 1,
+        flexDirection: "row",
+        height: 74,
+        padding: 16,
+    },
     container: {
+        marginHorizontal: 16,
         marginVertical: 10,
-        paddingHorizontal: 16,
     },
     dueDate: {
         color: colors.boulder,

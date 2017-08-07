@@ -8,6 +8,7 @@ export const colors = {
     burgundy: "#850024",
     mercury: "#E7E7E7",
     monza: "#D0023A",
+    nobel: "#B3B3B3",
     white: "#FFFFFF",
 };
 

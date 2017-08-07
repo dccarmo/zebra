@@ -15,6 +15,7 @@ export interface BoletoListRowProps {
     amount: string;
     dueDate: Date|null;
     title: string|null;
+    onPress: () => void;
 }
 
 function getInfoContainerStyle(dueDate: Date|null): ViewStyle {
@@ -44,34 +45,34 @@ function renderAmount(amount: string): JSX.Element {
     );
 }
 
-const BoletoListRow: React.SFC<BoletoListRowProps> = (props) => {
+function renderCardContent(props: BoletoListRowProps): JSX.Element {
     if (Platform.OS === "android") {
         return (
-            <View style={styles.container}>
-                <Card backgroundColor={colors.white}>
-                    <TouchableNativeFeedback>
-                        <View style={styles.cardContainer}>
-                            {renderInfo(props.title, props.dueDate)}
-                            {renderAmount(props.amount)}
-                        </View>
-                    </TouchableNativeFeedback>
-                </Card>
-            </View>
+            <TouchableNativeFeedback onPress={props.onPress}>
+                <View style={{padding: 16, flex: 1, flexDirection: "row", height: 74}}>
+                    {renderInfo(props.title, props.dueDate)}
+                    {renderAmount(props.amount)}
+                </View>
+            </TouchableNativeFeedback>
         );
     }
 
     return (
+        <TouchableHighlight style={{borderRadius: 5}} onPress={props.onPress} underlayColor={colors.nobel}>
+            <View style={{padding: 16, flex: 1, flexDirection: "row", height: 74}}>
+                {renderInfo(props.title, props.dueDate)}
+                {renderAmount(props.amount)}
+            </View>
+        </TouchableHighlight>
+    );
+}
+
+const BoletoListRow: React.SFC<BoletoListRowProps> = (props) => {
+    return (
         <View style={styles.container}>
-            <TouchableHighlight style={{borderRadius: 5}}>
-                <View>
-                    <Card backgroundColor={colors.white}>
-                        <View style={styles.cardContainer}>
-                            {renderInfo(props.title, props.dueDate)}
-                            {renderAmount(props.amount)}
-                        </View>
-                    </Card>
-                </View>
-            </TouchableHighlight>
+            <Card backgroundColor={colors.white}>
+                {renderCardContent(props)}
+            </Card>
         </View>
     );
 };

@@ -1,5 +1,4 @@
 import * as accounting from "accounting";
-import * as _ from "lodash";
 import React from "react";
 import { ListView, ListViewDataSource } from "react-native";
 
@@ -47,6 +46,7 @@ function renderRow(boleto: Boleto, onSelectBoleto: (boleto: Boleto) => void): JS
             amount={getAmount(boleto.barcode)}
             dueDate={getBarcodeDueDate(boleto.barcode)}
             title={getTitle(boleto)}
+            onPress={() => onSelectBoleto(boleto)}
         />
     );
 }

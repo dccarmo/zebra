@@ -13,7 +13,7 @@ export interface BoletoReaderProps {
 class BoletoReader extends React.Component<BoletoReaderProps> {
     onBarCodeRead: (data: string) => void;
 
-    constructor(props) {
+    constructor(props: BoletoReaderProps) {
         super(props);
 
         this.onBarCodeRead = _.once((data: string) => props.onBarCodeRead(data));

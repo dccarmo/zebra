@@ -1,7 +1,14 @@
-import Boleto from "../models/Boleto";
+import BoletoStore, { initialBoletoStore } from "./BoletoStore";
+import WebServerStore, { initialWebServerStore } from "./WebServerStore";
+
+export const initialAppStore: AppStore = {
+    boletoStore: initialBoletoStore,
+    webServerStore: initialWebServerStore,
+};
 
 interface AppStore {
-    boletos: Boleto[];
+    boletoStore: BoletoStore;
+    webServerStore: WebServerStore;
 }
 
 export default AppStore;

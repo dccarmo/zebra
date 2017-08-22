@@ -7,7 +7,7 @@ import { BoletoType,
     getFormattedTypeableLine,
     getTypeableLine,
     getTypeableLineSeqs,
-} from "../models/Boleto";
+} from "../Boleto";
 
 const mockBankBarcode = "02191618900000166510010847800017732009402163";
 const mockColletionBarcode = "83680000000560000820999989421070019693993499";

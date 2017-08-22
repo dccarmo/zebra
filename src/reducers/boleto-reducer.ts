@@ -2,12 +2,15 @@ import { Action } from "redux";
 import { isType } from "typescript-fsa";
 
 import { AddBoletoAction } from "../actions";
-import Boleto from "../models/Boleto";
+import BoletoStore, { initialBoletoStore } from "../stores/BoletoStore";
 
-export default function boletoReducer(state: Boleto[] = [], action: Action): Boleto[] {
+export default function boletoReducer(state: BoletoStore = initialBoletoStore, action: Action): BoletoStore {
     if (isType(action, AddBoletoAction)) {
-        if (!state.find((boleto) => boleto.barcode === action.payload.barcode)) {
-            return [...state, { ...action.payload }];
+        if (!state.boletos.find((boleto) => boleto.barcode === action.payload.barcode)) {
+            return {
+                ...state,
+                boletos: [...state.boletos, { ...action.payload }],
+            };
         }
     }
 

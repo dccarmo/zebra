@@ -15,7 +15,7 @@ const dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r
 const BoletoListContainer = connect(
     (state: AppStore, ownProps: BoletoListContainerProps): BoletoListProps => {
         return {
-            dataSource: dataSource.cloneWithRows(getPendingBoletos(state)),
+            dataSource: dataSource.cloneWithRows(getPendingBoletos(state.boletoStore)),
             onSelectBoleto: ownProps.onSelectBoleto,
         };
     },

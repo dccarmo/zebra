@@ -10,21 +10,9 @@ import reducers from "./reducers";
 import BoletoDetailScreen from "./screens/BoletoDetailScreen";
 import BoletoListScreen from "./screens/BoletoListScreen";
 import BoletoReaderScreen from "./screens/BoletoReaderScreen";
-import AppStore from "./stores/AppStore";
+import { initialAppStore } from "./stores/AppStore";
 
-const store = createStore(reducers, {
-  boletos: [
-      {
-        barcode: "02191618900000166510010847800017732009402163",
-      },
-      {
-        barcode: "39991611800001264300010847800017732009402163",
-      },
-      {
-        barcode: "85680000001200000820999989421070019693993499",
-      },
-    ],
-} as AppStore);
+const store = createStore(reducers, initialAppStore);
 
 export const startApp = () => {
   Navigation.registerComponent(screens.BoletoListScreen, () => BoletoListScreen, store, Provider);

@@ -1,8 +1,8 @@
 import { createSelector } from "reselect";
 
-import AppStore from "../stores/AppStore";
+import BoletoStore from "../stores/BoletoStore";
 
-const getBoletos = (state: AppStore) => (state.boletos);
+const getBoletos = (state: BoletoStore) => (state.boletos);
 
 export const getPendingBoletos = createSelector(
     [getBoletos],

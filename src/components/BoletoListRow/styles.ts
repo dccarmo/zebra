@@ -22,6 +22,12 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
         marginVertical: 10,
     },
+    content: {
+        flex: 1,
+        flexDirection: "row",
+        height: 74,
+        padding: 16,
+    },
     dueDate: {
         color: colors.boulder,
         fontSize: 14,

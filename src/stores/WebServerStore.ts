@@ -1,14 +1,14 @@
-export enum ServerStatus {
+export enum WebServerStatus {
     Online,
     Offline,
 }
 
 export const initialWebServerStore: WebServerStore = {
-    serverStatus: ServerStatus.Offline,
+    serverStatus: WebServerStatus.Offline,
 };
 
 interface WebServerStore {
-    serverStatus: ServerStatus;
+    serverStatus: WebServerStatus;
 }
 
 export default WebServerStore;

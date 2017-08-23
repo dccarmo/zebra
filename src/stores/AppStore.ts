@@ -1,8 +1,8 @@
-import BoletoStore, { initialBoletoStore } from "./BoletoStore";
+import BoletoStore, { populatedBoletoStore } from "./BoletoStore";
 import WebServerStore, { initialWebServerStore } from "./WebServerStore";
 
 export const initialAppStore: AppStore = {
-    boletoStore: initialBoletoStore,
+    boletoStore: populatedBoletoStore,
     webServerStore: initialWebServerStore,
 };
 

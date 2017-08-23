@@ -49,7 +49,7 @@ function renderCardContent(props: BoletoListRowProps): JSX.Element {
     if (Platform.OS === "android") {
         return (
             <TouchableNativeFeedback onPress={props.onPress}>
-                <View style={{padding: 16, flex: 1, flexDirection: "row", height: 74}}>
+                <View style={styles.content}>
                     {renderInfo(props.title, props.dueDate)}
                     {renderAmount(props.amount)}
                 </View>
@@ -59,7 +59,7 @@ function renderCardContent(props: BoletoListRowProps): JSX.Element {
 
     return (
         <TouchableHighlight style={{borderRadius: 5}} onPress={props.onPress} underlayColor={colors.nobel}>
-            <View style={{padding: 16, flex: 1, flexDirection: "row", height: 74}}>
+            <View style={styles.content}>
                 {renderInfo(props.title, props.dueDate)}
                 {renderAmount(props.amount)}
             </View>

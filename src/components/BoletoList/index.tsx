@@ -54,6 +54,7 @@ function renderRow(boleto: Boleto, onSelectBoleto: (boleto: Boleto) => void): JS
 const BoletoList: React.SFC<BoletoListProps> = (props) => (
     <ListView
         dataSource={props.dataSource}
+        enableEmptySections={true}
         renderRow={(data) => renderRow(data, props.onSelectBoleto)}
         renderSectionHeader={() => (<BoletoListSection />)}
         stickySectionHeadersEnabled={false}

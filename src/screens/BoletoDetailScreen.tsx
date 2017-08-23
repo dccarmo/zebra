@@ -1,7 +1,8 @@
 import React from "react";
-import { Platform, View } from "react-native";
+import { Platform, ScrollView } from "react-native";
 
 import { colors } from "../constants";
+import WebServerPanelContainer from "../containers/WebServerPanelContainer";
 
 const navigatorButtonIds = {
   editBoletoButton: "editBoletoButton",
@@ -44,14 +45,6 @@ class BoletoDetailScreen extends React.Component {
     props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  onNavigatorEvent(event: any) {
-    if (event.type === "NavBarButtonPress") {
-      if (event.id === navigatorButtonIds.editBoletoButton) {
-        // this.navigateToBoletoReader();
-      }
-    }
-  }
-
 //   navigateToBoletoReader() {
 //     (this.props as any).navigator.showModal({
 //       navigatorStyle: {
@@ -61,12 +54,20 @@ class BoletoDetailScreen extends React.Component {
 //     });
 //   }
 
-  render() {
-    return (
-      <View style={{flex: 1, backgroundColor: "#000000"}}>
+    render() {
+        return (
+            <ScrollView style={{flex: 1}}>
+              <WebServerPanelContainer />
+            </ScrollView>
+        );
+    }
 
-      </View>
-    );
+    private onNavigatorEvent(event: any) {
+    if (event.type === "NavBarButtonPress") {
+      if (event.id === navigatorButtonIds.editBoletoButton) {
+        // this.navigateToBoletoReader();
+      }
+    }
   }
 }
 

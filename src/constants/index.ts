@@ -6,6 +6,7 @@ export const colors = {
     black: "#000000",
     boulder: "#747474",
     burgundy: "#850024",
+    emerald: "#62CC89",
     mercury: "#E7E7E7",
     monza: "#D0023A",
     nobel: "#B3B3B3",

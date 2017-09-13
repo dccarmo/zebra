@@ -12,7 +12,7 @@ class BoletoSelector {
 
     static getBoleto = createSelector(
         [(state: BoletoStore, barcode: string) => (
-            state.boletos.find((boleto) => boleto.barcode === barcode)
+            state.boletos.find((boleto) => (boleto.barcode === barcode))
         )],
         (boleto) => (boleto),
     );

@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     title: {
-        color: colors.black,
+        color: colors.mineShaft,
         fontSize: 16,
         fontWeight: (Platform.OS === "android") ? "400" : "500",
     },

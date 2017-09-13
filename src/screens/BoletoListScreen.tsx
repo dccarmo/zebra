@@ -98,7 +98,7 @@ class BoletoListScreen extends React.Component {
         boleto,
       },
       screen: screens.BoletoDetailScreen,
-      title: "Boleto",
+      title: "",
     });
   }
 }

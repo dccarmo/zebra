@@ -15,6 +15,18 @@ export enum BoletoType {
     Collection,
 }
 
+export function getTitle(boleto: Boleto): string|null {
+    if (boleto.title) {
+        return boleto.title;
+    }
+
+    if (getBarcodeType(boleto.barcode) === BoletoType.Bank) {
+        return getBarcodeBank(boleto.barcode);
+    }
+
+    return getBarcodeSegment(boleto.barcode);
+}
+
 export function getBarcodeType(barcode: string): BoletoType {
     if (barcode.charAt(0) === "8") {
         return BoletoType.Collection;
@@ -44,13 +56,13 @@ export function getTypeableLineSeqs(barcode: string): string[] {
 }
 
 export function getFormattedTypeableLine(barcode: string): string {
-    if (getBarcodeType(barcode) === BoletoType.Collection) {
-        const seqs = getCollectionTypeableLineSeqs(barcode);
+    let seqs = getCollectionTypeableLineSeqs(barcode);
 
+    if (getBarcodeType(barcode) === BoletoType.Collection) {
         return `${seqs[0]}-${seqs[1]} ${seqs[2]}-${seqs[3]} ${seqs[4]}-${seqs[5]} ${seqs[6]}-${seqs[7]}`;
     }
 
-    const seqs = getBankTypeableLineSeq(barcode);
+    seqs = getBankTypeableLineSeq(barcode);
 
     return `${seqs[0]}.${seqs[1]} ${seqs[2]}.${seqs[3]} ${seqs[4]}.${seqs[5]} ${seqs[6]} ${seqs[7]}`;
 }

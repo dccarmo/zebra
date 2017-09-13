@@ -423,7 +423,7 @@ const banks = [
     },
     {
         code: "021",
-        name: "BANESTES",
+        name: "Banestes",
     },
     {
         code: "719",

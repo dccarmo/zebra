@@ -94,7 +94,9 @@ class BoletoListScreen extends React.Component {
 
   private navigateToBoletoDetail(boleto: Boleto) {
     (this.props as any).navigator.push({
-      passProps: boleto,
+      passProps: {
+        boleto,
+      },
       screen: screens.BoletoDetailScreen,
       title: "Boleto",
     });

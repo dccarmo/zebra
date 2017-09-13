@@ -3,6 +3,7 @@ import { Platform, ScrollView } from "react-native";
 
 import WebServerInfo from "../components/WebServerInfo";
 import { colors } from "../constants";
+import BoletoDetailContainer from "../containers/BoletoDetailContainer";
 
 const navigatorButtonIds = {
     editBoletoButton: "editBoletoButton",
@@ -23,9 +24,7 @@ class BoletoDetailScreen extends React.Component {
         topBarElevationShadowEnabled: false,
     };
 
-    static navigatorButtons = BoletoDetailScreen.getNavigatorButtons();
-
-    static getNavigatorButtons() {
+    static navigatorButtons = () => {
         let icon: string;
 
         if (Platform.OS === "android") {
@@ -63,6 +62,7 @@ class BoletoDetailScreen extends React.Component {
         return (
             <ScrollView style={{ flex: 1 }}>
                 <WebServerInfo status={WebServerStatus.Online} />
+                <BoletoDetailContainer barcode={(this.props as any).boleto.barcode} />
             </ScrollView>
         );
     }

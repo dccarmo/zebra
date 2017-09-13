@@ -1,11 +1,9 @@
 import { combineReducers } from "redux";
 
-import boletoReducer from "./boleto-reducer";
-import webServerReducer from "./webserver-reducer";
+import BoletoReducer from "./BoletoReducer";
 
 const reducers = combineReducers({
-    boletoStore: boletoReducer,
-    webServerStore: webServerReducer,
+    boletoStore: BoletoReducer.reducer,
 });
 
 export default reducers;

@@ -58,6 +58,7 @@ class BoletoListSwitcher extends React.Component<BoletoListSwitcherProps, Boleto
                 renderScene={this.renderScene}
                 renderHeader={this.renderHeader}
                 onRequestChangeTab={this.handleChangeTab.bind(this)}
+                onIndexChange={() => null}
                 />
             );
         }

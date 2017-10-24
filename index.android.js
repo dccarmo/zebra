@@ -1,3 +1,5 @@
-import { startApp } from './build/index.js';
+import { AppRegistry } from 'react-native';
 
-startApp();
+import App from './build/index.js';
+
+AppRegistry.registerComponent('Zebra', () => App);

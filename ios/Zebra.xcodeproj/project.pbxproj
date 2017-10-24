@@ -35,7 +35,6 @@
 		2DCD954D1E0B4F2C00145EB5 /* ZebraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ZebraTests.m */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		D909C1A51F0B2BC300A941C3 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D909C1A41F0B2BAF00A941C3 /* libReactNativeNavigation.a */; };
 		D93F2B401F0C4CED00B1DE92 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D93F2B261F0C4CCE00B1DE92 /* libRCTCamera.a */; };
 		D948CAF41F0B39D900751AD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D948CAF21F0B39D900751AD2 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -244,12 +243,19 @@
 			remoteGlobalIDString = 139D7E881E25C6D100323FB7;
 			remoteInfo = "double-conversion";
 		};
-		D909C1A31F0B2BAF00A941C3 /* PBXContainerItemProxy */ = {
+		D929895C1F79524800C8E82D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D909C1801F0B2BAF00A941C3 /* ReactNativeNavigation.xcodeproj */;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D8AFADBD1BEE6F3F00A4592D;
-			remoteInfo = ReactNativeNavigation;
+			remoteGlobalIDString = 3D383D3C1EBD27B6005632C8;
+			remoteInfo = "third-party-tvOS";
+		};
+		D929895E1F79524800C8E82D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D383D621EBD27B9005632C8;
+			remoteInfo = "double-conversion-tvOS";
 		};
 		D93F2B251F0C4CCE00B1DE92 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -284,7 +290,6 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		D909C1801F0B2BAF00A941C3 /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
 		D93F2B1E1F0C4CCE00B1DE92 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		D948CAF31F0B39D900751AD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Zebra/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -303,7 +308,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D93F2B401F0C4CED00B1DE92 /* libRCTCamera.a in Frameworks */,
-				D909C1A51F0B2BC300A941C3 /* libReactNativeNavigation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -446,7 +450,9 @@
 				3DAD3EAD1DF850E9000B6D8A /* libjschelpers.a */,
 				3DAD3EAF1DF850E9000B6D8A /* libjschelpers.a */,
 				D909C19F1F0B2BAF00A941C3 /* libthird-party.a */,
+				D929895D1F79524800C8E82D /* libthird-party.a */,
 				D909C1A11F0B2BAF00A941C3 /* libdouble-conversion.a */,
+				D929895F1F79524800C8E82D /* libdouble-conversion.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -473,7 +479,6 @@
 			isa = PBXGroup;
 			children = (
 				D93F2B1E1F0C4CCE00B1DE92 /* RCTCamera.xcodeproj */,
-				D909C1801F0B2BAF00A941C3 /* ReactNativeNavigation.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -517,14 +522,6 @@
 				00E356EE1AD99517003FC87E /* ZebraTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* Zebra-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* Zebra-tvOSTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		D909C1811F0B2BAF00A941C3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D909C1A41F0B2BAF00A941C3 /* libReactNativeNavigation.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -698,10 +695,6 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
-				},
-				{
-					ProductGroup = D909C1811F0B2BAF00A941C3 /* Products */;
-					ProjectRef = D909C1801F0B2BAF00A941C3 /* ReactNativeNavigation.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -904,11 +897,18 @@
 			remoteRef = D909C1A01F0B2BAF00A941C3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D909C1A41F0B2BAF00A941C3 /* libReactNativeNavigation.a */ = {
+		D929895D1F79524800C8E82D /* libthird-party.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libReactNativeNavigation.a;
-			remoteRef = D909C1A31F0B2BAF00A941C3 /* PBXContainerItemProxy */;
+			path = "libthird-party.a";
+			remoteRef = D929895C1F79524800C8E82D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D929895F1F79524800C8E82D /* libdouble-conversion.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libdouble-conversion.a";
+			remoteRef = D929895E1F79524800C8E82D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D93F2B261F0C4CCE00B1DE92 /* libRCTCamera.a */ = {
@@ -1091,7 +1091,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = NGYV2XXS3X;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-navigation/ios/**";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Zebra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1111,7 +1111,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NGYV2XXS3X;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-navigation/ios/**";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Zebra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

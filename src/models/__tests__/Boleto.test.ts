@@ -56,7 +56,7 @@ describe("boleto model", () => {
 
     it("should return the bank name", () => {
         expect(getBarcodeBank(mockBankBarcode))
-        .toEqual("BANESTES");
+        .toEqual("Banestes");
     });
 
     it("should return null for the bank", () => {

@@ -7,16 +7,22 @@ import { Platform,
     View,
     ViewStyle } from "react-native";
 
-import { colors } from "../../constants";
-import Card from "../Card";
+import Card from "../../../components/Card";
+import { colors } from "../../../constants";
 import styles from "./styles";
 
-export interface BoletoListRowProps {
+export interface ItemStateProps {
     amount: string;
+    barcode: string;
     dueDate: Date|null;
-    title: string|null;
-    onPress: () => void;
+    title: string;
 }
+
+export interface ItemDispatchProps {
+    onSelect: (barcode: string) => void;
+}
+
+type ItemProps = ItemStateProps & ItemDispatchProps;
 
 function getInfoContainerStyle(dueDate: Date|null): ViewStyle {
     if (dueDate) {
@@ -29,7 +35,7 @@ function getInfoContainerStyle(dueDate: Date|null): ViewStyle {
 function renderInfo(title: string|null, dueDate: Date|null): JSX.Element {
     return (
         <View style={getInfoContainerStyle(dueDate)}>
-            <Text style={styles.title}>{title ? title : "Desconhecido"}</Text>
+            <Text style={styles.title}>{title}</Text>
             { dueDate &&
                 <Text style={styles.dueDate}>{dueDate.toDateString()}</Text>
             }
@@ -45,10 +51,10 @@ function renderAmount(amount: string): JSX.Element {
     );
 }
 
-function renderCardContent(props: BoletoListRowProps): JSX.Element {
+function renderCardContent(props: ItemProps): JSX.Element {
     if (Platform.OS === "android") {
         return (
-            <TouchableNativeFeedback onPress={props.onPress}>
+            <TouchableNativeFeedback onPress={props.onSelect.bind(null, props.barcode)}>
                 <View style={styles.content}>
                     {renderInfo(props.title, props.dueDate)}
                     {renderAmount(props.amount)}
@@ -58,7 +64,10 @@ function renderCardContent(props: BoletoListRowProps): JSX.Element {
     }
 
     return (
-        <TouchableHighlight style={{borderRadius: 5}} onPress={props.onPress} underlayColor={colors.nobel}>
+        <TouchableHighlight
+        style={{borderRadius: 5}}
+        onPress={props.onSelect.bind(null, props.barcode)}
+        underlayColor={colors.nobel}>
             <View style={styles.content}>
                 {renderInfo(props.title, props.dueDate)}
                 {renderAmount(props.amount)}
@@ -67,7 +76,7 @@ function renderCardContent(props: BoletoListRowProps): JSX.Element {
     );
 }
 
-const BoletoListRow: React.SFC<BoletoListRowProps> = (props) => {
+const Item: React.SFC<ItemStateProps & ItemDispatchProps> = (props) => {
     return (
         <View style={styles.container}>
             <Card backgroundColor={colors.white}>
@@ -77,4 +86,4 @@ const BoletoListRow: React.SFC<BoletoListRowProps> = (props) => {
     );
 };
 
-export default BoletoListRow;
+export default Item;

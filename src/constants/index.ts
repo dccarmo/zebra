@@ -1,6 +1,3 @@
-export type ADD_BOLETO = "App/ADD_BOLETO";
-export const ADD_BOLETO: ADD_BOLETO = "App/ADD_BOLETO";
-
 export const colors = {
     alabaster: "#F9F9F9",
     black: "#000000",
@@ -19,8 +16,14 @@ export const baseYear = 1997;
 export const baseMonth = 9;
 export const baseDay = 7;
 
-export const screens = {
-  BoletoDetailScreen: "zebra.BoletoDetailScreen",
-  BoletoListScreen: "zebra.BoletoListScreen",
-  BoletoReaderScreen: "zebra.BoletoReaderScreen",
+export const maroonHeaderStyle = {
+    headerStyle: {
+        backgroundColor: colors.monza,
+        elevation: 0,
+        shadowOpacity: 0,
+    },
+    headerTintColor: colors.white,
+    headerTitleStyle: {
+        color: colors.white,
+    },
 };

@@ -7,7 +7,7 @@ describe("boleto reducer", () => {
     let state: BoletoStore;
 
     beforeEach(() => {
-        state = { boletos: [] };
+        state = { boletos: [], selectedBarcode: null };
     });
 
     it("should return empty for empty state", () => {

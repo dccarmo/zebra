@@ -1,7 +1,7 @@
 import * as checkdigit from "checkdigit";
 
+import { baseDay, baseMonth, baseYear } from "../constants";
 import { bankName } from "../constants/banks";
-import { baseDay, baseMonth, baseYear } from "../constants/dates";
 import { segmentName } from "../constants/segments";
 
 interface Boleto {

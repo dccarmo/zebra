@@ -1,6 +1,13 @@
-import { Platform, StyleSheet } from "react-native";
+import React from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
 
 import { colors } from "../../constants";
+
+const Section: React.SFC = () =>  (
+    <View style={styles.container}>
+        <Text style={styles.title}>Próximos 7 dias</Text>
+    </View>
+);
 
 const styles = StyleSheet.create({
     container: {
@@ -13,4 +20,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default styles;
+export default Section;

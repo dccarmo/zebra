@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import Card from "../../components/Card";
 import { colors } from "../../constants";
 
@@ -77,13 +77,17 @@ const BoletoDetail: React.SFC<DetailProps> = (props) => {
                     <View style={styles.row}>
                         <View style={styles.dataBox}>
                             <Text style={styles.dataBoxTitle}>Linha digitável</Text>
-                            <Text style={styles.dataBoxText}>{props.typeableLine}</Text>
+                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                <Text style={styles.dataBoxText}>{props.typeableLine}</Text>
+                            </ScrollView>
                         </View>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.dataBox}>
                             <Text style={styles.dataBoxTitle}>Código de barras</Text>
-                            <Text style={styles.dataBoxText}>{props.barcode}</Text>
+                            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+                                <Text style={styles.dataBoxText}>{props.barcode}</Text>
+                            </ScrollView>
                         </View>
                     </View>
                 </View>

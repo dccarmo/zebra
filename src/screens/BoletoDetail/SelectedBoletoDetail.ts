@@ -1,23 +1,36 @@
+import * as accounting from "accounting";
 import { connect } from "react-redux";
 
-import { getTitle } from "../../models/Boleto";
+import {
+    getBarcodeAmount,
+    getBarcodeBank,
+    getBarcodeDueDate,
+    getBarcodeSegment,
+    getFormattedTypeableLine,
+    getTitle } from "../../models/Boleto";
 import BoletoSelector from "../../selectors/BoletoSelector";
 import AppStore from "../../stores/AppStore";
+import { currencySettings } from "./../../constants/index";
 import Detail, { DetailProps } from "./Detail";
 
-const SelectedBoletoDetail = connect(
-    (state: AppStore): DetailProps => {
-        const boleto = BoletoSelector.getBoleto(state.boletoStore, state.boletoStore.selectedBarcode!);
-        let title = "Desconhecido";
+function getAmount(barcode: string): string {
+    return `${accounting.formatMoney(getBarcodeAmount(barcode), currencySettings)}`;
+}
 
-        if (boleto) {
-            title = getTitle(boleto) ? getTitle(boleto)! : title;
-        }
+function mapStateToProps(state: AppStore): DetailProps {
+    const boleto = BoletoSelector.getBoleto(state.boletoStore, state.boletoStore.selectedBarcode!)!;
 
-        return {
-            title,
-        };
-    },
-)(Detail);
+    return {
+        amount: getAmount(boleto.barcode),
+        bank: getBarcodeBank(boleto.barcode),
+        barcode: boleto.barcode,
+        dueDate: getBarcodeDueDate(boleto.barcode) ? getBarcodeDueDate(boleto.barcode)!.toDateString() : null,
+        segment: getBarcodeSegment(boleto.barcode),
+        title: getTitle(boleto) ? getTitle(boleto)! : "Desconhecido",
+        typeableLine: getFormattedTypeableLine(boleto.barcode),
+    };
+}
+
+const SelectedBoletoDetail = connect(mapStateToProps)(Detail);
 
 export default SelectedBoletoDetail;

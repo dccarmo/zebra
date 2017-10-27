@@ -4,16 +4,11 @@ import { connect } from "react-redux";
 import { getBarcodeAmount, getBarcodeDueDate, getTitle } from "../../models/Boleto";
 import BoletoSelector from "../../selectors/BoletoSelector";
 import AppStore from "../../stores/AppStore";
+import { currencySettings } from "./../../constants/index";
 import List, { ListProps } from "./List";
 
-const accountingSettings = {
-    decimal: ",",
-    symbol: "R$",
-    thousand: ".",
-};
-
 function getAmount(barcode: string): string {
-    return `${accounting.formatMoney(getBarcodeAmount(barcode), accountingSettings)}`;
+    return `${accounting.formatMoney(getBarcodeAmount(barcode), currencySettings)}`;
 }
 
 function mapStateToProps(state: AppStore): ListProps {

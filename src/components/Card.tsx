@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, ViewStyle } from "react-native";
 
-import styles from "./styles";
+import { colors } from "../constants";
 
 export interface CardProps {
     backgroundColor: string;
@@ -22,5 +22,16 @@ const Card: React.SFC<CardProps> = (props) => (
         {props.children}
     </View>
 );
+
+const styles = StyleSheet.create({
+    container: {
+        borderRadius: 5,
+        elevation: 3,
+        shadowColor: colors.black,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.09,
+        shadowRadius: 6,
+    },
+});
 
 export default Card;

@@ -1,9 +1,11 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-import { ScrollView, StyleSheet } from "react-native";
-import Card from "../../components/Card";
-import { colors } from "../../constants";
+import { ScrollView, Share } from "react-native";
+import Card from "../../../components/Card";
+import TouchableButton from "../../../components/TouchableButton";
+import { colors } from "../../../constants";
+import styles from "./styles";
 
 export interface DetailProps {
     amount: string;
@@ -61,6 +63,20 @@ function renderFirstRow(props: DetailProps): JSX.Element {
     );
 }
 
+function presentShareModal(message: string) {
+    Share.share(
+        {
+            message,
+            title: undefined,
+            url: undefined,
+        },
+        {
+            dialogTitle: undefined,
+            excludedActivityTypes: [],
+        },
+    ).catch(() => null);
+}
+
 const BoletoDetail: React.SFC<DetailProps> = (props) => {
     return (
         <View style={styles.container}>
@@ -78,7 +94,9 @@ const BoletoDetail: React.SFC<DetailProps> = (props) => {
                         <View style={styles.dataBox}>
                             <Text style={styles.dataBoxTitle}>Linha digitável</Text>
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                <Text style={styles.dataBoxText}>{props.typeableLine}</Text>
+                                <TouchableButton onPress={() => (presentShareModal(props.typeableLine))} >
+                                    <Text style={styles.dataBoxText}>{props.typeableLine}</Text>
+                                </TouchableButton>
                             </ScrollView>
                         </View>
                     </View>
@@ -86,7 +104,9 @@ const BoletoDetail: React.SFC<DetailProps> = (props) => {
                         <View style={styles.dataBox}>
                             <Text style={styles.dataBoxTitle}>Código de barras</Text>
                             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
-                                <Text style={styles.dataBoxText}>{props.barcode}</Text>
+                                <TouchableButton onPress={() => (presentShareModal(props.barcode))} >
+                                    <Text style={styles.dataBoxText}>{props.barcode}</Text>
+                                </TouchableButton>
                             </ScrollView>
                         </View>
                     </View>
@@ -95,51 +115,5 @@ const BoletoDetail: React.SFC<DetailProps> = (props) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        marginHorizontal: 16,
-        marginTop: 16,
-    },
-    content: {
-        padding: 16,
-    },
-    dataBox: {
-        flex: 1,
-        justifyContent: "space-between",
-        marginTop: 16,
-    },
-    dataBoxText: {
-        color: colors.mineShaft,
-        fontSize: 24,
-    },
-    dataBoxTextRight: {
-        color: colors.mineShaft,
-        fontSize: 24,
-        textAlign: "right",
-    },
-    dataBoxTitle: {
-        color: colors.dustyGray,
-        fontSize: 16,
-        marginBottom: 8,
-    },
-    dataBoxTitleRight: {
-        color: colors.dustyGray,
-        fontSize: 16,
-        marginBottom: 8,
-        textAlign: "right",
-    },
-    row: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
-    },
-    title: {
-        color: colors.mineShaft,
-        flex: 1,
-        fontSize: 24,
-        justifyContent: "space-between",
-    },
-});
 
 export default BoletoDetail;

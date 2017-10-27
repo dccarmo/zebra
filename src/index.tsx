@@ -1,5 +1,6 @@
 import React from "react";
-import { addNavigationHelpers } from "react-navigation";
+import { BackHandler, Platform } from "react-native";
+import { addNavigationHelpers, NavigationActions } from "react-navigation";
 import { connect, Provider } from "react-redux";
 import { createStore } from "redux";
 
@@ -9,55 +10,42 @@ import AppStore from "./stores/AppStore";
 
 const store = createStore(reducers);
 
-// export const startApp = () => {
-//   Navigation.registerComponent(screens.BoletoListScreen, () => BoletoListScreen, store, Provider);
-//   Navigation.registerComponent(screens.BoletoReaderScreen, () => BoletoReaderScreen, store, Provider);
-//   Navigation.registerComponent(screens.BoletoDetailScreen, () => BoletoDetailScreen, store, Provider);
+class NavigatorWrapper extends React.Component<any> {
+    componentDidMount() {
+        if (Platform.OS === "android") {
+            BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
+        }
+    }
 
-//   if (Platform.OS === "android") {
-//     Navigation.startSingleScreenApp({
-//       drawer: {
-//         disableOpenGesture: false,
-//         left: {
-//           screen: screens.BoletoListScreen,
-//         },
-//       },
-//       screen: {
-//         screen: screens.BoletoListScreen,
-//         title: "Boletos",
-//       },
-//     });
-//   } else {
-//     Navigation.startTabBasedApp({
-//     tabs: [
-//       {
-//         icon: require("../imgs/boleto_tab_icon.png"),
-//         label: "Boletos",
-//         screen: screens.BoletoListScreen,
-//         title: "Boletos",
-//       },
-//       {
-//         icon: require("../imgs/boleto_tab_icon.png"),
-//         label: "Opções",
-//         screen: screens.BoletoListScreen,
-//         title: "Opções",
-//       },
-//     ],
-//     tabsStyle: {
-//       tabBarSelectedButtonColor: colors.monza,
-//     },
-//   });
-//   }
-// };
+    componentWillUnmount() {
+        if (Platform.OS === "android") {
+            BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
+        }
+    }
 
-const NavigatorWrapper: React.SFC = (props: any) => (
-    <BoletoListNavigator navigation={
-        addNavigationHelpers({
-            dispatch: props.dispatch,
-            state: props.nav,
-        })}
-    />
-);
+    onBackPress = () => {
+        const { dispatch, nav } = this.props;
+
+        if (nav.index === 0) {
+            return false;
+        }
+
+        dispatch(NavigationActions.back());
+
+        return true;
+    }
+
+    render() {
+        return (
+            <BoletoListNavigator navigation={
+                addNavigationHelpers({
+                    dispatch: this.props.dispatch,
+                    state: this.props.nav,
+                })}
+            />
+        );
+    }
+}
 
 const NavigatorContainer = connect(
     (state: AppStore): any => {

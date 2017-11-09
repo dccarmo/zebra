@@ -1,25 +1,20 @@
-import { AddBoletoAction, SelectBarcodeAction } from "../../actions";
-import BoletoStore from "../../stores/BoletoStore";
+import { AddBoletoAction } from "../../actions";
+import Boleto from "../../models/Boleto";
 import BoletoReducer from "../BoletoReducer";
 
 const mockBoleto = { barcode: "02191618900000166510010847800017732009402163", title: "", paid: true };
 
 describe("boleto reducer", () => {
     it("should add a boleto", () => {
-        expect(BoletoReducer.reducer({ boletos: [], selectedBarcode: null }, AddBoletoAction(mockBoleto)))
-        .toEqual({ boletos: [mockBoleto], selectedBarcode: null });
+        expect(BoletoReducer.reducer([], AddBoletoAction(mockBoleto)))
+        .toEqual([mockBoleto]);
     });
 
     it("shouldn't add the same boleto twice", () => {
-        let state: BoletoStore = { boletos: [mockBoleto], selectedBarcode: null };
+        let state: Boleto[] = [mockBoleto];
 
         state = BoletoReducer.reducer(state, AddBoletoAction(mockBoleto));
         expect(BoletoReducer.reducer(state, AddBoletoAction(mockBoleto)))
-        .toEqual({ boletos: [mockBoleto], selectedBarcode: null });
-    });
-
-    it("should set the selected barcode", () => {
-        expect(BoletoReducer.reducer(undefined, SelectBarcodeAction(mockBoleto.barcode)))
-        .toHaveProperty("selectedBarcode", mockBoleto.barcode);
+        .toEqual([mockBoleto]);
     });
 });

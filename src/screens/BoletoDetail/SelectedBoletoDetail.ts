@@ -18,7 +18,7 @@ function getAmount(barcode: string): string {
 }
 
 function mapStateToProps(state: AppStore): DetailProps {
-    const boleto = BoletoSelector.getBoleto(state.boletoStore, state.boletoStore.selectedBarcode!)!;
+    const boleto = BoletoSelector.getBoleto(state.boletos, state.selectedBarcode!)!;
 
     return {
         amount: getAmount(boleto.barcode),

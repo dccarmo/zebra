@@ -1,26 +1,26 @@
-import BoletoStore from "../../stores/BoletoStore";
+import Boleto from "../../models/Boleto";
 import BoletoSelector from "../BoletoSelector";
 
 const mockBoleto = { barcode: "02191618900000166510010847800017732009402163", paid: true, title: "" };
 
 describe("boleto reducer", () => {
-    let state: BoletoStore;
+    let boletos: Boleto[];
 
     beforeEach(() => {
-        state = { boletos: [], selectedBarcode: null };
+        boletos = [];
     });
 
     it("should return empty for empty state", () => {
-        expect(BoletoSelector.getPendingBoletos(state)).toEqual([]);
+        expect(BoletoSelector.getPendingBoletos(boletos)).toEqual([]);
     });
 
     it("should return none boletos", () => {
-        state.boletos.push(mockBoleto);
-        expect(BoletoSelector.getPendingBoletos(state)).toEqual([]);
+        boletos.push(mockBoleto);
+        expect(BoletoSelector.getPendingBoletos(boletos)).toEqual([]);
     });
 
     it("should return the pending boleto", () => {
-        state.boletos.push(mockBoleto);
+        boletos.push(mockBoleto);
 
         const pendingBoleto = {
             barcode: "",
@@ -28,8 +28,8 @@ describe("boleto reducer", () => {
             title: "",
         };
 
-        state.boletos.push(pendingBoleto);
-        expect(BoletoSelector.getPendingBoletos(state)).toEqual([pendingBoleto]);
+        boletos.push(pendingBoleto);
+        expect(BoletoSelector.getPendingBoletos(boletos)).toEqual([pendingBoleto]);
     });
 
     it("should return undefined", () => {
@@ -39,12 +39,12 @@ describe("boleto reducer", () => {
             title: "",
         };
 
-        state.boletos.push(pendingBoleto);
-        expect(BoletoSelector.getBoleto(state, "1")).toEqual(undefined);
+        boletos.push(pendingBoleto);
+        expect(BoletoSelector.getBoleto(boletos, "1")).toEqual(undefined);
     });
 
     it("should return the searched boleto", () => {
-        state.boletos.push(mockBoleto);
+        boletos.push(mockBoleto);
 
         const pendingBoleto = {
             barcode: "",
@@ -52,7 +52,7 @@ describe("boleto reducer", () => {
             title: "",
         };
 
-        state.boletos.push(pendingBoleto);
-        expect(BoletoSelector.getBoleto(state, mockBoleto.barcode)).toEqual(mockBoleto);
+        boletos.push(pendingBoleto);
+        expect(BoletoSelector.getBoleto(boletos, mockBoleto.barcode)).toEqual(mockBoleto);
     });
 });

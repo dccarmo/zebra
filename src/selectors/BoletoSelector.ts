@@ -1,18 +1,18 @@
 import { createSelector } from "reselect";
 
-import BoletoStore from "../stores/BoletoStore";
+import Boleto from "../models/Boleto";
 
 class BoletoSelector {
     static getPendingBoletos = createSelector(
-        [(state: BoletoStore) => (state.boletos)],
+        [(boletos: Boleto[]) => (boletos)],
         (boletos) => {
             return boletos.filter((boleto) => (!boleto.paid));
         },
     );
 
     static getBoleto = createSelector(
-        [(state: BoletoStore, barcode: string) => (
-            state.boletos.find((boleto) => (boleto.barcode === barcode))
+        [(boletos: Boleto[], barcode: string) => (
+            boletos.find((boleto) => (boleto.barcode === barcode))
         )],
         (boleto) => (boleto),
     );

@@ -13,7 +13,7 @@ function getAmount(barcode: string): string {
 
 function mapStateToProps(state: AppStore): ListProps {
     return {
-        data: BoletoSelector.getPendingBoletos(state.boletoStore).map((boleto) => ({
+        data: BoletoSelector.getPendingBoletos(state.boletos).map((boleto) => ({
             amount: getAmount(boleto.barcode),
             barcode: boleto.barcode,
             dueDate: getBarcodeDueDate(boleto.barcode),

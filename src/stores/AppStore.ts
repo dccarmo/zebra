@@ -1,7 +1,8 @@
-import BoletoStore from "./BoletoStore";
+import Boleto from "../models/Boleto";
 
 interface AppStore {
-    boletoStore: BoletoStore;
+    boletos: Boleto[];
+    selectedBarcode: string|null;
     nav: any;
 }
 

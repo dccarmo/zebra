@@ -1,6 +1,7 @@
 export const colors = {
     alabaster: "#F9F9F9",
     black: "#000000",
+    blackSqueeze: "#F6F9FC",
     boulder: "#747474",
     burgundy: "#850024",
     dustyGray: "#979797",

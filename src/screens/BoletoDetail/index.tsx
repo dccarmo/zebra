@@ -3,12 +3,7 @@ import { ScrollView } from "react-native";
 
 import { maroonHeaderStyle } from "../../constants";
 import SelectedBoletoDetail from "./SelectedBoletoDetail";
-import WebServerInfo from "./WebServerInfo";
-
-export enum WebServerStatus {
-    Online,
-    Offline,
-}
+import WebServerBanner from "./WebServerBanner";
 
 class BoletoDetail extends React.Component {
     static navigationOptions = {
@@ -18,7 +13,7 @@ class BoletoDetail extends React.Component {
     render() {
         return (
             <ScrollView style={{ flex: 1 }}>
-                <WebServerInfo />
+                <WebServerBanner />
                 <SelectedBoletoDetail />
             </ScrollView>
         );

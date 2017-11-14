@@ -2,13 +2,21 @@ import React from "react";
 import { BackHandler, Platform } from "react-native";
 import { addNavigationHelpers, NavigationActions } from "react-navigation";
 import { connect, Provider } from "react-redux";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
+import createSagaMiddleware from "redux-saga";
 
 import BoletoListNavigator from "./navigators/BoletoListNavigator";
 import reducers from "./reducers";
+import sagas from "./sagas";
 import AppStore from "./stores/AppStore";
 
-const store = createStore(reducers);
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+    reducers,
+    applyMiddleware(sagaMiddleware),
+);
+
+sagaMiddleware.run(sagas);
 
 class NavigatorWrapper extends React.Component<any> {
     componentDidMount() {

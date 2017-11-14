@@ -1,10 +1,10 @@
 import { NavigationActions } from "react-navigation";
-import { connect } from "react-redux";
+import { connect, Dispatch } from "react-redux";
 
 import { SelectBarcodeAction } from "../../actions";
 import Item, { ItemDispatchProps } from "./Item";
 
-function mapDispatchToProps(dispatch: any): ItemDispatchProps {
+function mapDispatchToProps(dispatch: Dispatch<any>): ItemDispatchProps {
     return {
         onSelect: (barcode: string) => {
             dispatch(SelectBarcodeAction(barcode));

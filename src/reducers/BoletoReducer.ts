@@ -8,7 +8,7 @@ import Boleto from "../models/Boleto";
 //     boletos: [],
 // };
 
-const populatedState: Boleto[] = [
+const populatedBoletos: Boleto[] = [
     {
         barcode: "02191618900000166510010847800017732009402163",
         paid: false,
@@ -26,19 +26,17 @@ const populatedState: Boleto[] = [
     },
 ];
 
-class BoletoReducer {
-    static reducer(boletos: Boleto[] = populatedState, action: Action): Boleto[] {
-        if (isType(action, AddBoletoAction)) {
-            if (!boletos.find((boleto) => boleto.barcode === action.payload.barcode)) {
-                return [
-                    ...boletos,
-                    { ...action.payload },
-                ];
-            }
+function BoletoReducer(boletos: Boleto[] = populatedBoletos, action: Action): Boleto[] {
+    if (isType(action, AddBoletoAction)) {
+        if (!boletos.find((boleto) => boleto.barcode === action.payload.barcode)) {
+            return [
+                ...boletos,
+                { ...action.payload },
+            ];
         }
-
-        return boletos;
     }
+
+    return boletos;
 }
 
 export default BoletoReducer;

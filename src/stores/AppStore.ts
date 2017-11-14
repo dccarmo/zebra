@@ -1,9 +1,11 @@
 import Boleto from "../models/Boleto";
+import WebServerInfo from "../models/WebServerInfo";
 
 interface AppStore {
     boletos: Boleto[];
-    selectedBarcode: string|null;
     nav: any;
+    selectedBarcode: string|null;
+    webServerInfo: WebServerInfo;
 }
 
 export default AppStore;

@@ -6,8 +6,7 @@ import {
     getBarcodeBank,
     getBarcodeDueDate,
     getBarcodeSegment,
-    getFormattedTypeableLine,
-    getTitle } from "../../models/Boleto";
+    getFormattedTypeableLine } from "../../models/Boleto";
 import BoletoSelector from "../../selectors/BoletoSelector";
 import AppStore from "../../stores/AppStore";
 import { currencySettings } from "./../../constants/index";
@@ -26,7 +25,7 @@ function mapStateToProps(state: AppStore): DetailProps {
         barcode: boleto.barcode,
         dueDate: getBarcodeDueDate(boleto.barcode) ? getBarcodeDueDate(boleto.barcode)!.toDateString() : null,
         segment: getBarcodeSegment(boleto.barcode),
-        title: getTitle(boleto) ? getTitle(boleto)! : "Desconhecido",
+        title: boleto.title ? boleto.title! : "Sem Título",
         typeableLine: getFormattedTypeableLine(boleto.barcode),
     };
 }

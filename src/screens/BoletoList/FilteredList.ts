@@ -17,7 +17,7 @@ function mapStateToProps(state: AppStore): ListProps {
             amount: getAmount(boleto.barcode),
             barcode: boleto.barcode,
             dueDate: getBarcodeDueDate(boleto.barcode),
-            title: getTitle(boleto) ? getTitle(boleto)! : "Desconhecido",
+            title: getTitle(boleto) ? getTitle(boleto)! : "Sem Título",
         })),
     };
 }

@@ -3,14 +3,11 @@ import { all, call, put, select, takeEvery } from "redux-saga/effects";
 import { StartWebServerAction, StopWebServerAction, UpdateWebServerInfoAction } from "../actions";
 import Boleto from "../models/Boleto";
 import { WebServerStatus } from "../models/WebServerInfo";
-import BoletoSelector from "../selectors/BoletoSelector";
-import AppStore from "../stores/AppStore";
+import { getSelectedBoleto } from "../selectors";
 import { webServer } from "../utilities/WebServer";
 
-function* startWebServer() {
-    const boleto: Boleto = yield select((state: AppStore) => (
-        BoletoSelector.getBoleto(state.boletos, state.selectedBarcode!)
-    ));
+export function* startWebServer() {
+    const boleto: Boleto = yield select(getSelectedBoleto);
 
     yield put(UpdateWebServerInfoAction({
         error: null,
@@ -30,18 +27,18 @@ function* startWebServer() {
         }));
     } catch (error) {
         yield put(UpdateWebServerInfoAction({
-            error,
+            error: (error as Error).message,
             status: WebServerStatus.Error,
             url: null,
         }));
     }
 }
 
-function* StartWebServerSaga() {
+export function* startWebServerWatcher() {
     yield takeEvery(StartWebServerAction, startWebServer);
 }
 
-function* stopWebServer() {
+export function* stopWebServer() {
     yield call(webServer.stop);
 
     yield put(UpdateWebServerInfoAction({
@@ -51,13 +48,13 @@ function* stopWebServer() {
     }));
 }
 
-function* StopWebServerSaga() {
+export function* stopWebServerWatcher() {
     yield takeEvery(StopWebServerAction, stopWebServer);
 }
 
 export default function* sagas() {
     yield all([
-        StartWebServerSaga(),
-        StopWebServerSaga(),
+        startWebServerWatcher(),
+        stopWebServerWatcher(),
     ]);
 }

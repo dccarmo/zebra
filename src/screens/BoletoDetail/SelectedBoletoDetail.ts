@@ -7,7 +7,7 @@ import {
     getBarcodeDueDate,
     getBarcodeSegment,
     getFormattedTypeableLine } from "../../models/Boleto";
-import BoletoSelector from "../../selectors/BoletoSelector";
+import { getSelectedBoleto } from "../../selectors";
 import AppStore from "../../stores/AppStore";
 import { currencySettings } from "./../../constants/index";
 import Detail, { DetailProps } from "./Detail";
@@ -17,7 +17,7 @@ function getAmount(barcode: string): string {
 }
 
 function mapStateToProps(state: AppStore): DetailProps {
-    const boleto = BoletoSelector.getBoleto(state.boletos, state.selectedBarcode!)!;
+    const boleto = getSelectedBoleto(state)!;
 
     return {
         amount: getAmount(boleto.barcode),

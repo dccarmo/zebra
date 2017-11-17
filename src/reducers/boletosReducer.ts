@@ -26,7 +26,7 @@ const populatedBoletos: Boleto[] = [
     },
 ];
 
-function BoletoReducer(boletos: Boleto[] = populatedBoletos, action: Action): Boleto[] {
+function boletosReducer(boletos: Boleto[] = populatedBoletos, action: Action): Boleto[] {
     if (isType(action, AddBoletoAction)) {
         if (!boletos.find((boleto) => boleto.barcode === action.payload.barcode)) {
             return [
@@ -39,4 +39,4 @@ function BoletoReducer(boletos: Boleto[] = populatedBoletos, action: Action): Bo
     return boletos;
 }
 
-export default BoletoReducer;
+export default boletosReducer;

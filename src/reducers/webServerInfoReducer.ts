@@ -10,7 +10,7 @@ const initialWebServerInfo: WebServerInfo = {
     url: null,
 };
 
-function WebServerReducer(webServerInfo: WebServerInfo = initialWebServerInfo, action: Action): WebServerInfo {
+function webServerInfoReducer(webServerInfo: WebServerInfo = initialWebServerInfo, action: Action): WebServerInfo {
     if (isType(action, UpdateWebServerInfoAction)) {
         return action.payload;
     }
@@ -18,4 +18,4 @@ function WebServerReducer(webServerInfo: WebServerInfo = initialWebServerInfo, a
     return webServerInfo;
 }
 
-export default WebServerReducer;
+export default webServerInfoReducer;

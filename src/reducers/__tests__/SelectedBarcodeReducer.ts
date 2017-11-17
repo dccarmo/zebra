@@ -1,11 +1,11 @@
 import { SelectBarcodeAction } from "../../actions";
-import SelectedBarcodeReducer from "../selectedBarcodeReducer";
+import selectedBarcodeReducer from "../selectedBarcodeReducer";
 
 const mockBoleto = { barcode: "02191618900000166510010847800017732009402163", title: "", paid: true };
 
 describe("selected barcode reducer", () => {
     it("should set the selected barcode", () => {
-        expect(SelectedBarcodeReducer(undefined, SelectBarcodeAction(mockBoleto.barcode)))
+        expect(selectedBarcodeReducer(undefined, SelectBarcodeAction(mockBoleto.barcode)))
         .toEqual(mockBoleto.barcode);
     });
 });

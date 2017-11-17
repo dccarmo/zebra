@@ -7,10 +7,10 @@ const initialState = BoletoListNavigator.router.getStateForAction(
     null,
 );
 
-function NavigationReducer(state: any = initialState, action: Action): any {
+function navReducer(state: any = initialState, action: Action): any {
     const nextState = BoletoListNavigator.router.getStateForAction(action, state);
 
     return nextState || state;
 }
 
-export default NavigationReducer;
+export default navReducer;

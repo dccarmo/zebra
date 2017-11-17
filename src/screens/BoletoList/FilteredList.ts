@@ -2,7 +2,7 @@ import * as accounting from "accounting";
 import { connect } from "react-redux";
 
 import { getBarcodeAmount, getBarcodeDueDate, getTitle } from "../../models/Boleto";
-import BoletoSelector from "../../selectors/BoletoSelector";
+import { getPendingBoletos } from "../../selectors";
 import AppStore from "../../stores/AppStore";
 import { currencySettings } from "./../../constants/index";
 import List, { ListProps } from "./List";
@@ -13,11 +13,11 @@ function getAmount(barcode: string): string {
 
 function mapStateToProps(state: AppStore): ListProps {
     return {
-        data: BoletoSelector.getPendingBoletos(state.boletoStore).map((boleto) => ({
+        data: getPendingBoletos(state).map((boleto) => ({
             amount: getAmount(boleto.barcode),
             barcode: boleto.barcode,
             dueDate: getBarcodeDueDate(boleto.barcode),
-            title: getTitle(boleto) ? getTitle(boleto)! : "Desconhecido",
+            title: getTitle(boleto) ? getTitle(boleto)! : "Sem Título",
         })),
     };
 }

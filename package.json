@@ -9,19 +9,22 @@
 		"tsc": "tsc",
 		"clean": "rimraf build",
 		"build": "yarn run clean && yarn run tsc --",
-		"build-watch": "tsc --watch"
+		"build-watch": "tsc --watch",
+		"ios": "react-native run-ios --simulator=\"iPhone X\""
 	},
 	"dependencies": {
 		"accounting": "^0.4.1",
 		"checkdigit": "^1.1.1",
-		"react": "16.0.0-alpha.12",
-		"react-native": "0.48.3",
-		"react-native-action-button": "^2.7.1",
+		"react": "^16.0.0-alpha.12",
+		"react-native": "^0.48.3",
+		"react-native-action-button": "^2.8.1",
 		"react-native-camera": "^0.10.0",
-		"react-native-tab-view": "^0.0.69",
-		"react-navigation": "^1.0.0-beta.11",
-		"react-redux": "^5.0.5",
-		"redux": "^3.7.1",
+		"react-native-static-server": "dccarmo/react-native-static-server",
+		"react-native-tab-view": "0.0.69",
+		"react-navigation": "^1.0.0-beta.17",
+		"react-redux": "^5.0.6",
+		"redux": "^3.7.2",
+		"redux-saga": "^0.16.0",
 		"reselect": "^3.0.1"
 	},
 	"devDependencies": {

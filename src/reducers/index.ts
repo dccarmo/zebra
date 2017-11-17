@@ -1,11 +1,15 @@
 import { combineReducers } from "redux";
 
-import BoletoReducer from "./BoletoReducer";
-import NavigationReducer from "./NavigationReducer";
+import boletosReducer from "./boletosReducer";
+import navReducer from "./navReducer";
+import selectedBarcodeReducer from "./selectedBarcodeReducer";
+import webServerInfoReducer from "./webServerInfoReducer";
 
 const reducers = combineReducers({
-    boletoStore: BoletoReducer.reducer,
-    nav: NavigationReducer.reducer,
+    boletos: boletosReducer,
+    nav: navReducer,
+    selectedBarcode: selectedBarcodeReducer,
+    webServerInfo: webServerInfoReducer,
 });
 
 export default reducers;

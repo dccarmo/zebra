@@ -7,12 +7,10 @@ const initialState = BoletoListNavigator.router.getStateForAction(
     null,
 );
 
-class NavigationReducer {
-    static reducer(state: any = initialState, action: Action): any {
-        const nextState = BoletoListNavigator.router.getStateForAction(action, state);
+function navReducer(state: any = initialState, action: Action): any {
+    const nextState = BoletoListNavigator.router.getStateForAction(action, state);
 
-        return nextState || state;
-    }
+    return nextState || state;
 }
 
-export default NavigationReducer;
+export default navReducer;

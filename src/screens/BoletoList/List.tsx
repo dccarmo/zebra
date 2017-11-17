@@ -24,7 +24,7 @@ const List: React.SFC<ListProps> = (props) => (
 
 const styles = StyleSheet.create({
     list: {
-        backgroundColor: colors.alabaster,
+        backgroundColor: colors.blackSqueeze,
   },
 });
 

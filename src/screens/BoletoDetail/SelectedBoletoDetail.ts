@@ -6,9 +6,8 @@ import {
     getBarcodeBank,
     getBarcodeDueDate,
     getBarcodeSegment,
-    getFormattedTypeableLine,
-    getTitle } from "../../models/Boleto";
-import BoletoSelector from "../../selectors/BoletoSelector";
+    getFormattedTypeableLine } from "../../models/Boleto";
+import { getSelectedBoleto } from "../../selectors";
 import AppStore from "../../stores/AppStore";
 import { currencySettings } from "./../../constants/index";
 import Detail, { DetailProps } from "./Detail";
@@ -18,7 +17,7 @@ function getAmount(barcode: string): string {
 }
 
 function mapStateToProps(state: AppStore): DetailProps {
-    const boleto = BoletoSelector.getBoleto(state.boletoStore, state.boletoStore.selectedBarcode!)!;
+    const boleto = getSelectedBoleto(state)!;
 
     return {
         amount: getAmount(boleto.barcode),
@@ -26,7 +25,7 @@ function mapStateToProps(state: AppStore): DetailProps {
         barcode: boleto.barcode,
         dueDate: getBarcodeDueDate(boleto.barcode) ? getBarcodeDueDate(boleto.barcode)!.toDateString() : null,
         segment: getBarcodeSegment(boleto.barcode),
-        title: getTitle(boleto) ? getTitle(boleto)! : "Desconhecido",
+        title: boleto.title ? boleto.title! : "Sem Título",
         typeableLine: getFormattedTypeableLine(boleto.barcode),
     };
 }

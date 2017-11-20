@@ -2,7 +2,7 @@ import { connect, Dispatch } from "react-redux";
 
 import { StartWebServerAction, StopWebServerAction } from "../../actions/index";
 import { WebServerStatus } from "../../models/WebServerInfo";
-import AppStore from "../../stores/AppStore";
+import { AppStore } from "../../stores";
 import Banner, {
     BannerDispatchProps,
     BannerStateProps } from "./Banner";

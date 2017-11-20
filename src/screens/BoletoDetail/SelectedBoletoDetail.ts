@@ -8,7 +8,7 @@ import {
     getBarcodeSegment,
     getFormattedTypeableLine } from "../../models/Boleto";
 import { getSelectedBoleto } from "../../selectors";
-import AppStore from "../../stores/AppStore";
+import { AppStore } from "../../stores";
 import { currencySettings } from "./../../constants/index";
 import Detail, { DetailProps } from "./Detail";
 

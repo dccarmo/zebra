@@ -8,7 +8,7 @@ import createSagaMiddleware from "redux-saga";
 import BoletoListNavigator from "./navigators/BoletoListNavigator";
 import reducers from "./reducers";
 import sagas from "./sagas";
-import AppStore from "./stores/AppStore";
+import { AppStore } from "./stores";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(

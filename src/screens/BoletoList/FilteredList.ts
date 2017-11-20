@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { getBarcodeAmount, getBarcodeDueDate, getTitle } from "../../models/Boleto";
 import { getPendingBoletos } from "../../selectors";
-import AppStore from "../../stores/AppStore";
+import { AppStore } from "../../stores";
 import { currencySettings } from "./../../constants/index";
 import List, { ListProps } from "./List";
 

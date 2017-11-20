@@ -10,6 +10,20 @@ export const getPendingBoletos = createSelector(
     (boletos) => (boletos),
 );
 
+export const getPaidBoletos = createSelector(
+    (state: AppStore) => (
+        values(state.boletos.byBarcode).filter((boleto) => (boleto.paid))
+    ),
+    (boletos) => (boletos),
+);
+
+export const getAllBoletos = createSelector(
+    (state: AppStore) => (
+        values(state.boletos.byBarcode)
+    ),
+    (boletos) => (boletos),
+);
+
 export const getSelectedBoleto = createSelector(
     (state: AppStore) => {
         if (state.selectedBarcode) {

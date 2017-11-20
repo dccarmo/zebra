@@ -1,9 +1,15 @@
-import { getPendingBoletos, getSelectedBoleto } from "../.";
+import { getAllBoletos, getPaidBoletos, getPendingBoletos, getSelectedBoleto } from "../.";
 import { AppStore, BoletoStore } from "../../stores";
 
-const mockBoleto = {
+const mockPaidBoleto = {
     barcode: "02191618900000166510010847800017732009402163",
     paid: true,
+    title: "",
+};
+
+const mockPendingBoleto = {
+    barcode: "77591618900000166510010847800017732009402163",
+    paid: false,
     title: "",
 };
 
@@ -22,38 +28,46 @@ describe("selectors", () => {
         expect(getPendingBoletos(mockAppStore)).toEqual([]);
     });
 
-    it("should return none boletos", () => {
+    it("should return no boletos", () => {
         const boletos: BoletoStore = {
-            allBarcodes: [mockBoleto.barcode],
-            byBarcode: {[mockBoleto.barcode]: mockBoleto},
+            allBarcodes: [mockPaidBoleto.barcode],
+            byBarcode: {[mockPaidBoleto.barcode]: mockPaidBoleto},
         };
 
         expect(getPendingBoletos({ ...mockAppStore, boletos })).toEqual([]);
     });
 
     it("should return the pending boleto", () => {
-        const pendingBoleto = {
-            barcode: "",
-            paid: false,
-            title: "",
-        };
         const boletos: BoletoStore = {
-            allBarcodes: [mockBoleto.barcode, pendingBoleto.barcode],
-            byBarcode: {[mockBoleto.barcode]: mockBoleto, [pendingBoleto.barcode]: pendingBoleto },
+            allBarcodes: [mockPaidBoleto.barcode, mockPendingBoleto.barcode],
+            byBarcode: {[mockPaidBoleto.barcode]: mockPaidBoleto, [mockPendingBoleto.barcode]: mockPendingBoleto },
         };
 
-        expect(getPendingBoletos({ ...mockAppStore, boletos })).toEqual([pendingBoleto]);
+        expect(getPendingBoletos({ ...mockAppStore, boletos })).toEqual([mockPendingBoleto]);
+    });
+
+    it("should return the paid boleto", () => {
+        const boletos: BoletoStore = {
+            allBarcodes: [mockPaidBoleto.barcode, mockPendingBoleto.barcode],
+            byBarcode: {[mockPaidBoleto.barcode]: mockPaidBoleto, [mockPendingBoleto.barcode]: mockPendingBoleto },
+        };
+
+        expect(getPaidBoletos({ ...mockAppStore, boletos })).toEqual([mockPaidBoleto]);
+    });
+
+    it("should return all boletos", () => {
+        const boletos: BoletoStore = {
+            allBarcodes: [mockPaidBoleto.barcode, mockPendingBoleto.barcode],
+            byBarcode: {[mockPaidBoleto.barcode]: mockPaidBoleto, [mockPendingBoleto.barcode]: mockPendingBoleto },
+        };
+
+        expect(getAllBoletos({ ...mockAppStore, boletos })).toEqual([mockPaidBoleto, mockPendingBoleto]);
     });
 
     it("should return undefined", () => {
-        const pendingBoleto = {
-            barcode: "",
-            paid: false,
-            title: "",
-        };
         const boletos: BoletoStore = {
-            allBarcodes: [mockBoleto.barcode, pendingBoleto.barcode],
-            byBarcode: {[mockBoleto.barcode]: mockBoleto, [pendingBoleto.barcode]: pendingBoleto },
+            allBarcodes: [mockPaidBoleto.barcode, mockPendingBoleto.barcode],
+            byBarcode: {[mockPaidBoleto.barcode]: mockPaidBoleto, [mockPendingBoleto.barcode]: mockPendingBoleto },
         };
         const state = { ...mockAppStore, boletos, selectedBarcode: "1" };
 
@@ -61,17 +75,12 @@ describe("selectors", () => {
     });
 
     it("should return the selected boleto", () => {
-        const pendingBoleto = {
-            barcode: "",
-            paid: false,
-            title: "",
-        };
         const boletos: BoletoStore = {
-            allBarcodes: [mockBoleto.barcode, pendingBoleto.barcode],
-            byBarcode: {[mockBoleto.barcode]: mockBoleto, [pendingBoleto.barcode]: pendingBoleto },
+            allBarcodes: [mockPaidBoleto.barcode, mockPendingBoleto.barcode],
+            byBarcode: {[mockPaidBoleto.barcode]: mockPaidBoleto, [mockPendingBoleto.barcode]: mockPendingBoleto },
         };
-        const state = { ...mockAppStore, boletos, selectedBarcode: mockBoleto.barcode };
+        const state = { ...mockAppStore, boletos, selectedBarcode: mockPaidBoleto.barcode };
 
-        expect(getSelectedBoleto(state)).toEqual(mockBoleto);
+        expect(getSelectedBoleto(state)).toEqual(mockPaidBoleto);
     });
 });

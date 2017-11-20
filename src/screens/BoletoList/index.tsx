@@ -10,18 +10,36 @@ import SegmentedControl from "./SegmentedControl";
 
 const AddButton = Platform.OS === "ios" ? CameraOpener(AddBarButton) : CameraOpener(AddActionButton);
 
-class BoletoList extends React.Component {
+interface BoletoListState {
+    selectedIndex: number;
+}
+
+class BoletoList extends React.Component<{}, BoletoListState> {
     static navigationOptions = {
         ...maroonHeaderStyle,
         headerRight: Platform.OS === "ios" ? (<AddButton />) : null,
         title: "Boletos",
     };
 
+    constructor() {
+        super();
+
+        this.state = {
+            selectedIndex: 0,
+        };
+    }
+
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <SegmentedControl onIndexChange={() => null} values={["Abertos", "Pagos", "Todos"]}>
-                    <FilteredList />
+                <SegmentedControl
+                initialSelectedIndex={0}
+                onIndexChange={(index) => (this.setState({ selectedIndex: index }))}
+                values={["Abertos", "Pagos", "Todos"]}
+                >
+                    <FilteredList
+                    selectedFilter={this.state.selectedIndex}
+                    />
                 </SegmentedControl>
                 {Platform.OS === "android" &&
                     <AddButton />

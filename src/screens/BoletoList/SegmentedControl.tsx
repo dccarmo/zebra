@@ -5,14 +5,12 @@ import { TabBar, TabViewAnimated } from "react-native-tab-view";
 import { colors } from "../../constants";
 
 export interface SegmentedControlProps {
-    values: string[];
     onIndexChange: (index: number) => void;
+    initialSelectedIndex: number;
+    values: string[];
 }
 
 interface SegmentedControlState {
-    ios: {
-        selectedIndex: number;
-    };
     android: {
         index: number;
         routes: Array<{ key: string, title: string }>;
@@ -25,11 +23,8 @@ class SegmentedControl extends React.Component<SegmentedControlProps, SegmentedC
 
         this.state = {
             android: {
-                index: 0,
+                index: props.initialSelectedIndex,
                 routes: props.values.map((value) => ({ key: value, title: value })),
-            },
-            ios: {
-                selectedIndex: 0,
             },
         };
     }
@@ -38,12 +33,11 @@ class SegmentedControl extends React.Component<SegmentedControlProps, SegmentedC
         if (Platform.OS === "android") {
             return (
                 <TabViewAnimated
-                style={customStyles.tabBarContainer}
                 navigationState={this.state.android}
-                renderScene={this.renderScene.bind(this)}
+                onIndexChange={this.handleIndexChange.bind(this)}
                 renderHeader={this.renderHeader}
-                onRequestChangeTab={this.handleChangeTab.bind(this)}
-                onIndexChange={() => null}
+                renderScene={this.renderScene.bind(this)}
+                style={customStyles.tabBarContainer}
                 />
             );
         }
@@ -52,9 +46,10 @@ class SegmentedControl extends React.Component<SegmentedControlProps, SegmentedC
             <View style={{flex: 1}}>
                 <View style={customStyles.segmentedControlContainer}>
                     <SegmentedControlIOS
-                    values={this.props.values}
-                    selectedIndex={this.state.ios.selectedIndex}
+                    onChange={(event) => (this.handleIndexChange(event.nativeEvent.selectedSegmentIndex))}
+                    selectedIndex={this.props.initialSelectedIndex}
                     tintColor={customStyles.segmentedControl.tintColor}
+                    values={this.props.values}
                     />
                 </View>
                 {this.props.children}
@@ -66,13 +61,15 @@ class SegmentedControl extends React.Component<SegmentedControlProps, SegmentedC
         return this.props.children;
     }
 
-    private handleChangeTab(index: number) {
+    private handleIndexChange(index: number) {
         this.setState({
             android: {
                 ...this.state.android,
                 index,
             },
         });
+
+        this.props.onIndexChange(index);
     }
 
     private renderHeader(props: any) {

@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     infoContainer: {
-        flex: 1,
+        flex: 2,
     },
     infoContainerDouble: {
         justifyContent: "space-between",

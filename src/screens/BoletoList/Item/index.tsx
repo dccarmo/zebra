@@ -1,3 +1,6 @@
+import { isToday, isTomorrow } from "date-fns";
+import format from "date-fns/format";
+import ptLocale from "date-fns/locale/pt";
 import React from "react";
 import { Platform,
     StyleSheet,
@@ -32,12 +35,31 @@ function getInfoContainerStyle(dueDate: Date|null): ViewStyle {
     return StyleSheet.flatten([styles.infoContainer, styles.infoContainerSingle]);
 }
 
+function getDateString(dueDate: Date): string {
+    if (isToday(dueDate)) {
+        return "Hoje";
+    }
+
+    if (isTomorrow(dueDate)) {
+        return "Amanhã";
+    }
+
+    return format(dueDate, "D/MM/YYYY", { locale: ptLocale });
+}
+
 function renderInfo(title: string|null, dueDate: Date|null): JSX.Element {
     return (
         <View style={getInfoContainerStyle(dueDate)}>
-            <Text style={styles.title}>{title}</Text>
+            <Text
+            style={styles.title}
+            numberOfLines={1}
+            >
+            {title}
+            </Text>
             { dueDate &&
-                <Text style={styles.dueDate}>{dueDate.toDateString()}</Text>
+                <Text style={styles.dueDate}>
+                {getDateString(dueDate)}
+                </Text>
             }
         </View>
     );
@@ -46,7 +68,12 @@ function renderInfo(title: string|null, dueDate: Date|null): JSX.Element {
 function renderAmount(amount: string): JSX.Element {
     return (
         <View style={styles.amountContainer}>
-            <Text style={styles.amount}>{amount}</Text>
+            <Text
+            style={styles.amount}
+            numberOfLines={1}
+            >
+            {amount}
+            </Text>
         </View>
     );
 }

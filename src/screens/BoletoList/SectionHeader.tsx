@@ -3,9 +3,13 @@ import { Platform, StyleSheet, Text, View } from "react-native";
 
 import { colors } from "../../constants";
 
-const Section: React.SFC = () =>  (
+interface SectionHeaderProps {
+    title: string;
+}
+
+const SectionHeader: React.SFC<SectionHeaderProps> = (props) =>  (
     <View style={styles.container}>
-        <Text style={styles.title}>Próximos 7 dias</Text>
+        <Text style={styles.title}>{props.title}</Text>
     </View>
 );
 
@@ -20,4 +24,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Section;
+export default SectionHeader;

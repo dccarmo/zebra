@@ -5,7 +5,9 @@ import { ItemStateProps } from "./Item";
 import SectionHeader from "./SectionHeader";
 import SelectableItem from "./SelectableItem";
 
-export type BoletoListSectionData = SectionListData<ItemStateProps>;
+export interface BoletoListSectionData extends SectionListData<ItemStateProps> {
+    title: string;
+}
 
 export interface ListProps {
     sections: BoletoListSectionData[];

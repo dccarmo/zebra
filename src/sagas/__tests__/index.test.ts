@@ -1,7 +1,7 @@
 import { call, put, select } from "redux-saga/effects";
 
 import { startWebServer, stopWebServer } from "../.";
-import { UpdateWebServerInfoAction } from "../../actions/index";
+import { UpdateWebServerInfoAction } from "../../actions";
 import { WebServerStatus } from "../../models/WebServerInfo";
 import { getSelectedBoleto } from "../../selectors";
 import { webServer } from "../../utilities/WebServer";
@@ -16,7 +16,7 @@ const mockUrl = "localhost:1337";
 
 const mockError = new Error("");
 
-describe("sagas", () => {
+describe("Sagas", () => {
     describe("starts the web server successfully", () => {
         const gen = startWebServer();
 

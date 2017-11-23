@@ -1,6 +1,6 @@
 import { combineReducers, Reducer } from "redux";
 
-import { AppStore } from "../stores/index";
+import { AppStore } from "../stores";
 import boletosReducer from "./boletosReducer";
 import navReducer from "./navReducer";
 import selectedBarcodeReducer from "./selectedBarcodeReducer";

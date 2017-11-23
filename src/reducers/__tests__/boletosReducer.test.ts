@@ -1,10 +1,10 @@
 import { AddBoletoAction } from "../../actions";
-import { BoletoStore } from "../../stores/index";
+import { BoletoStore } from "../../stores";
 import boletosReducer from "../boletosReducer";
 
 const mockBoleto = { barcode: "02191618900000166510010847800017732009402163", title: "", paid: true };
 
-describe("boleto reducer", () => {
+describe("Boleto Reducer", () => {
     it("should add a boleto", () => {
         const state: BoletoStore = {allBarcodes: [], byBarcode: {}};
 

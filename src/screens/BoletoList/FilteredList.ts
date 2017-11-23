@@ -1,14 +1,21 @@
 import * as accounting from "accounting";
+import { compareAsc, compareDesc, startOfToday } from "date-fns";
 import { connect } from "react-redux";
 
-import { getBarcodeAmount, getBarcodeDueDate, getTitle } from "../../models/Boleto";
-import Boleto from "../../models/Boleto";
+import Boleto, { getBarcodeAmount, getBarcodeDueDate, getTitle } from "../../models/Boleto";
 import { getAllBoletos, getPaidBoletos, getPendingBoletos } from "../../selectors";
 import { AppStore } from "../../stores";
-import { currencySettings } from "./../../constants/index";
+import {
+    filterItemsByNotNextDays,
+    mapNextDaysItemsToSection,
+    mapItemsToMonthlySections,
+    sortItems,
+    sortSections } from "../../utilities/BoletoListUtils";
+import { currencySettings } from "./../../constants";
+import { ItemStateProps } from "./Item";
 import List, { ListProps } from "./List";
 
-enum FilterOption {
+export enum FilterOption {
     Pending,
     Paid,
     All,
@@ -34,13 +41,27 @@ function mapStateToProps(state: AppStore, ownProps: FilteredListProps): ListProp
             boletos = getAllBoletos(state);
     }
 
+    const items: ItemStateProps[] = boletos
+    .map((boleto) => ({
+        amount: `${accounting.formatMoney(getBarcodeAmount(boleto.barcode), currencySettings)}`,
+        barcode: boleto.barcode,
+        dueDate: getBarcodeDueDate(boleto.barcode),
+        title: getTitle(boleto) ? getTitle(boleto)! : "Sem Título",
+    }));
+
+    if (ownProps.selectedFilter === FilterOption.Pending) {
+        const notCloseItems = filterItemsByNotNextDays(items, startOfToday(), 7);
+
+        return {
+            sections: [
+                mapNextDaysItemsToSection(sortItems(items, compareAsc), startOfToday(), 7),
+                ...sortSections(mapItemsToMonthlySections(sortItems(notCloseItems, compareDesc)), compareDesc),
+            ],
+        };
+    }
+
     return {
-        data: boletos.map((boleto) => ({
-            amount: `${accounting.formatMoney(getBarcodeAmount(boleto.barcode), currencySettings)}`,
-            barcode: boleto.barcode,
-            dueDate: getBarcodeDueDate(boleto.barcode),
-            title: getTitle(boleto) ? getTitle(boleto)! : "Sem Título",
-        })),
+        sections: sortSections(mapItemsToMonthlySections(sortItems(items, compareDesc)), compareDesc),
     };
 }
 

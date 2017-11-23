@@ -9,7 +9,7 @@ import {
     getFormattedTypeableLine } from "../../models/Boleto";
 import { getSelectedBoleto } from "../../selectors";
 import { AppStore } from "../../stores";
-import { currencySettings } from "./../../constants/index";
+import { currencySettings } from "./../../constants";
 import Detail, { DetailProps } from "./Detail";
 
 function getAmount(barcode: string): string {

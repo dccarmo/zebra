@@ -10,11 +10,12 @@
 		"clean": "rimraf build",
 		"build": "yarn run clean && yarn run tsc --",
 		"build-watch": "tsc --watch",
-		"ios": "react-native run-ios --simulator=\"iPhone X\""
+		"ios": "react-native run-ios --simulator=\"iPhone 8\""
 	},
 	"dependencies": {
 		"accounting": "^0.4.1",
 		"checkdigit": "^1.1.1",
+		"date-fns": "^1.29.0",
 		"lodash": "^4.17.4",
 		"react": "^16.0.0-alpha.12",
 		"react-native": "^0.48.3",
@@ -26,7 +27,8 @@
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",
 		"redux-saga": "^0.16.0",
-		"reselect": "^3.0.1"
+		"reselect": "^3.0.1",
+		"string": "^3.3.3"
 	},
 	"devDependencies": {
 		"@types/accounting": "^0.4.0",
@@ -36,6 +38,7 @@
 		"@types/react-native": "^0.48.4",
 		"@types/react-navigation": "^1.0.20",
 		"@types/react-redux": "^5.0.8",
+		"@types/string": "0.0.29",
 		"babel-jest": "^21.0.2",
 		"babel-preset-react-native": "^3.0.2",
 		"concurrently": "^3.5.0",

@@ -23,7 +23,7 @@ const mockAppStore: AppStore = {
     webServerInfo: {} as any,
 };
 
-describe("selectors", () => {
+describe("Selectors", () => {
     it("should return empty for empty state", () => {
         expect(getPendingBoletos(mockAppStore)).toEqual([]);
     });

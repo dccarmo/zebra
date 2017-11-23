@@ -35,7 +35,7 @@ class BoletoList extends React.Component<{}, BoletoListState> {
                 <SegmentedControl
                 initialSelectedIndex={0}
                 onIndexChange={(index) => (this.setState({ selectedIndex: index }))}
-                values={["Abertos", "Pagos", "Todos"]}
+                values={["Pendentes", "Pagos", "Todos"]}
                 >
                     <FilteredList
                     selectedFilter={this.state.selectedIndex}

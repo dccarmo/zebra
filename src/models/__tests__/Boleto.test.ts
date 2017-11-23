@@ -13,7 +13,7 @@ const mockBankBarcode = "02191618900000166510010847800017732009402163";
 const mockColletionBarcode = "83680000000560000820999989421070019693993499";
 const mockInvalidBankBankBarcode = "39991611800001264300010847800017732009402163";
 
-describe("boleto model", () => {
+describe("Boleto Model", () => {
     it("should return the collection boleto type", () => {
         expect(getBarcodeType(mockColletionBarcode))
         .toEqual(BoletoType.Collection);

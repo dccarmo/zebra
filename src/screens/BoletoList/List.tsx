@@ -1,22 +1,24 @@
 import React from "react";
-import { SectionList } from "react-native";
+import { SectionList, SectionListData } from "react-native";
 import { StyleSheet } from "react-native";
 
 import { colors } from "../../constants";
 import { ItemStateProps } from "./Item";
-import Section from "./Section";
+import SectionHeader from "./SectionHeader";
 import SelectableItem from "./SelectableItem";
 
+export type BoletoListSectionData = SectionListData<ItemStateProps>;
+
 export interface ListProps {
-    data: ItemStateProps[];
+    sections: BoletoListSectionData[];
 }
 
 const List: React.SFC<ListProps> = (props) => (
     <SectionList
         keyExtractor={(_, index) => (`${index}`)}
-        sections={[{ data: props.data, title: "" }]}
+        sections={props.sections}
         renderItem={(data) => (<SelectableItem {...data.item} />)}
-        renderSectionHeader={() => (<Section />)}
+        renderSectionHeader={(info) => (info.section.title ? <SectionHeader title={info.section.title} /> : null)}
         stickySectionHeadersEnabled={false}
         style={styles.list}
     />

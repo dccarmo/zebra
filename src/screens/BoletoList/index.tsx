@@ -1,7 +1,8 @@
 import React from "react";
-import { Platform, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 
 import { maroonHeaderStyle } from "../../constants";
+import { colors } from "../../constants";
 import AddActionButton from "./AddActionButton";
 import AddBarButton from "./AddBarButton";
 import CameraOpener from "./CameraOpener";
@@ -31,7 +32,7 @@ class BoletoList extends React.Component<{}, BoletoListState> {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <View style={styles.screen}>
                 <SegmentedControl
                 initialSelectedIndex={0}
                 onIndexChange={(index) => (this.setState({ selectedIndex: index }))}
@@ -48,5 +49,12 @@ class BoletoList extends React.Component<{}, BoletoListState> {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    screen: {
+        backgroundColor: colors.blackSqueeze,
+        flex: 1,
+    },
+});
 
 export default BoletoList;

@@ -7,8 +7,8 @@ import { getAllBoletos, getPaidBoletos, getPendingBoletos } from "../../selector
 import { AppStore } from "../../stores";
 import {
     filterItemsByNotNextDays,
-    mapNextDaysItemsToSection,
     mapItemsToMonthlySections,
+    mapNextDaysItemsToSection,
     sortItems,
     sortSections } from "../../utilities/BoletoListUtils";
 import { currencySettings } from "./../../constants";

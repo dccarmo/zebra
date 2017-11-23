@@ -1,8 +1,6 @@
 import React from "react";
-import { SectionList, SectionListData } from "react-native";
-import { StyleSheet } from "react-native";
+import { Platform, SectionList, SectionListData } from "react-native";
 
-import { colors } from "../../constants";
 import { ItemStateProps } from "./Item";
 import SectionHeader from "./SectionHeader";
 import SelectableItem from "./SelectableItem";
@@ -20,14 +18,8 @@ const List: React.SFC<ListProps> = (props) => (
         renderItem={(data) => (<SelectableItem {...data.item} />)}
         renderSectionHeader={(info) => (info.section.title ? <SectionHeader title={info.section.title} /> : null)}
         stickySectionHeadersEnabled={false}
-        style={styles.list}
+        contentContainerStyle={Platform.OS === "android" ? { paddingBottom: 82 } : { paddingBottom: 16 }}
     />
 );
-
-const styles = StyleSheet.create({
-    list: {
-        backgroundColor: colors.blackSqueeze,
-  },
-});
 
 export default List;

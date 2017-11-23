@@ -1,4 +1,6 @@
 import { addDays, isThisYear, isWithinRange } from "date-fns";
+import format from "date-fns/format";
+import ptLocale from "date-fns/locale/pt";
 import { groupBy, map } from "lodash";
 import S from "string";
 
@@ -53,13 +55,13 @@ export function mapItemsToMonthlySections(items: ItemStateProps[]): BoletoListSe
             if (!isThisYear(dueDate)) {
                 return {
                     data: monthItems,
-                    title: S(dueDate.toLocaleString("pt-br", { month: "long", year: "numeric" })).capitalize().s,
+                    title: S(format(dueDate, "MMMM YYYY", { locale: ptLocale })).capitalize().s,
                 };
             }
 
             return {
                 data: monthItems,
-                title: S(dueDate.toLocaleString("pt-br", { month: "long" })).capitalize().s,
+                title: S(format(dueDate, "MMMM", { locale: ptLocale })).capitalize().s,
             };
         }
 

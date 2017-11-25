@@ -6,10 +6,10 @@ import CameraOverlay, { CameraOverlayProps } from "./CameraOverlay";
 
 function mapDispatchToProps(dispatch: any): CameraOverlayProps {
     return {
-        onBarcodeRead: (barcode: string) => {
-            dispatch(AddBoletoAction({ barcode, title: "", paid: true }));
+        onBarcodeRead: (barcode: any) => {
+            dispatch(AddBoletoAction({ barcode: barcode.data, title: null, paid: false }));
+            dispatch(NavigationActions.back());
         },
-        onDismiss: () => (dispatch(NavigationActions.back())),
     };
 }
 

@@ -1,18 +1,10 @@
-import { call, put, select, takeEvery } from "redux-saga/effects";
+import { all, call, put, select, takeEvery } from "redux-saga/effects";
 
 import { deselectBarcodeAction, selectBarcodeAction, updateWebServerInfoAction } from "../actions";
 import Boleto from "../models/Boleto";
 import { WebServerStatus } from "../models/WebServerInfo";
 import { getSelectedBoleto } from "../selectors";
 import { webServer } from "../utilities/WebServer";
-
-export function* watchStartWebServer() {
-    yield takeEvery(selectBarcodeAction, startWebServerSaga);
-}
-
-export function* watchStopWebServer() {
-    yield takeEvery(deselectBarcodeAction, stopWebServerSaga);
-}
 
 export function* startWebServerSaga() {
     const boleto: Boleto = yield select(getSelectedBoleto);
@@ -42,6 +34,10 @@ export function* startWebServerSaga() {
     }
 }
 
+export function* watchStartWebServer() {
+    yield takeEvery(selectBarcodeAction, startWebServerSaga);
+}
+
 export function* stopWebServerSaga() {
     yield call(webServer.stop);
 
@@ -50,4 +46,15 @@ export function* stopWebServerSaga() {
         status: WebServerStatus.Offline,
         url: null,
     }));
+}
+
+export function* watchStopWebServer() {
+    yield takeEvery(deselectBarcodeAction, stopWebServerSaga);
+}
+
+export default function* webServerSagas() {
+    yield all([
+        watchStartWebServer(),
+        watchStopWebServer(),
+    ]);
 }

@@ -1,12 +1,11 @@
 import { all } from "redux-saga/effects";
 
-import { watchNavigateToBoletoDetail } from "./navigationSagas";
-import { watchStartWebServer, watchStopWebServer } from "./webServerSagas";
+import navigationSagas from "./navigationSagas";
+import webServerSagas from "./webServerSagas";
 
 export default function* sagas() {
     yield all([
-        watchNavigateToBoletoDetail(),
-        watchStartWebServer(),
-        watchStopWebServer(),
+        navigationSagas(),
+        webServerSagas(),
     ]);
 }

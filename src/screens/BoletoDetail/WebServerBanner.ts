@@ -1,6 +1,6 @@
 import { connect, Dispatch } from "react-redux";
 
-import { StartWebServerAction, StopWebServerAction } from "../../actions";
+import { deselectBarcodeAction } from "../../actions";
 import { WebServerStatus } from "../../models/WebServerInfo";
 import { AppStore } from "../../stores";
 import Banner, {
@@ -31,8 +31,7 @@ function mapStateToProps(state: AppStore): BannerStateProps {
 
 function mapDispatchToProps(dispatch: Dispatch<any>): BannerDispatchProps {
     return {
-        componentDidMount: () => (dispatch(StartWebServerAction())),
-        componentWillUnmount: () => (dispatch(StopWebServerAction())),
+        componentWillUnmount: () => (dispatch(deselectBarcodeAction())),
     };
 }
 

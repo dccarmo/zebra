@@ -1,10 +1,10 @@
 import { Action } from "redux";
 import { isType } from "typescript-fsa";
 
-import { SelectBarcodeAction } from "../actions";
+import { selectBarcodeAction } from "../actions";
 
 function selectedBarcodeReducer(selectedBarCode: string|null = null, action: Action): string|null {
-    if (isType(action, SelectBarcodeAction)) {
+    if (isType(action, selectBarcodeAction)) {
         return action.payload;
     }
 

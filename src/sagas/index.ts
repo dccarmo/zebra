@@ -1,60 +1,64 @@
 import { all, call, put, select, takeEvery } from "redux-saga/effects";
 
-import { StartWebServerAction, StopWebServerAction, UpdateWebServerInfoAction } from "../actions";
+import { Action } from "redux";
+import { isType } from "typescript-fsa";
+import { deselectBarcodeAction, selectBarcodeAction, updateWebServerInfoAction } from "../actions";
 import Boleto from "../models/Boleto";
 import { WebServerStatus } from "../models/WebServerInfo";
-import { getSelectedBoleto } from "../selectors";
+import { getBoleto } from "../selectors";
 import { webServer } from "../utilities/WebServer";
 
-export function* startWebServer() {
-    const boleto: Boleto = yield select(getSelectedBoleto);
+export function* startWebServerSaga(action: Action) {
+    if (isType(action, selectBarcodeAction)) {
+        const boleto: Boleto = yield select(getBoleto, action.payload);
 
-    yield put(UpdateWebServerInfoAction({
-        error: null,
-        status: WebServerStatus.Starting,
-        url: null,
-    }));
-
-    try {
-        const url = yield call(webServer.start);
-
-        yield call(webServer.serveBoleto, boleto);
-
-        yield put(UpdateWebServerInfoAction({
+        yield put(updateWebServerInfoAction({
             error: null,
-            status: WebServerStatus.Online,
-            url,
-        }));
-    } catch (error) {
-        yield put(UpdateWebServerInfoAction({
-            error: (error as Error).message,
-            status: WebServerStatus.Error,
+            status: WebServerStatus.Starting,
             url: null,
         }));
+
+        try {
+            const url = yield call(webServer.start);
+
+            yield call(webServer.serveBoleto, boleto);
+
+            yield put(updateWebServerInfoAction({
+                error: null,
+                status: WebServerStatus.Online,
+                url,
+            }));
+        } catch (error) {
+            yield put(updateWebServerInfoAction({
+                error: (error as Error).message,
+                status: WebServerStatus.Error,
+                url: null,
+            }));
+        }
     }
 }
 
-export function* startWebServerWatcher() {
-    yield takeEvery(StartWebServerAction, startWebServer);
+export function* watchSelectBarcode() {
+    yield takeEvery(selectBarcodeAction, startWebServerSaga);
 }
 
-export function* stopWebServer() {
+export function* stopWebServerSaga() {
     yield call(webServer.stop);
 
-    yield put(UpdateWebServerInfoAction({
+    yield put(updateWebServerInfoAction({
         error: null,
         status: WebServerStatus.Offline,
         url: null,
     }));
 }
 
-export function* stopWebServerWatcher() {
-    yield takeEvery(StopWebServerAction, stopWebServer);
+export function* watchDeselectBarcode() {
+    yield takeEvery(deselectBarcodeAction, stopWebServerSaga);
 }
 
 export default function* sagas() {
     yield all([
-        startWebServerWatcher(),
-        stopWebServerWatcher(),
+        watchSelectBarcode(),
+        watchDeselectBarcode(),
     ]);
 }

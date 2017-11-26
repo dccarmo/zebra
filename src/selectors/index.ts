@@ -3,6 +3,13 @@ import { createSelector } from "reselect";
 
 import { AppStore } from "../stores";
 
+export const getBoleto = createSelector(
+    (state: AppStore, barcode: string) => {
+        return state.boletos.byBarcode[barcode];
+    },
+    (boleto) => (boleto),
+);
+
 export const getPendingBoletos = createSelector(
     (state: AppStore) => (
         values(state.boletos.byBarcode).filter((boleto) => (!boleto.paid))

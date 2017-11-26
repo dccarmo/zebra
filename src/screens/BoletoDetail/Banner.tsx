@@ -9,17 +9,12 @@ export interface BannerStateProps {
 }
 
 export interface BannerDispatchProps {
-    componentDidMount: () => void;
     componentWillUnmount: () => void;
 }
 
 type BannerProps = BannerStateProps & BannerDispatchProps;
 
 class Banner extends React.PureComponent<BannerProps> {
-    componentDidMount() {
-        this.props.componentDidMount();
-    }
-
     componentWillUnmount() {
         this.props.componentWillUnmount();
     }

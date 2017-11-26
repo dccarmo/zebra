@@ -1,7 +1,7 @@
 import { Action } from "redux";
 import { isType } from "typescript-fsa";
 
-import { UpdateWebServerInfoAction } from "../actions";
+import { updateWebServerInfoAction } from "../actions";
 import WebServerInfo, { WebServerStatus } from "../models/WebServerInfo";
 
 const initialWebServerInfo: WebServerInfo = {
@@ -11,7 +11,7 @@ const initialWebServerInfo: WebServerInfo = {
 };
 
 function webServerInfoReducer(webServerInfo: WebServerInfo = initialWebServerInfo, action: Action): WebServerInfo {
-    if (isType(action, UpdateWebServerInfoAction)) {
+    if (isType(action, updateWebServerInfoAction)) {
         return action.payload;
     }
 

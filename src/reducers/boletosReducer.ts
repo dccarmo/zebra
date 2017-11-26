@@ -2,7 +2,7 @@ import { includes } from "lodash";
 import { Action, combineReducers, Reducer } from "redux";
 import { isType } from "typescript-fsa";
 
-import { AddBoletoAction } from "../actions";
+import { addBoletoAction } from "../actions";
 import Boleto from "../models/Boleto";
 import { BoletoStore } from "../stores";
 
@@ -64,7 +64,7 @@ const initialAllBarcodes: string[] = [
 ];
 
 function byBarcode(state: {[_: string]: Boleto} = initialByBarcode, action: Action): {[_: string]: Boleto} {
-    if (isType(action, AddBoletoAction)) {
+    if (isType(action, addBoletoAction)) {
         if (state.hasOwnProperty(action.payload.barcode)) {
             return state;
         }
@@ -79,7 +79,7 @@ function byBarcode(state: {[_: string]: Boleto} = initialByBarcode, action: Acti
 }
 
 function allBarcodes(state: string[] = initialAllBarcodes, action: Action): string[] {
-    if (isType(action, AddBoletoAction)) {
+    if (isType(action, addBoletoAction)) {
         if (includes(state, action.payload.barcode)) {
             return state;
         }

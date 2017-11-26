@@ -1,4 +1,3 @@
-import { NavigationActions } from "react-navigation";
 import { connect, Dispatch } from "react-redux";
 
 import { selectBarcodeAction } from "../../actions";
@@ -8,7 +7,6 @@ function mapDispatchToProps(dispatch: Dispatch<any>): ItemDispatchProps {
     return {
         onSelect: (barcode: string) => {
             dispatch(selectBarcodeAction(barcode));
-            dispatch(NavigationActions.navigate({ routeName: "BoletoDetail" }));
         },
     };
 }

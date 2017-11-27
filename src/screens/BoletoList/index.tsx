@@ -1,5 +1,5 @@
 import React from "react";
-import { Platform, StatusBar, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 
 import { maroonHeaderStyle } from "../../constants";
 import { colors } from "../../constants";
@@ -28,15 +28,6 @@ class BoletoList extends React.Component<{}, BoletoListState> {
         this.state = {
             selectedIndex: 0,
         };
-    }
-
-    componentWillMount() {
-        StatusBar.setHidden(false, "slide");
-        StatusBar.setBarStyle("light-content");
-
-        if (Platform.OS === "android") {
-            StatusBar.setBackgroundColor(colors.burgundy);
-        }
     }
 
     render() {

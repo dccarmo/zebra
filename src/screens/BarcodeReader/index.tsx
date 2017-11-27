@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import CameraCloser from "./CameraCloser";
 import CameraReader from "./CameraReader";
@@ -8,10 +8,6 @@ class BarcodeReader extends React.Component {
     static navigationOptions = {
         header: null,
     };
-
-    componentWillMount() {
-        StatusBar.setHidden(true, "slide");
-    }
 
     render() {
         return (

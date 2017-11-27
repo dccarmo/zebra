@@ -18,7 +18,7 @@ const mockAppStore: AppStore = {
         allBarcodes: [],
         byBarcode: {},
     },
-    nav: null,
+    nav: {} as any,
     selectedBarcode: null,
     webServerInfo: {} as any,
 };

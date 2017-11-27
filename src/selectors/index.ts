@@ -5,9 +5,9 @@ import { AppStore } from "../stores";
 
 export const getNavigationState = createSelector(
     (state: AppStore) => {
-        return state.nav;
+        return state.navigation;
     },
-    (nav) => (nav),
+    (navigation) => (navigation),
 );
 
 export const getBoleto = createSelector(

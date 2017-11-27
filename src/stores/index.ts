@@ -10,7 +10,7 @@ export interface BoletoStore {
 
 export interface AppStore {
     boletos: BoletoStore;
-    nav: NavigationState;
+    navigation: NavigationState;
     selectedBarcode: string|null;
     webServerInfo: WebServerInfo;
 }

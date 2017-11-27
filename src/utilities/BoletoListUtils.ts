@@ -13,7 +13,7 @@ export function mapNextDaysItemsToSection(
     items: ItemStateProps[],
     startDay: Date,
     days: number,
-): BoletoListSectionData {
+): BoletoListSectionData|null {
     const nearFutureItems: ItemStateProps[] = items
     .filter((item) => {
         if (item.dueDate) {
@@ -22,6 +22,10 @@ export function mapNextDaysItemsToSection(
             return false;
         }
     });
+
+    if (nearFutureItems.length === 0) {
+        return null;
+    }
 
     return {
         data: nearFutureItems,

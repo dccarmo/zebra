@@ -126,8 +126,20 @@ describe("Boleto List Utilities", () => {
         expect(mapItemsToMonthlySections(mockItems)).toEqual(mockMonthlySections);
     });
 
+    it("should return an empty map no items", () => {
+        expect(mapItemsToMonthlySections([])).toEqual([]);
+    });
+
     it("should map items in the next 7 days to a section", () => {
         expect(mapNextDaysItemsToSection(mockItems, startDay, 7)).toEqual(mockNextDayItemsSession);
+    });
+
+    it("should return null no items", () => {
+        expect(mapNextDaysItemsToSection([], startDay, 7)).toEqual(null);
+    });
+
+    it("should return null no near future items", () => {
+        expect(mapNextDaysItemsToSection(mockNotNextDaysItems, startDay, 7)).toEqual(null);
     });
 
     it("should sort items", () => {

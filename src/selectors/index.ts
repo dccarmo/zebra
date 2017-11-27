@@ -3,6 +3,13 @@ import { createSelector } from "reselect";
 
 import { AppStore } from "../stores";
 
+export const getNavigationState = createSelector(
+    (state: AppStore) => {
+        return state.nav;
+    },
+    (nav) => (nav),
+);
+
 export const getBoleto = createSelector(
     (state: AppStore, barcode: string) => {
         return state.boletos.byBarcode[barcode];

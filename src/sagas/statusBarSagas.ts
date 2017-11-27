@@ -1,10 +1,10 @@
-import { Platform, StatusBar, PlatformStatic } from "react-native";
+import { Platform, StatusBar } from "react-native";
+import { Action } from "redux";
 import { all, call, select, takeEvery } from "redux-saga/effects";
 
 import { colors } from "../constants/index";
 import { getNavigationState } from "../selectors/index";
 import { getCurrentRoute } from "../utilities/NavigationUtils";
-import { Action } from "redux";
 
 export function* updateStatusBarSaga(platformOS: string, _: Action) {
     const navigationState = yield select(getNavigationState);

@@ -21,7 +21,7 @@ const mockBoletoListRoute: NavigationLeafRoute<any> = {
 
 function createNavigationState(route: NavigationLeafRoute<any>): NavigationState {
     return {
-        index: 1,
+        index: 0,
         routes: [
             route,
         ],

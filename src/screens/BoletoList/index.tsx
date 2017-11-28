@@ -19,6 +19,11 @@ class BoletoList extends React.Component<{}, BoletoListState> {
     static navigationOptions = {
         ...maroonHeaderStyle,
         headerRight: Platform.OS === "ios" ? (<AddButton />) : null,
+        headerStyle: {
+            backgroundColor: colors.monza,
+            borderBottomWidth: 0,
+            elevation: 0,
+        },
         title: "Boletos",
     };
 

@@ -1,4 +1,4 @@
-import { AddBoletoAction } from "../../actions";
+import { addBoletoAction } from "../../actions";
 import { BoletoStore } from "../../stores";
 import boletosReducer from "../boletosReducer";
 
@@ -8,7 +8,7 @@ describe("Boleto Reducer", () => {
     it("should add a boleto", () => {
         const state: BoletoStore = {allBarcodes: [], byBarcode: {}};
 
-        expect(boletosReducer(state, AddBoletoAction(mockBoleto)))
+        expect(boletosReducer(state, addBoletoAction(mockBoleto)))
         .toEqual({
             allBarcodes: ["02191618900000166510010847800017732009402163"],
             byBarcode: {"02191618900000166510010847800017732009402163": mockBoleto},
@@ -18,8 +18,8 @@ describe("Boleto Reducer", () => {
     it("shouldn't add the same boleto twice", () => {
         let state: BoletoStore = {allBarcodes: [], byBarcode: {}};
 
-        state = boletosReducer(state, AddBoletoAction(mockBoleto));
-        expect(boletosReducer(state, AddBoletoAction(mockBoleto)))
+        state = boletosReducer(state, addBoletoAction(mockBoleto));
+        expect(boletosReducer(state, addBoletoAction(mockBoleto)))
         .toEqual({
             allBarcodes: ["02191618900000166510010847800017732009402163"],
             byBarcode: {"02191618900000166510010847800017732009402163": mockBoleto},

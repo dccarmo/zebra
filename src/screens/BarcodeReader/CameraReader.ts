@@ -1,15 +1,13 @@
-import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 
-import { AddBoletoAction } from "../../actions";
+import { addBoletoAction } from "../../actions";
 import CameraOverlay, { CameraOverlayProps } from "./CameraOverlay";
 
 function mapDispatchToProps(dispatch: any): CameraOverlayProps {
     return {
-        onBarcodeRead: (barcode: string) => {
-            dispatch(AddBoletoAction({ barcode, title: "", paid: true }));
+        onBarcodeRead: (barcode: any) => {
+            dispatch(addBoletoAction({ barcode: barcode.data, title: null, paid: false }));
         },
-        onDismiss: () => (dispatch(NavigationActions.back())),
     };
 }
 

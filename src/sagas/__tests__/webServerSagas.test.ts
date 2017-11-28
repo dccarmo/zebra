@@ -1,10 +1,10 @@
 import { call, put, select } from "redux-saga/effects";
 
-import { startWebServer, stopWebServer } from "../.";
-import { UpdateWebServerInfoAction } from "../../actions";
+import { updateWebServerInfoAction } from "../../actions";
 import { WebServerStatus } from "../../models/WebServerInfo";
 import { getSelectedBoleto } from "../../selectors";
 import { webServer } from "../../utilities/WebServer";
+import { startWebServerSaga, stopWebServerSaga } from "../webServerSagas";
 
 const mockBoleto = {
     barcode: "02191618900000166510010847800017732009402163",
@@ -16,16 +16,16 @@ const mockUrl = "localhost:1337";
 
 const mockError = new Error("");
 
-describe("Sagas", () => {
+describe("Web Server Sagas", () => {
     describe("starts the web server successfully", () => {
-        const gen = startWebServer();
+        const gen = startWebServerSaga();
 
         it("get the selected boleto", () => {
             expect(gen.next().value).toEqual(select(getSelectedBoleto));
         });
 
         it("update web server info with starting", () => {
-            expect(gen.next(mockBoleto).value).toEqual(put(UpdateWebServerInfoAction({
+            expect(gen.next(mockBoleto).value).toEqual(put(updateWebServerInfoAction({
                 error: null,
                 status: WebServerStatus.Starting,
                 url: null,
@@ -41,7 +41,7 @@ describe("Sagas", () => {
         });
 
         it("update web server info with online", () => {
-            expect(gen.next(mockBoleto).value).toEqual(put(UpdateWebServerInfoAction({
+            expect(gen.next(mockBoleto).value).toEqual(put(updateWebServerInfoAction({
                 error: null,
                 status: WebServerStatus.Online,
                 url: mockUrl,
@@ -50,14 +50,14 @@ describe("Sagas", () => {
     });
 
     describe("starts the web server with error", () => {
-        const gen = startWebServer();
+        const gen = startWebServerSaga();
 
         it("get the selected boleto", () => {
             expect(gen.next().value).toEqual(select(getSelectedBoleto));
         });
 
         it("update web server info with starting", () => {
-            expect(gen.next(mockBoleto).value).toEqual(put(UpdateWebServerInfoAction({
+            expect(gen.next(mockBoleto).value).toEqual(put(updateWebServerInfoAction({
                 error: null,
                 status: WebServerStatus.Starting,
                 url: null,
@@ -74,7 +74,7 @@ describe("Sagas", () => {
 
         it("update web server info with error", () => {
             if (gen.throw) {
-                expect(gen.throw(mockError).value).toEqual(put(UpdateWebServerInfoAction({
+                expect(gen.throw(mockError).value).toEqual(put(updateWebServerInfoAction({
                     error: "",
                     status: WebServerStatus.Error,
                     url: null,
@@ -84,7 +84,7 @@ describe("Sagas", () => {
     });
 
     describe("stops the web server", () => {
-        const gen = stopWebServer();
+        const gen = stopWebServerSaga();
 
         it("stop the webserver", () => {
             expect(gen.next().value).toEqual(call(webServer.stop));
@@ -92,7 +92,7 @@ describe("Sagas", () => {
 
         it("update web server info with offline", () => {
             if (gen.throw) {
-                expect(gen.next().value).toEqual(put(UpdateWebServerInfoAction({
+                expect(gen.next().value).toEqual(put(updateWebServerInfoAction({
                     error: null,
                     status: WebServerStatus.Offline,
                     url: null,

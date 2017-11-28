@@ -13,7 +13,7 @@ import {
     sortSections } from "../../utilities/BoletoListUtils";
 import { currencySettings } from "./../../constants";
 import { ItemStateProps } from "./Item";
-import List, { ListProps } from "./List";
+import List, { BoletoListSectionData, ListProps } from "./List";
 
 export enum FilterOption {
     Pending,
@@ -50,14 +50,22 @@ function mapStateToProps(state: AppStore, ownProps: FilteredListProps): ListProp
     }));
 
     if (ownProps.selectedFilter === FilterOption.Pending) {
-        const notCloseItems = filterItemsByNotNextDays(items, startOfToday(), 7);
+        const notNextDaysItems = filterItemsByNotNextDays(items, startOfToday(), 7);
+        const nextDaysSection = mapNextDaysItemsToSection(sortItems(items, compareAsc), startOfToday(), 7);
+        let sections: BoletoListSectionData[] = [];
 
-        return {
-            sections: [
-                mapNextDaysItemsToSection(sortItems(items, compareAsc), startOfToday(), 7),
-                ...sortSections(mapItemsToMonthlySections(sortItems(notCloseItems, compareDesc)), compareDesc),
-            ],
-        };
+        if (nextDaysSection) {
+            sections = [
+                nextDaysSection,
+            ];
+        }
+
+        sections = [
+            ...sections,
+            ...sortSections(mapItemsToMonthlySections(sortItems(notNextDaysItems, compareDesc)), compareDesc),
+        ];
+
+        return { sections };
     }
 
     return {

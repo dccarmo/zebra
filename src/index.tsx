@@ -32,9 +32,9 @@ class NavigatorWrapper extends React.Component<any> {
     }
 
     onBackPress = () => {
-        const { dispatch, nav } = this.props;
+        const { dispatch, navigation } = this.props;
 
-        if (nav.index === 0) {
+        if (navigation.index === 0) {
             return false;
         }
 
@@ -48,7 +48,7 @@ class NavigatorWrapper extends React.Component<any> {
             <BoletoListNavigator navigation={
                 addNavigationHelpers({
                     dispatch: this.props.dispatch,
-                    state: this.props.nav,
+                    state: this.props.navigation,
                 })}
             />
         );
@@ -58,7 +58,7 @@ class NavigatorWrapper extends React.Component<any> {
 const NavigatorContainer = connect(
     (state: AppStore): any => {
         return {
-            nav: state.nav,
+            navigation: state.navigation,
         };
     },
 )(NavigatorWrapper);

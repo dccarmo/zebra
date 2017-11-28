@@ -8,7 +8,7 @@ import webServerInfoReducer from "./webServerInfoReducer";
 
 const reducers: Reducer<AppStore> = combineReducers({
     boletos: boletosReducer,
-    nav: navReducer,
+    navigation: navReducer,
     selectedBarcode: selectedBarcodeReducer,
     webServerInfo: webServerInfoReducer,
 });

@@ -6,7 +6,7 @@ import { addBoletoAction } from "../actions";
 import Boleto from "../models/Boleto";
 import { BoletoStore } from "../stores";
 
-let initialStateByBarcode: {[_: string]: Boleto} = {};
+let initialStateByBarcode: { [_: string]: Boleto } = {};
 let initialStateAllBarcodes: string[] = [];
 
 if (__DEV__) {
@@ -71,7 +71,10 @@ if (__DEV__) {
     ];
 }
 
-function byBarcode(state: {[_: string]: Boleto} = initialStateByBarcode, action: Action): {[_: string]: Boleto} {
+function byBarcode(
+    state: { [_: string]: Boleto } = initialStateByBarcode,
+    action: Action,
+): { [_: string]: Boleto } {
     if (isType(action, addBoletoAction)) {
         if (state.hasOwnProperty(action.payload.barcode)) {
             return state;
@@ -86,16 +89,16 @@ function byBarcode(state: {[_: string]: Boleto} = initialStateByBarcode, action:
     return state;
 }
 
-function allBarcodes(state: string[] = initialStateAllBarcodes, action: Action): string[] {
+function allBarcodes(
+    state: string[] = initialStateAllBarcodes,
+    action: Action,
+): string[] {
     if (isType(action, addBoletoAction)) {
         if (includes(state, action.payload.barcode)) {
             return state;
         }
 
-        const newState = [
-            ...state,
-            action.payload.barcode,
-        ];
+        const newState = [...state, action.payload.barcode];
 
         return Array.from(new Set(newState));
     }

@@ -1,72 +1,35 @@
 import React from "react";
-import { BackHandler, Platform } from "react-native";
-import { addNavigationHelpers, NavigationActions } from "react-navigation";
-import { connect, Provider } from "react-redux";
+import { Platform, StatusBar } from "react-native";
+import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import createSagaMiddleware from "redux-saga";
 
-import BoletoListNavigator from "./navigators/BoletoListNavigator";
+import { colors } from "./constants/index";
+import BoletoListNavigatorContainer from "./containers/BoletoListNavigatorContainer";
 import reducers from "./reducers";
 import sagas from "./sagas";
-import { AppStore } from "./stores";
 
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(
-    reducers,
-    applyMiddleware(sagaMiddleware),
-);
+const store = createStore(reducers, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(sagas);
 
-class NavigatorWrapper extends React.Component<any> {
-    componentDidMount() {
+class App extends React.PureComponent {
+    componentWillMount() {
+        StatusBar.setBarStyle("light-content");
+
         if (Platform.OS === "android") {
-            BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
+            StatusBar.setBackgroundColor(colors.burgundy);
         }
-    }
-
-    componentWillUnmount() {
-        if (Platform.OS === "android") {
-            BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
-        }
-    }
-
-    onBackPress = () => {
-        const { dispatch, navigation } = this.props;
-
-        if (navigation.index === 0) {
-            return false;
-        }
-
-        dispatch(NavigationActions.back());
-
-        return true;
     }
 
     render() {
         return (
-            <BoletoListNavigator navigation={
-                addNavigationHelpers({
-                    dispatch: this.props.dispatch,
-                    state: this.props.navigation,
-                })}
-            />
+            <Provider store={store}>
+                <BoletoListNavigatorContainer />
+            </Provider>
         );
     }
 }
-
-const NavigatorContainer = connect(
-    (state: AppStore): any => {
-        return {
-            navigation: state.navigation,
-        };
-    },
-)(NavigatorWrapper);
-
-const App: React.SFC = () => (
-    <Provider store={store}>
-        <NavigatorContainer />
-    </Provider>
-);
 
 export default App;

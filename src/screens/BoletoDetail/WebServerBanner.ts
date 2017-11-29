@@ -3,9 +3,7 @@ import { connect, Dispatch } from "react-redux";
 import { deselectBarcodeAction } from "../../actions";
 import { WebServerStatus } from "../../models/WebServerInfo";
 import { AppStore } from "../../stores";
-import Banner, {
-    BannerDispatchProps,
-    BannerStateProps } from "./Banner";
+import Banner, { BannerDispatchProps, BannerStateProps } from "./Banner";
 
 function mapStateToProps(state: AppStore): BannerStateProps {
     let description = "Servidor Desconectado";
@@ -16,6 +14,7 @@ function mapStateToProps(state: AppStore): BannerStateProps {
             break;
 
         case WebServerStatus.Error:
+        case WebServerStatus.Offline:
             description = "Erro ao iniciar o servidor";
             break;
 
@@ -26,12 +25,13 @@ function mapStateToProps(state: AppStore): BannerStateProps {
 
     return {
         description,
+        status: state.webServerInfo.status,
     };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<any>): BannerDispatchProps {
     return {
-        componentWillUnmount: () => (dispatch(deselectBarcodeAction())),
+        componentWillUnmount: () => dispatch(deselectBarcodeAction()),
     };
 }
 

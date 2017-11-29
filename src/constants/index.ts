@@ -5,11 +5,13 @@ export const colors = {
     boulder: "#747474",
     burgundy: "#850024",
     dustyGray: "#979797",
-    emerald: "#62CC89",
     mercury: "#E7E7E7",
     mineShaft: "#212121",
     monza: "#D0023A",
     nobel: "#B3B3B3",
+    scooter: "#2BB9D6",
+    shamrock: "#2BD683",
+    valencia: "#D63B2B",
     white: "#FFFFFF",
 };
 

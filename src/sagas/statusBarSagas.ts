@@ -1,5 +1,4 @@
-import { Platform, StatusBar } from "react-native";
-import { Action } from "redux";
+import { StatusBar } from "react-native";
 import { all, call, select, takeEvery } from "redux-saga/effects";
 
 import { getNavigationState } from "../selectors/index";

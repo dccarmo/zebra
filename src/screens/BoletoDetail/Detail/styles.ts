@@ -16,11 +16,11 @@ const styles = StyleSheet.create({
     },
     dataBoxText: {
         color: colors.mineShaft,
-        fontSize: 24,
+        fontSize: 20,
     },
     dataBoxTextRight: {
         color: colors.mineShaft,
-        fontSize: 24,
+        fontSize: 20,
         textAlign: "right",
     },
     dataBoxTitle: {

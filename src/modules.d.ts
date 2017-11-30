@@ -4,3 +4,6 @@ declare module "react-native-camera";
 declare module "react-native-navigation";
 declare module "react-native-static-server";
 declare module "react-native-tab-view";
+declare module "redux-persist";
+declare module "redux-persist/es/integration/react";
+declare module "redux-persist/es/storage";

@@ -1,10 +1,15 @@
 import { includes } from "lodash";
-import { Action, combineReducers, Reducer } from "redux";
+import { Action } from "redux";
+import { persistCombineReducers } from "redux-persist";
+import storage from "redux-persist/es/storage";
 import { isType } from "typescript-fsa";
 
-import { addBoletoAction, updateBoletoTitleAction, toggleBoletoPaidAction } from "../actions";
+import {
+    addBoletoAction,
+    toggleBoletoPaidAction,
+    updateBoletoTitleAction,
+} from "../actions";
 import Boleto from "../models/Boleto";
-import { BoletoStore } from "../stores";
 
 let initialStateByBarcode: { [_: string]: Boleto } = {};
 let initialStateAllBarcodes: string[] = [];
@@ -130,9 +135,14 @@ function allBarcodes(
     return state;
 }
 
-const barcodeReducer: Reducer<BoletoStore> = combineReducers({
+const config = {
+    key: "boletos",
+    storage,
+};
+
+const boletosReducer = persistCombineReducers(config, {
     allBarcodes,
     byBarcode,
 });
 
-export default barcodeReducer;
+export default boletosReducer;

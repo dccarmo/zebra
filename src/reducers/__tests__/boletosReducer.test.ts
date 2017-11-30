@@ -1,4 +1,4 @@
-import { addBoletoAction, updateBoletoTitleAction, toggleBoletoPaidAction } from "../../actions";
+import { addBoletoAction, toggleBoletoPaidAction, updateBoletoTitleAction } from "../../actions";
 import { BoletoStore } from "../../stores";
 import boletosReducer from "../boletosReducer";
 

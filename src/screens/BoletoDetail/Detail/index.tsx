@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TextInput, View } from "react-native";
+import { Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
 
 import { ScrollView, Share } from "react-native";
 import Card from "../../../components/Card";
@@ -13,6 +13,7 @@ export interface DetailStateProps {
     bank: string | null;
     barcode: string;
     dueDate: Date | null;
+    paid: boolean;
     segment: string | null;
     title: string | null;
     typeableLine: string;
@@ -20,6 +21,7 @@ export interface DetailStateProps {
 
 export interface DetailDispatchProps {
     onSubmitTitle: (barcode: string, title: string) => void;
+    onTogglePaid: (barcode: string) => void;
 }
 
 function renderFirstRow(props: DetailStateProps): JSX.Element {
@@ -95,7 +97,10 @@ const BoletoDetail: React.SFC<
                         autoCapitalize={"words"}
                         autoCorrect={false}
                         onSubmitEditing={(event) =>
-                            props.onSubmitTitle(props.barcode, event.nativeEvent.text)
+                            props.onSubmitTitle(
+                                props.barcode,
+                                event.nativeEvent.text,
+                            )
                         }
                         placeholder={"Insira um título"}
                         returnKeyType={"done"}
@@ -121,15 +126,17 @@ const BoletoDetail: React.SFC<
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
                             >
-                                <TouchableButton
+                                <TouchableWithoutFeedback
                                     onPress={() =>
                                         presentShareModal(props.typeableLine)
                                     }
                                 >
-                                    <Text style={styles.dataBoxText}>
-                                        {props.typeableLine}
-                                    </Text>
-                                </TouchableButton>
+                                    <View>
+                                        <Text style={styles.dataBoxText}>
+                                            {props.barcode}
+                                        </Text>
+                                    </View>
+                                </TouchableWithoutFeedback>
                             </ScrollView>
                         </View>
                     </View>
@@ -142,20 +149,35 @@ const BoletoDetail: React.SFC<
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
                             >
-                                <TouchableButton
+                                <TouchableWithoutFeedback
                                     onPress={() =>
                                         presentShareModal(props.barcode)
                                     }
                                 >
-                                    <Text style={styles.dataBoxText}>
-                                        {props.barcode}
-                                    </Text>
-                                </TouchableButton>
+                                    <View>
+                                        <Text style={styles.dataBoxText}>
+                                            {props.barcode}
+                                        </Text>
+                                    </View>
+                                </TouchableWithoutFeedback>
                             </ScrollView>
                         </View>
                     </View>
                 </View>
             </Card>
+            <View style={styles.actionButtonList}>
+                <TouchableButton
+                    onPress={() => props.onTogglePaid(props.barcode)}
+                >
+                    <View style={styles.actionButton}>
+                        <Text style={styles.actionButtonText}>
+                            {props.paid
+                                ? "Marcar como não pago"
+                                : "Marcar como pago"}
+                        </Text>
+                    </View>
+                </TouchableButton>
+            </View>
         </View>
     );
 };

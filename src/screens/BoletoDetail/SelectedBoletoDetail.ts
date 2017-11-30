@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { Dispatch } from "redux";
-import { updateBoletoTitleAction } from "../../actions/index";
+import { toggleBoletoPaidAction, updateBoletoTitleAction } from "../../actions/index";
 import {
     getBarcodeAmount,
     getBarcodeBank,
@@ -22,6 +22,7 @@ function mapDispatchToProps(dispatch: Dispatch<any>): DetailDispatchProps {
     return {
         onSubmitTitle: (barcode, title) =>
             dispatch(updateBoletoTitleAction({ barcode, title })),
+        onTogglePaid: (barcode) => dispatch(toggleBoletoPaidAction({ barcode })),
     };
 }
 
@@ -35,8 +36,9 @@ function mapStateToProps(state: AppStore): DetailStateProps {
         dueDate: getBarcodeDueDate(boleto.barcode)
             ? getBarcodeDueDate(boleto.barcode)!
             : null,
+        paid: boleto.paid,
         segment: getBarcodeSegment(boleto.barcode),
-        title: boleto.title ? boleto.title! : null,
+        title: boleto.title,
         typeableLine: getFormattedTypeableLine(boleto.barcode),
     };
 }

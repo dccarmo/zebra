@@ -2,6 +2,15 @@ import { StyleSheet } from "react-native";
 import { colors } from "../../../constants";
 
 const styles = StyleSheet.create({
+    actionButton: {
+        alignItems: "center",
+        height: 60,
+        justifyContent: "center",
+    },
+    actionButtonList: {
+        marginVertical: 16,
+    },
+    actionButtonText: { fontSize: 16, fontWeight: "bold", color: colors.monza },
     container: {
         marginHorizontal: 16,
         marginVertical: 16,

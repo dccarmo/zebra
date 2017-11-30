@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     },
     dataBox: {
         flex: 1,
-        justifyContent: "space-between",
         marginTop: 16,
     },
     dataBoxText: {

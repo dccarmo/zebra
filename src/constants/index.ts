@@ -11,6 +11,7 @@ export const colors = {
     nobel: "#B3B3B3",
     scooter: "#2BB9D6",
     shamrock: "#2BD683",
+    transparent: "rgba(0, 0, 0, 0)",
     valencia: "#D63B2B",
     white: "#FFFFFF",
 };

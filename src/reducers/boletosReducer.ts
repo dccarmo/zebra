@@ -2,7 +2,7 @@ import { includes } from "lodash";
 import { Action, combineReducers, Reducer } from "redux";
 import { isType } from "typescript-fsa";
 
-import { addBoletoAction } from "../actions";
+import { addBoletoAction, updateBoletoTitleAction } from "../actions";
 import Boleto from "../models/Boleto";
 import { BoletoStore } from "../stores";
 
@@ -83,6 +83,18 @@ function byBarcode(
         return {
             ...state,
             [action.payload.barcode]: action.payload,
+        };
+    }
+
+    if (isType(action, updateBoletoTitleAction)) {
+        const boleto = state[action.payload.barcode];
+
+        return {
+            ...state,
+            [action.payload.barcode]: {
+                ...boleto,
+                title: action.payload.title,
+            },
         };
     }
 

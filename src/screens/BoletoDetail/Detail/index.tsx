@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 
 import { ScrollView, Share } from "react-native";
 import Card from "../../../components/Card";
@@ -8,17 +8,21 @@ import { colors } from "../../../constants";
 import { formatDate } from "../../../utilities/FormatUtils";
 import styles from "./styles";
 
-export interface DetailProps {
+export interface DetailStateProps {
     amount: string;
     bank: string | null;
     barcode: string;
     dueDate: Date | null;
     segment: string | null;
-    title: string;
+    title: string | null;
     typeableLine: string;
 }
 
-function renderFirstRow(props: DetailProps): JSX.Element {
+export interface DetailDispatchProps {
+    onSubmitTitle: (barcode: string, title: string) => void;
+}
+
+function renderFirstRow(props: DetailStateProps): JSX.Element {
     const content: JSX.Element[] = [];
 
     if (props.bank) {
@@ -46,14 +50,18 @@ function renderFirstRow(props: DetailProps): JSX.Element {
                     <Text style={styles.dataBoxTitleRight}>
                         Data de Vencimento
                     </Text>
-                    <Text style={styles.dataBoxTextRight}>{formatDate(props.dueDate)}</Text>
+                    <Text style={styles.dataBoxTextRight}>
+                        {formatDate(props.dueDate)}
+                    </Text>
                 </View>,
             );
         } else {
             content.push(
                 <View key="dueDate" style={styles.dataBox}>
                     <Text style={styles.dataBoxTitle}>Data de Vencimento</Text>
-                    <Text style={styles.dataBoxText}>{formatDate(props.dueDate)}</Text>
+                    <Text style={styles.dataBoxText}>
+                        {formatDate(props.dueDate)}
+                    </Text>
                 </View>,
             );
         }
@@ -76,12 +84,25 @@ function presentShareModal(message: string) {
     ).catch(() => null);
 }
 
-const BoletoDetail: React.SFC<DetailProps> = (props) => {
+const BoletoDetail: React.SFC<
+    DetailStateProps & DetailDispatchProps
+> = (props) => {
     return (
         <View style={styles.container}>
             <Card backgroundColor={colors.white}>
                 <View style={styles.content}>
-                    <Text style={styles.title}>{props.title}</Text>
+                    <TextInput
+                        autoCapitalize={"words"}
+                        autoCorrect={false}
+                        onSubmitEditing={(event) =>
+                            props.onSubmitTitle(props.barcode, event.nativeEvent.text)
+                        }
+                        placeholder={"Insira um título"}
+                        returnKeyType={"done"}
+                        style={styles.title}
+                        defaultValue={props.title ? props.title : undefined}
+                        underlineColorAndroid={colors.transparent}
+                    />
                     {renderFirstRow(props)}
                     <View style={styles.row}>
                         <View style={styles.dataBox}>

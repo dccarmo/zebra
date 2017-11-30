@@ -3,14 +3,14 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
+		"build": "yarn run clean && yarn run tsc --",
+		"build-watch": "tsc --watch",
+		"clean": "rimraf build",
+		"ios": "react-native run-ios --simulator=\"iPhone 8\"",
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"test": "jest --coverage",
 		"test-watch": "jest --watch --coverage",
-		"tsc": "tsc",
-		"clean": "rimraf build",
-		"build": "yarn run clean && yarn run tsc --",
-		"build-watch": "tsc --watch",
-		"ios": "react-native run-ios --simulator=\"iPhone 8\""
+		"tsc": "tsc"
 	},
 	"dependencies": {
 		"accounting": "^0.4.1",
@@ -44,6 +44,7 @@
 		"concurrently": "^3.5.0",
 		"jest": "21.0.2",
 		"nodemon": "^1.11.0",
+		"prettier": "1.8.2",
 		"react-test-renderer": "16.0.0-alpha.12",
 		"rimraf": "^2.6.1",
 		"ts-jest": "^21.2.3",

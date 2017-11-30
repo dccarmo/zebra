@@ -289,6 +289,10 @@ const webView = `
 				width: 50%;
 			}
 
+			.info-box-content {
+				font-size: 145%;
+			}
+
 			.last-box {
 				text-align: right;
 			}
@@ -316,21 +320,21 @@ const webView = `
 				<div class="card-line">
 					<div class="info-box">
 						<h3>Segmento</h3>
-						<p>%@SEGMENT@%</p>
+						<p class="info-box-content">%@SEGMENT@%</p>
 					</div>
 					<div class="info-box last-box">
 						<h3>Banco</h3>
-						<p>%@BANK@%</p>
+						<p class="info-box-content">%@BANK@%</p>
 					</div>
 				</div>
 				<div class="card-line">
 					<div class="info-box">
 						<h3>Data de vencimento</h3>
-						<p>%@DUE-DATE@%</p>
+						<p class="info-box-content">%@DUE-DATE@%</p>
 					</div>
 					<div class="info-box last-box">
 						<h3>Valor</h3>
-						<p>%@AMOUNT@%</p>
+						<p class="info-box-content">%@AMOUNT@%</p>
 					</div>
 				</div>
 				<div class="card-line">

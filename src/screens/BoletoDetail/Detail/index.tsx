@@ -5,13 +5,14 @@ import { ScrollView, Share } from "react-native";
 import Card from "../../../components/Card";
 import TouchableButton from "../../../components/TouchableButton";
 import { colors } from "../../../constants";
+import { formatDate } from "../../../utilities/FormatUtils";
 import styles from "./styles";
 
 export interface DetailProps {
     amount: string;
     bank: string | null;
     barcode: string;
-    dueDate: string | null;
+    dueDate: Date | null;
     segment: string | null;
     title: string;
     typeableLine: string;
@@ -45,14 +46,14 @@ function renderFirstRow(props: DetailProps): JSX.Element {
                     <Text style={styles.dataBoxTitleRight}>
                         Data de Vencimento
                     </Text>
-                    <Text style={styles.dataBoxTextRight}>{props.dueDate}</Text>
+                    <Text style={styles.dataBoxTextRight}>{formatDate(props.dueDate)}</Text>
                 </View>,
             );
         } else {
             content.push(
                 <View key="dueDate" style={styles.dataBox}>
                     <Text style={styles.dataBoxTitle}>Data de Vencimento</Text>
-                    <Text style={styles.dataBoxText}>{props.dueDate}</Text>
+                    <Text style={styles.dataBoxText}>{formatDate(props.dueDate)}</Text>
                 </View>,
             );
         }

@@ -1,17 +1,25 @@
-import * as accounting from "accounting";
 import { compareAsc, compareDesc, startOfToday } from "date-fns";
 import { connect } from "react-redux";
 
-import Boleto, { getBarcodeAmount, getBarcodeDueDate, getTitle } from "../../models/Boleto";
-import { getAllBoletos, getPaidBoletos, getPendingBoletos } from "../../selectors";
+import Boleto, {
+    getBarcodeAmount,
+    getBarcodeDueDate,
+    getTitle,
+} from "../../models/Boleto";
+import {
+    getAllBoletos,
+    getPaidBoletos,
+    getPendingBoletos,
+} from "../../selectors";
 import { AppStore } from "../../stores";
 import {
     filterItemsByNotNextDays,
     mapItemsToMonthlySections,
     mapNextDaysItemsToSection,
     sortItems,
-    sortSections } from "../../utilities/BoletoListUtils";
-import { currencySettings } from "./../../constants";
+    sortSections,
+} from "../../utilities/BoletoListUtils";
+import { formatAmount } from "../../utilities/FormatUtils";
 import { ItemStateProps } from "./Item";
 import List, { BoletoListSectionData, ListProps } from "./List";
 
@@ -25,7 +33,10 @@ interface FilteredListProps {
     selectedFilter: FilterOption;
 }
 
-function mapStateToProps(state: AppStore, ownProps: FilteredListProps): ListProps {
+function mapStateToProps(
+    state: AppStore,
+    ownProps: FilteredListProps,
+): ListProps {
     let boletos: Boleto[];
 
     switch (ownProps.selectedFilter) {
@@ -41,38 +52,53 @@ function mapStateToProps(state: AppStore, ownProps: FilteredListProps): ListProp
             boletos = getAllBoletos(state);
     }
 
-    const items: ItemStateProps[] = boletos
-    .map((boleto) => ({
-        amount: `${accounting.formatMoney(getBarcodeAmount(boleto.barcode), currencySettings)}`,
+    const items: ItemStateProps[] = boletos.map((boleto) => ({
+        amount: `${formatAmount(getBarcodeAmount(boleto.barcode))}`,
         barcode: boleto.barcode,
         dueDate: getBarcodeDueDate(boleto.barcode),
         title: getTitle(boleto) ? getTitle(boleto)! : "Sem Título",
     }));
 
     if (ownProps.selectedFilter === FilterOption.Pending) {
-        const notNextDaysItems = filterItemsByNotNextDays(items, startOfToday(), 7);
-        const nextDaysSection = mapNextDaysItemsToSection(sortItems(items, compareAsc), startOfToday(), 7);
+        const notNextDaysItems = filterItemsByNotNextDays(
+            items,
+            startOfToday(),
+            7,
+        );
+        const nextDaysSection = mapNextDaysItemsToSection(
+            sortItems(items, compareAsc),
+            startOfToday(),
+            7,
+        );
         let sections: BoletoListSectionData[] = [];
 
         if (nextDaysSection) {
-            sections = [
-                nextDaysSection,
-            ];
+            sections = [nextDaysSection];
         }
 
         sections = [
             ...sections,
-            ...sortSections(mapItemsToMonthlySections(sortItems(notNextDaysItems, compareDesc)), compareDesc),
+            ...sortSections(
+                mapItemsToMonthlySections(
+                    sortItems(notNextDaysItems, compareDesc),
+                ),
+                compareDesc,
+            ),
         ];
 
         return { sections };
     }
 
     return {
-        sections: sortSections(mapItemsToMonthlySections(sortItems(items, compareDesc)), compareDesc),
+        sections: sortSections(
+            mapItemsToMonthlySections(sortItems(items, compareDesc)),
+            compareDesc,
+        ),
     };
 }
 
-const FilteredList = connect<ListProps, {}, FilteredListProps>(mapStateToProps)(List);
+const FilteredList = connect<ListProps, {}, FilteredListProps>(mapStateToProps)(
+    List,
+);
 
 export default FilteredList;

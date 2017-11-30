@@ -1,4 +1,3 @@
-import * as accounting from "accounting";
 import { connect } from "react-redux";
 
 import {
@@ -9,11 +8,11 @@ import {
     getFormattedTypeableLine } from "../../models/Boleto";
 import { getSelectedBoleto } from "../../selectors";
 import { AppStore } from "../../stores";
-import { currencySettings } from "./../../constants";
+import { formatAmount } from "../../utilities/FormatUtils";
 import Detail, { DetailProps } from "./Detail";
 
 function getAmount(barcode: string): string {
-    return `${accounting.formatMoney(getBarcodeAmount(barcode), currencySettings)}`;
+    return `${formatAmount(getBarcodeAmount(barcode))}`;
 }
 
 function mapStateToProps(state: AppStore): DetailProps {
@@ -23,7 +22,7 @@ function mapStateToProps(state: AppStore): DetailProps {
         amount: getAmount(boleto.barcode),
         bank: getBarcodeBank(boleto.barcode),
         barcode: boleto.barcode,
-        dueDate: getBarcodeDueDate(boleto.barcode) ? getBarcodeDueDate(boleto.barcode)!.toDateString() : null,
+        dueDate: getBarcodeDueDate(boleto.barcode) ? getBarcodeDueDate(boleto.barcode)! : null,
         segment: getBarcodeSegment(boleto.barcode),
         title: boleto.title ? boleto.title! : "Sem Título",
         typeableLine: getFormattedTypeableLine(boleto.barcode),

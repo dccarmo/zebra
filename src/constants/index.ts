@@ -30,9 +30,3 @@ export const maroonHeaderStyle = {
         color: colors.white,
     },
 };
-
-export const currencySettings = {
-    decimal: ",",
-    symbol: "R$",
-    thousand: ".",
-};

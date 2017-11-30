@@ -2,7 +2,6 @@ import { StatusBar } from "react-native";
 import { NavigationLeafRoute, NavigationState } from "react-navigation";
 import { call, select } from "redux-saga/effects";
 
-import { colors } from "../../constants/index";
 import { getNavigationState } from "../../selectors/index";
 import { getCurrentRoute } from "../../utilities/NavigationUtils";
 import { updateStatusBarSaga } from "../statusBarSagas";

@@ -9,7 +9,9 @@ import Boleto, {
     getBarcodeDueDate,
     getBarcodeSegment,
     getBarcodeType,
-    getFormattedTypeableLine } from "../models/Boleto";
+    getFormattedTypeableLine,
+} from "../models/Boleto";
+import { formatAmount, formatDate } from "./FormatUtils";
 
 function replaceAll(str: string, find: string, replace: string): string {
     return str.replace(new RegExp(escapeRegExp(find), "g"), replace);
@@ -20,15 +22,30 @@ class WebServer extends StaticServer {
         let hydratedWebView = webView;
 
         if (boleto.title) {
-            hydratedWebView = replaceAll(hydratedWebView, "%@TITLE@%", boleto.title);
+            hydratedWebView = replaceAll(
+                hydratedWebView,
+                "%@TITLE@%",
+                boleto.title,
+            );
         } else {
-            hydratedWebView = replaceAll(hydratedWebView, "%@TITLE@%", "Sem Título");
+            hydratedWebView = replaceAll(
+                hydratedWebView,
+                "%@TITLE@%",
+                "Sem Título",
+            );
         }
 
         const segment = getBarcodeSegment(boleto.barcode);
 
-        if (segment && getBarcodeType(boleto.barcode) === BoletoType.Collection) {
-            hydratedWebView = replaceAll(hydratedWebView, "%@SEGMENT@%", segment);
+        if (
+            segment &&
+            getBarcodeType(boleto.barcode) === BoletoType.Collection
+        ) {
+            hydratedWebView = replaceAll(
+                hydratedWebView,
+                "%@SEGMENT@%",
+                segment,
+            );
         } else {
             hydratedWebView = replaceAll(hydratedWebView, "%@SEGMENT@%", "-");
         }
@@ -44,22 +61,36 @@ class WebServer extends StaticServer {
         const dueDate = getBarcodeDueDate(boleto.barcode);
 
         if (dueDate && getBarcodeType(boleto.barcode) === BoletoType.Bank) {
-            hydratedWebView = replaceAll(hydratedWebView, "%@DUE-DATE@%", dueDate.toDateString());
+            hydratedWebView = replaceAll(
+                hydratedWebView,
+                "%@DUE-DATE@%",
+                formatDate(dueDate),
+            );
         } else {
             hydratedWebView = replaceAll(hydratedWebView, "%@DUE-DATE@%", "-");
         }
 
-        hydratedWebView = replaceAll(hydratedWebView, "%@AMOUNT@%", `${getBarcodeAmount(boleto.barcode)}`);
-        hydratedWebView = replaceAll(hydratedWebView,
+        hydratedWebView = replaceAll(
+            hydratedWebView,
+            "%@AMOUNT@%",
+            `${formatAmount(getBarcodeAmount(boleto.barcode))}`,
+        );
+        hydratedWebView = replaceAll(
+            hydratedWebView,
             "%@FORMATTED-TYPEABLE-LINE@%",
-            getFormattedTypeableLine(boleto.barcode));
-        hydratedWebView = replaceAll(hydratedWebView, "%@BAR-CODE@%", boleto.barcode);
+            getFormattedTypeableLine(boleto.barcode),
+        );
+        hydratedWebView = replaceAll(
+            hydratedWebView,
+            "%@BAR-CODE@%",
+            boleto.barcode,
+        );
 
         super.setHtml(hydratedWebView);
     }
 
     start(): Promise<string> {
-        return super.start({port: 1337});
+        return super.start({ port: 1337 });
     }
 }
 

@@ -133,7 +133,7 @@ const BoletoDetail: React.SFC<
                                 >
                                     <View>
                                         <Text style={styles.dataBoxText}>
-                                            {props.barcode}
+                                            {props.typeableLine}
                                         </Text>
                                     </View>
                                 </TouchableWithoutFeedback>

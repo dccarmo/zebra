@@ -1,12 +1,12 @@
-import React from "react";
-import { Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
+import React from 'react';
+import { Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 
-import { ScrollView, Share } from "react-native";
-import Card from "../../../components/Card";
-import TouchableButton from "../../../components/TouchableButton";
-import { colors } from "../../../constants";
-import { formatDate } from "../../../utilities/FormatUtils";
-import styles from "./styles";
+import { ScrollView, Share } from 'react-native';
+import Card from '../../../components/Card';
+import TouchableButton from '../../../components/TouchableButton';
+import { colors } from '../../../constants';
+import { formatDate } from '../../../utilities/FormatUtils';
+import styles from './styles';
 
 export interface DetailStateProps {
     amount: string;
@@ -20,7 +20,7 @@ export interface DetailStateProps {
 }
 
 export interface DetailDispatchProps {
-    onSubmitTitle: (barcode: string, title: string) => void;
+    onChangeTitle: (barcode: string, title: string) => void;
     onTogglePaid: (barcode: string) => void;
 }
 
@@ -94,16 +94,13 @@ const BoletoDetail: React.SFC<
             <Card backgroundColor={colors.white}>
                 <View style={styles.content}>
                     <TextInput
-                        autoCapitalize={"words"}
+                        autoCapitalize={'words'}
                         autoCorrect={false}
-                        onSubmitEditing={(event) =>
-                            props.onSubmitTitle(
-                                props.barcode,
-                                event.nativeEvent.text,
-                            )
+                        onChangeText={(text) =>
+                            props.onChangeTitle(props.barcode, text)
                         }
-                        placeholder={"Insira um título"}
-                        returnKeyType={"done"}
+                        placeholder={'Insira um título'}
+                        returnKeyType={'done'}
                         style={styles.title}
                         defaultValue={props.title ? props.title : undefined}
                         underlineColorAndroid={colors.transparent}
@@ -172,8 +169,8 @@ const BoletoDetail: React.SFC<
                     <View style={styles.actionButton}>
                         <Text style={styles.actionButtonText}>
                             {props.paid
-                                ? "Marcar como não pago"
-                                : "Marcar como pago"}
+                                ? 'Marcar como não pago'
+                                : 'Marcar como pago'}
                         </Text>
                     </View>
                 </TouchableButton>

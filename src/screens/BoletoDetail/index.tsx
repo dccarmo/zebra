@@ -1,13 +1,14 @@
-import React from "react";
-import { ScrollView } from "react-native";
+import React from 'react';
+import { Platform, ScrollView } from 'react-native';
 
-import { maroonHeaderStyle } from "../../constants";
-import SelectedBoletoDetail from "./SelectedBoletoDetail";
-import WebServerBanner from "./WebServerBanner";
+import { maroonHeaderStyle } from '../../constants';
+import SelectedBoletoDetail from './SelectedBoletoDetail';
+import WebServerBanner from './WebServerBanner';
 
 class BoletoDetail extends React.Component {
     static navigationOptions = {
         ...maroonHeaderStyle,
+        title: Platform.OS === 'ios' ? '' : 'Boleto',
     };
 
     render() {

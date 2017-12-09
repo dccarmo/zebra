@@ -21,6 +21,7 @@ class CameraOverlay extends React.Component<CameraOverlayProps> {
             style={{ flex: 1 }}
             aspect={Camera.constants.Aspect.fill}
             onBarCodeRead={this.onBarcodeRead}
+            barCodeTypes={[Camera.constants.BarCodeType.interleaved2of5]}
             keepAwake={true}
             >
             {this.props.children}

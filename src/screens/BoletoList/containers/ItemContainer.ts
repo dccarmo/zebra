@@ -1,7 +1,7 @@
 import { connect, Dispatch } from 'react-redux';
 
-import { selectBarcodeAction } from '../../actions';
-import Item, { ItemDispatchProps } from './Item';
+import { selectBarcodeAction } from '../../../actions';
+import Item, { ItemDispatchProps } from '../Item';
 
 function mapDispatchToProps(dispatch: Dispatch<any>): ItemDispatchProps {
     return {
@@ -11,6 +11,6 @@ function mapDispatchToProps(dispatch: Dispatch<any>): ItemDispatchProps {
     };
 }
 
-const SelectableItem = connect(null, mapDispatchToProps)(Item);
+const ItemContainer = connect(null, mapDispatchToProps)(Item);
 
-export default SelectableItem;
+export default ItemContainer;

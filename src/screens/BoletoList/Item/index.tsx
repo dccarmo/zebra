@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     Platform,
-    StyleSheet,
     Text,
     TouchableHighlight,
     TouchableNativeFeedback,
@@ -28,18 +27,12 @@ export interface ItemDispatchProps {
 
 type ItemProps = ItemStateProps & ItemDispatchProps;
 
-function getInfoContainerStyle(dueDate: Date | null): ViewStyle {
+function getInfoContainerStyle(dueDate: Date | null): ViewStyle[] {
     if (dueDate) {
-        return StyleSheet.flatten([
-            styles.infoContainer,
-            styles.infoContainerDouble,
-        ]);
+        return [styles.infoContainer, styles.infoContainerDouble];
     }
 
-    return StyleSheet.flatten([
-        styles.infoContainer,
-        styles.infoContainerSingle,
-    ]);
+    return [styles.infoContainer, styles.infoContainerSingle];
 }
 
 function renderInfo(
@@ -75,7 +68,7 @@ function renderAmount(amount: string): JSX.Element {
     );
 }
 
-function renderCardContent(props: ItemProps): JSX.Element {
+function renderContent(props: ItemProps): JSX.Element {
     if (Platform.OS === 'android') {
         return (
             <TouchableNativeFeedback
@@ -105,11 +98,9 @@ function renderCardContent(props: ItemProps): JSX.Element {
 
 const Item: React.SFC<ItemStateProps & ItemDispatchProps> = (props) => {
     return (
-        <View style={styles.container}>
-            <Card backgroundColor={colors.white}>
-                {renderCardContent(props)}
-            </Card>
-        </View>
+        <Card style={styles.card}>
+            {renderContent(props)}
+        </Card>
     );
 };
 

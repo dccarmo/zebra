@@ -1,24 +1,10 @@
-import React from "react";
-import { StyleSheet, View, ViewStyle } from "react-native";
+import React from 'react';
+import { StyleSheet, View, ViewProperties } from 'react-native';
 
-import { colors } from "../constants";
+import { colors } from '../constants';
 
-export interface CardProps {
-    backgroundColor: string;
-}
-
-function getStyle(props: CardProps): ViewStyle {
-    const backgroundStyle = StyleSheet.create({
-        container: {
-            backgroundColor: props.backgroundColor,
-        },
-    });
-
-    return StyleSheet.flatten([styles.container, backgroundStyle.container]);
-}
-
-const Card: React.SFC<CardProps> = (props) => (
-    <View style={getStyle(props)}>
+const Card: React.SFC<ViewProperties> = (props) => (
+    <View {...props} style={[props.style, styles.container]}>
         {props.children}
     </View>
 );

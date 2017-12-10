@@ -1,10 +1,10 @@
-import React from "react";
-import { Platform, SegmentedControlIOS, View } from "react-native";
-import { TabBar, TabViewAnimated } from "react-native-tab-view";
+import React from 'react';
+import { Platform, SegmentedControlIOS, View, ViewProperties } from 'react-native';
+import { TabBar, TabViewAnimated } from 'react-native-tab-view';
 
-import { colors } from "../../constants";
+import { colors } from '../../constants';
 
-export interface SegmentedControlProps {
+export interface SegmentedControlProps extends ViewProperties {
     onIndexChange: (index: number) => void;
     initialSelectedIndex: number;
     values: string[];
@@ -13,43 +13,53 @@ export interface SegmentedControlProps {
 interface SegmentedControlState {
     android: {
         index: number;
-        routes: Array<{ key: string, title: string }>;
+        routes: Array<{ key: string; title: string }>;
     };
 }
 
-class SegmentedControl extends React.Component<SegmentedControlProps, SegmentedControlState> {
+class SegmentedControl extends React.Component<
+    SegmentedControlProps,
+    SegmentedControlState
+> {
     constructor(props: SegmentedControlProps) {
         super(props);
 
         this.state = {
             android: {
                 index: props.initialSelectedIndex,
-                routes: props.values.map((value) => ({ key: value, title: value })),
+                routes: props.values.map((value) => ({
+                    key: value,
+                    title: value,
+                })),
             },
         };
     }
 
     render() {
-        if (Platform.OS === "android") {
+        if (Platform.OS === 'android') {
             return (
                 <TabViewAnimated
-                navigationState={this.state.android}
-                onIndexChange={this.handleIndexChange.bind(this)}
-                renderHeader={this.renderHeader}
-                renderScene={this.renderScene.bind(this)}
-                style={customStyles.tabBarContainer}
+                    navigationState={this.state.android}
+                    onIndexChange={this.handleIndexChange.bind(this)}
+                    renderHeader={this.renderHeader}
+                    renderScene={this.renderScene.bind(this)}
+                    style={customStyles.tabBarContainer}
                 />
             );
         }
 
         return (
-            <View style={{flex: 1}}>
+            <View {...this.props}>
                 <View style={customStyles.segmentedControlContainer}>
                     <SegmentedControlIOS
-                    onChange={(event) => (this.handleIndexChange(event.nativeEvent.selectedSegmentIndex))}
-                    selectedIndex={this.props.initialSelectedIndex}
-                    tintColor={customStyles.segmentedControl.tintColor}
-                    values={this.props.values}
+                        onChange={(event) =>
+                            this.handleIndexChange(
+                                event.nativeEvent.selectedSegmentIndex,
+                            )
+                        }
+                        selectedIndex={this.props.initialSelectedIndex}
+                        tintColor={customStyles.segmentedControl.tintColor}
+                        values={this.props.values}
                     />
                 </View>
                 {this.props.children}
@@ -73,12 +83,7 @@ class SegmentedControl extends React.Component<SegmentedControlProps, SegmentedC
     }
 
     private renderHeader(props: any) {
-        return (
-            <TabBar
-            {...props}
-            style={customStyles.tabBar}
-            />
-        );
+        return <TabBar {...props} style={customStyles.tabBar} />;
     }
 }
 

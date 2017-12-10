@@ -1,13 +1,13 @@
-import React from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 
-import { colors } from "../../constants";
+import { colors } from '../../constants';
 
 interface SectionHeaderProps {
     title: string;
 }
 
-const SectionHeader: React.SFC<SectionHeaderProps> = (props) =>  (
+const SectionHeader: React.SFC<SectionHeaderProps> = (props) => (
     <View style={styles.container}>
         <Text style={styles.title}>{props.title}</Text>
     </View>
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: colors.monza,
-        fontWeight: (Platform.OS === "android") ? "400" : "500",
+        fontWeight: Platform.OS === 'android' ? '400' : '500',
     },
 });
 

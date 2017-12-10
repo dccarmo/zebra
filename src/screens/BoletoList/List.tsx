@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 
 import { colors } from '../../constants/index';
+import ItemContainer from './containers/ItemContainer';
 import { ItemStateProps } from './Item';
 import SectionHeader from './SectionHeader';
-import SelectableItem from './SelectableItem';
 
 export interface BoletoListSectionData extends SectionListData<ItemStateProps> {
     title: string;
@@ -34,7 +34,7 @@ const List: React.SFC<ListProps> = (props) => {
         <SectionList
             keyExtractor={(_, index) => `${index}`}
             sections={props.sections}
-            renderItem={(data) => <SelectableItem {...data.item} />}
+            renderItem={(data) => <ItemContainer {...data.item} />}
             renderSectionHeader={(info) =>
                 info.section.title ? (
                     <SectionHeader title={info.section.title} />

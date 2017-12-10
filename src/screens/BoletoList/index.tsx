@@ -3,16 +3,10 @@ import { Platform, StyleSheet, View } from 'react-native';
 
 import { maroonHeaderStyle } from '../../constants';
 import { colors } from '../../constants';
-import AddActionButton from './AddActionButton';
-import AddBarButton from './AddBarButton';
-import CameraOpener from './CameraOpener';
-import FilteredList from './FilteredList';
-import SegmentedControl from './SegmentedControl';
 
-const AddButton =
-    Platform.OS === 'ios'
-        ? CameraOpener(AddBarButton)
-        : CameraOpener(AddActionButton);
+import AddButtonContainer from './containers/AddButtonContainer';
+import ListContainer from './containers/ListContainer';
+import SegmentedControl from './SegmentedControl';
 
 interface BoletoListState {
     selectedIndex: number;
@@ -21,7 +15,10 @@ interface BoletoListState {
 class BoletoList extends React.Component<{}, BoletoListState> {
     static navigationOptions = {
         ...maroonHeaderStyle,
-        headerRight: Platform.OS === 'ios' ? <AddButton /> : null,
+        headerRight:
+            Platform.OS === 'ios' ? (
+                <AddButtonContainer style={{ marginRight: 16 }} />
+            ) : null,
         headerStyle: {
             backgroundColor: colors.monza,
             borderBottomWidth: 0,
@@ -42,15 +39,16 @@ class BoletoList extends React.Component<{}, BoletoListState> {
         return (
             <View style={styles.screen}>
                 <SegmentedControl
+                    style={{ flex: 1 }}
                     initialSelectedIndex={0}
                     onIndexChange={(index) =>
                         this.setState({ selectedIndex: index })
                     }
                     values={['Pendentes', 'Pagos', 'Todos']}
                 >
-                    <FilteredList selectedFilter={this.state.selectedIndex} />
+                    <ListContainer selectedFilter={this.state.selectedIndex} />
                 </SegmentedControl>
-                {Platform.OS === 'android' && <AddButton />}
+                {Platform.OS === 'android' && <AddButtonContainer />}
             </View>
         );
     }

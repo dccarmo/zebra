@@ -5,23 +5,23 @@ import Boleto, {
     getBarcodeAmount,
     getBarcodeDueDate,
     getTitle,
-} from '../../models/Boleto';
+} from '../../../models/Boleto';
 import {
     getAllBoletos,
     getPaidBoletos,
     getPendingBoletos,
-} from '../../selectors';
-import { AppStore } from '../../stores';
+} from '../../../selectors';
+import { AppStore } from '../../../stores';
 import {
     filterItemsByNotNextDays,
     mapItemsToMonthlySections,
     mapNextDaysItemsToSection,
     sortItems,
     sortSections,
-} from '../../utilities/BoletoListUtils';
-import { formatAmount } from '../../utilities/FormatUtils';
-import { ItemStateProps } from './Item';
-import List, { BoletoListSectionData, ListProps } from './List';
+} from '../../../utilities/BoletoListUtils';
+import { formatAmount } from '../../../utilities/FormatUtils';
+import { ItemStateProps } from '../Item';
+import List, { BoletoListSectionData, ListProps } from '../List';
 
 export enum FilterOption {
     Pending,
@@ -29,13 +29,13 @@ export enum FilterOption {
     All,
 }
 
-interface FilteredListProps {
+interface ListContainerProps {
     selectedFilter: FilterOption;
 }
 
 function mapStateToProps(
     state: AppStore,
-    ownProps: FilteredListProps,
+    ownProps: ListContainerProps,
 ): ListProps {
     let boletos: Boleto[];
 
@@ -98,8 +98,8 @@ function mapStateToProps(
     };
 }
 
-const FilteredList = connect<ListProps, {}, FilteredListProps>(mapStateToProps)(
+const ListContainer = connect(mapStateToProps)(
     List,
 );
 
-export default FilteredList;
+export default ListContainer;

@@ -5,15 +5,17 @@ import {
     TouchableNativeFeedbackProperties,
     TouchableOpacity,
     TouchableOpacityProperties,
+    View,
 } from 'react-native';
 
-const TouchableButton: React.SFC<
-    TouchableOpacityProperties & TouchableNativeFeedbackProperties
-> = (props: any) => {
+export type TouchableButtonProps = TouchableOpacityProperties &
+    TouchableNativeFeedbackProperties;
+
+const TouchableButton: React.SFC<TouchableButtonProps> = (props: any) => {
     if (Platform.OS === 'android') {
         return (
             <TouchableNativeFeedback {...props}>
-                {props.children}
+                <View pointerEvents="box-only">{props.children}</View>
             </TouchableNativeFeedback>
         );
     }

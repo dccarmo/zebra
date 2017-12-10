@@ -42,7 +42,11 @@ function getInfoContainerStyle(dueDate: Date | null): ViewStyle {
     ]);
 }
 
-function renderInfo(title: string | null, dueDate: Date | null, paid: boolean): JSX.Element {
+function renderInfo(
+    title: string | null,
+    dueDate: Date | null,
+    paid: boolean,
+): JSX.Element {
     const titleStyle = [styles.title];
 
     if (paid) {
@@ -77,7 +81,7 @@ function renderCardContent(props: ItemProps): JSX.Element {
             <TouchableNativeFeedback
                 onPress={props.onSelect.bind(null, props.barcode)}
             >
-                <View style={styles.content}>
+                <View style={styles.content} pointerEvents="box-only">
                     {renderInfo(props.title, props.dueDate, props.paid)}
                     {renderAmount(props.amount)}
                 </View>

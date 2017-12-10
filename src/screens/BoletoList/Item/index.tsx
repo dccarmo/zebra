@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
     Platform,
     StyleSheet,
@@ -7,17 +7,18 @@ import {
     TouchableNativeFeedback,
     View,
     ViewStyle,
-} from "react-native";
+} from 'react-native';
 
-import Card from "../../../components/Card";
-import { colors } from "../../../constants";
-import { formatDate } from "../../../utilities/FormatUtils";
-import styles from "./styles";
+import Card from '../../../components/Card';
+import { colors } from '../../../constants';
+import { formatDate } from '../../../utilities/FormatUtils';
+import styles from './styles';
 
 export interface ItemStateProps {
     amount: string;
     barcode: string;
     dueDate: Date | null;
+    paid: boolean;
     title: string;
 }
 
@@ -41,10 +42,16 @@ function getInfoContainerStyle(dueDate: Date | null): ViewStyle {
     ]);
 }
 
-function renderInfo(title: string | null, dueDate: Date | null): JSX.Element {
+function renderInfo(title: string | null, dueDate: Date | null, paid: boolean): JSX.Element {
+    const titleStyle = [styles.title];
+
+    if (paid) {
+        titleStyle.push(styles.titlePaid);
+    }
+
     return (
         <View style={getInfoContainerStyle(dueDate)}>
-            <Text style={styles.title} numberOfLines={1}>
+            <Text style={titleStyle} numberOfLines={1}>
                 {title}
             </Text>
             {dueDate && (
@@ -65,13 +72,13 @@ function renderAmount(amount: string): JSX.Element {
 }
 
 function renderCardContent(props: ItemProps): JSX.Element {
-    if (Platform.OS === "android") {
+    if (Platform.OS === 'android') {
         return (
             <TouchableNativeFeedback
                 onPress={props.onSelect.bind(null, props.barcode)}
             >
                 <View style={styles.content}>
-                    {renderInfo(props.title, props.dueDate)}
+                    {renderInfo(props.title, props.dueDate, props.paid)}
                     {renderAmount(props.amount)}
                 </View>
             </TouchableNativeFeedback>
@@ -85,7 +92,7 @@ function renderCardContent(props: ItemProps): JSX.Element {
             underlayColor={colors.nobel}
         >
             <View style={styles.content}>
-                {renderInfo(props.title, props.dueDate)}
+                {renderInfo(props.title, props.dueDate, props.paid)}
                 {renderAmount(props.amount)}
             </View>
         </TouchableHighlight>

@@ -1,6 +1,6 @@
-import { Platform, StyleSheet } from "react-native";
+import { Platform, StyleSheet } from 'react-native';
 
-import { colors } from "../../../constants";
+import { colors } from '../../../constants';
 
 const styles = StyleSheet.create({
     amount: {
@@ -8,13 +8,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     amountContainer: {
-        alignItems: "flex-end",
+        alignItems: 'flex-end',
         flex: 1,
-        justifyContent: "center",
+        justifyContent: 'center',
     },
     cardContainer: {
         flex: 1,
-        flexDirection: "row",
+        flexDirection: 'row',
         height: 74,
         padding: 16,
     },
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        flexDirection: "row",
+        flexDirection: 'row',
         height: 74,
         padding: 16,
     },
@@ -36,15 +36,19 @@ const styles = StyleSheet.create({
         flex: 2,
     },
     infoContainerDouble: {
-        justifyContent: "space-between",
+        justifyContent: 'space-between',
     },
     infoContainerSingle: {
-        justifyContent: "center",
+        justifyContent: 'center',
     },
     title: {
         color: colors.mineShaft,
         fontSize: 16,
-        fontWeight: (Platform.OS === "android") ? "400" : "500",
+        fontWeight: Platform.OS === 'android' ? '400' : '500',
+    },
+    titlePaid: {
+        color: colors.boulder,
+        textDecorationLine: 'line-through',
     },
 });
 

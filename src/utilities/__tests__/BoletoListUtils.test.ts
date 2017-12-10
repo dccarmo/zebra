@@ -1,20 +1,22 @@
-import { addDays, compareDesc, startOfDay, subDays } from "date-fns";
+import { addDays, compareDesc, startOfDay, subDays } from 'date-fns';
 
-import { ItemStateProps } from "../../screens/BoletoList/Item";
-import { BoletoListSectionData } from "../../screens/BoletoList/List";
+import { ItemStateProps } from '../../screens/BoletoList/Item';
+import { BoletoListSectionData } from '../../screens/BoletoList/List';
 import {
     filterItemsByNotNextDays,
     mapItemsToMonthlySections,
     mapNextDaysItemsToSection,
     sortItems,
-    sortSections } from "../BoletoListUtils";
+    sortSections,
+} from '../BoletoListUtils';
 
-function createItem(dueDate: Date|null): ItemStateProps {
+function createItem(dueDate: Date | null): ItemStateProps {
     return {
-        amount: "",
-        barcode: "",
+        amount: '',
+        barcode: '',
         dueDate,
-        title: "",
+        paid: true,
+        title: '',
     };
 }
 
@@ -27,7 +29,7 @@ const mockNextDaysItems: ItemStateProps[] = [
 
 const mockNextDayItemsSession: BoletoListSectionData = {
     data: mockNextDaysItems,
-    title: "Próximos 7 dias",
+    title: 'Próximos 7 dias',
 };
 
 const mockNotNextDaysItems: ItemStateProps[] = [
@@ -57,10 +59,8 @@ const mockItems: ItemStateProps[] = [
 
 const mockMonthlySections: BoletoListSectionData[] = [
     {
-        data: [
-            createItem(subDays(startDay, 60)),
-        ],
-        title: "Setembro",
+        data: [createItem(subDays(startDay, 60))],
+        title: 'Setembro',
     },
     {
         data: [
@@ -69,36 +69,26 @@ const mockMonthlySections: BoletoListSectionData[] = [
             createItem(subDays(startDay, 3)),
             createItem(subDays(startDay, 20)),
         ],
-        title: "Novembro",
+        title: 'Novembro',
     },
     {
-        data: [
-            createItem(addDays(startDay, 30)),
-        ],
-        title: "Dezembro",
+        data: [createItem(addDays(startDay, 30))],
+        title: 'Dezembro',
     },
     {
-        data: [
-            createItem(null),
-            createItem(null),
-        ],
-        title: "Desconhecido",
+        data: [createItem(null), createItem(null)],
+        title: 'Desconhecido',
     },
 ];
 
 const mockSortedMonthlySections: BoletoListSectionData[] = [
     {
-        data: [
-            createItem(null),
-            createItem(null),
-        ],
-        title: "Desconhecido",
+        data: [createItem(null), createItem(null)],
+        title: 'Desconhecido',
     },
     {
-        data: [
-            createItem(addDays(startDay, 30)),
-        ],
-        title: "Dezembro",
+        data: [createItem(addDays(startDay, 30))],
+        title: 'Dezembro',
     },
     {
         data: [
@@ -107,46 +97,56 @@ const mockSortedMonthlySections: BoletoListSectionData[] = [
             createItem(subDays(startDay, 3)),
             createItem(subDays(startDay, 20)),
         ],
-        title: "Novembro",
+        title: 'Novembro',
     },
     {
-        data: [
-            createItem(subDays(startDay, 60)),
-        ],
-        title: "Setembro",
+        data: [createItem(subDays(startDay, 60))],
+        title: 'Setembro',
     },
 ];
 
-describe("Boleto List Utilities", () => {
-    it("should filter items by not being in the next 7 days", () => {
-        expect(filterItemsByNotNextDays(mockItems, startDay, 7)).toEqual(mockNotNextDaysItems);
+describe('Boleto List Utilities', () => {
+    it('should filter items by not being in the next 7 days', () => {
+        expect(filterItemsByNotNextDays(mockItems, startDay, 7)).toEqual(
+            mockNotNextDaysItems,
+        );
     });
 
-    it("should map items to monthly sections", () => {
-        expect(mapItemsToMonthlySections(mockItems)).toEqual(mockMonthlySections);
+    it('should map items to monthly sections', () => {
+        expect(mapItemsToMonthlySections(mockItems)).toEqual(
+            mockMonthlySections,
+        );
     });
 
-    it("should return an empty map no items", () => {
+    it('should return an empty map no items', () => {
         expect(mapItemsToMonthlySections([])).toEqual([]);
     });
 
-    it("should map items in the next 7 days to a section", () => {
-        expect(mapNextDaysItemsToSection(mockItems, startDay, 7)).toEqual(mockNextDayItemsSession);
+    it('should map items in the next 7 days to a section', () => {
+        expect(mapNextDaysItemsToSection(mockItems, startDay, 7)).toEqual(
+            mockNextDayItemsSession,
+        );
     });
 
-    it("should return null no items", () => {
+    it('should return null no items', () => {
         expect(mapNextDaysItemsToSection([], startDay, 7)).toEqual(null);
     });
 
-    it("should return null no near future items", () => {
-        expect(mapNextDaysItemsToSection(mockNotNextDaysItems, startDay, 7)).toEqual(null);
+    it('should return null no near future items', () => {
+        expect(
+            mapNextDaysItemsToSection(mockNotNextDaysItems, startDay, 7),
+        ).toEqual(null);
     });
 
-    it("should sort items", () => {
-        expect(sortItems(mockNotNextDaysItems, compareDesc)).toEqual(mockSortedNotNextDaysItems);
+    it('should sort items', () => {
+        expect(sortItems(mockNotNextDaysItems, compareDesc)).toEqual(
+            mockSortedNotNextDaysItems,
+        );
     });
 
-    it("should sort sections", () => {
-        expect(sortSections(mockMonthlySections, compareDesc)).toEqual(mockSortedMonthlySections);
+    it('should sort sections', () => {
+        expect(sortSections(mockMonthlySections, compareDesc)).toEqual(
+            mockSortedMonthlySections,
+        );
     });
 });

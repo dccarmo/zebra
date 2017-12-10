@@ -1,7 +1,7 @@
-import { connect, Dispatch } from "react-redux";
+import { connect, Dispatch } from 'react-redux';
 
-import { selectBarcodeAction } from "../../actions";
-import Item, { ItemDispatchProps } from "./Item";
+import { selectBarcodeAction } from '../../actions';
+import Item, { ItemDispatchProps } from './Item';
 
 function mapDispatchToProps(dispatch: Dispatch<any>): ItemDispatchProps {
     return {

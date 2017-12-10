@@ -1,27 +1,27 @@
-import { compareAsc, compareDesc, startOfToday } from "date-fns";
-import { connect } from "react-redux";
+import { compareAsc, compareDesc, startOfToday } from 'date-fns';
+import { connect } from 'react-redux';
 
 import Boleto, {
     getBarcodeAmount,
     getBarcodeDueDate,
     getTitle,
-} from "../../models/Boleto";
+} from '../../models/Boleto';
 import {
     getAllBoletos,
     getPaidBoletos,
     getPendingBoletos,
-} from "../../selectors";
-import { AppStore } from "../../stores";
+} from '../../selectors';
+import { AppStore } from '../../stores';
 import {
     filterItemsByNotNextDays,
     mapItemsToMonthlySections,
     mapNextDaysItemsToSection,
     sortItems,
     sortSections,
-} from "../../utilities/BoletoListUtils";
-import { formatAmount } from "../../utilities/FormatUtils";
-import { ItemStateProps } from "./Item";
-import List, { BoletoListSectionData, ListProps } from "./List";
+} from '../../utilities/BoletoListUtils';
+import { formatAmount } from '../../utilities/FormatUtils';
+import { ItemStateProps } from './Item';
+import List, { BoletoListSectionData, ListProps } from './List';
 
 export enum FilterOption {
     Pending,
@@ -56,7 +56,8 @@ function mapStateToProps(
         amount: `${formatAmount(getBarcodeAmount(boleto.barcode))}`,
         barcode: boleto.barcode,
         dueDate: getBarcodeDueDate(boleto.barcode),
-        title: getTitle(boleto) ? getTitle(boleto)! : "Sem Título",
+        paid: boleto.paid,
+        title: getTitle(boleto) ? getTitle(boleto)! : 'Sem Título',
     }));
 
     if (ownProps.selectedFilter === FilterOption.Pending) {

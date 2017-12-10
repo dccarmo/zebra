@@ -1,33 +1,62 @@
-import { once } from "lodash";
-import React from "react";
-import Camera from "react-native-camera";
+import { once } from 'lodash';
+import React from 'react';
+import { StyleSheet, View, ViewProperties } from 'react-native';
+import Camera from 'react-native-camera';
 
-export interface CameraOverlayProps {
+import CloseButtonContainer from './containers/CloseButtonContainer';
+
+export interface CameraOverlayProps extends ViewProperties {
     onBarcodeRead: (data: any) => void;
 }
 
 class CameraOverlay extends React.Component<CameraOverlayProps> {
-    onBarcodeRead: (data: string) => void;
+    onBarcodeRead: (data: any) => void;
 
     constructor(props: CameraOverlayProps) {
         super(props);
 
-        this.onBarcodeRead = once((data: string) => props.onBarcodeRead(data));
+        this.onBarcodeRead = once((data: any) => props.onBarcodeRead(data));
     }
 
     render() {
         return (
             <Camera
-            style={{ flex: 1 }}
-            aspect={Camera.constants.Aspect.fill}
-            onBarCodeRead={this.onBarcodeRead}
-            barCodeTypes={[Camera.constants.BarCodeType.interleaved2of5]}
-            keepAwake={true}
+                {...this.props}
+                aspect={Camera.constants.Aspect.fill}
+                onBarCodeRead={this.onBarcodeRead}
+                barCodeTypes={[Camera.constants.BarCodeType.interleaved2of5]}
+                keepAwake={true}
             >
-            {this.props.children}
+                <View style={styles.overlay}>
+                    <View style={styles.leftStripe} />
+                    <View style={styles.middleStripe} />
+                    <View style={styles.rightStripe}>
+                        <CloseButtonContainer />
+                    </View>
+                </View>
             </Camera>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    leftStripe: {
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        flex: 1,
+    },
+    middleStripe: {
+        flex: 2,
+    },
+    overlay: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    rightStripe: {
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        flex: 1,
+        paddingTop: 30,
+    },
+});
 
 export default CameraOverlay;

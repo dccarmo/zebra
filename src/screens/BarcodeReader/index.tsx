@@ -1,8 +1,6 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React from 'react';
 
-import CameraCloser from "./CameraCloser";
-import CameraReader from "./CameraReader";
+import CameraOverlayContainer from './containers/CameraOverlayContainer';
 
 class BarcodeReader extends React.Component {
     static navigationOptions = {
@@ -11,37 +9,9 @@ class BarcodeReader extends React.Component {
 
     render() {
         return (
-            <CameraReader>
-                <View style={styles.overlay}>
-                    <View style={styles.leftStripe} />
-                    <View style={styles.middleStripe} />
-                    <View style={styles.rightStripe}>
-                        <CameraCloser />
-                    </View>
-                </View>
-            </CameraReader>
+            <CameraOverlayContainer style={{ flex: 1 }} />
         );
     }
 }
-
-const styles = StyleSheet.create({
-    leftStripe: {
-        backgroundColor: "rgba(0, 0, 0, 0.6)",
-        flex: 1,
-    },
-    middleStripe: {
-        flex: 2,
-    },
-    overlay: {
-        flex: 1,
-        flexDirection: "row",
-    },
-    rightStripe: {
-        alignItems: "center",
-        backgroundColor: "rgba(0, 0, 0, 0.6)",
-        flex: 1,
-        paddingTop: 30,
-    }
-});
 
 export default BarcodeReader;

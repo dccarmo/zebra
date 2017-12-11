@@ -318,33 +318,33 @@ const webView = `
 				</div>
 				<div class="card-line">
 					<div class="info-box">
-						<h3>Segmento</h3>
+						<h3>%@SEGMENT-LABEL@%</h3>
 						<p class="info-box-content">%@SEGMENT@%</p>
 					</div>
 					<div class="info-box last-box">
-						<h3>Banco</h3>
+						<h3>%@BANK-LABEL@%</h3>
 						<p class="info-box-content">%@BANK@%</p>
 					</div>
 				</div>
 				<div class="card-line">
 					<div class="info-box">
-						<h3>Data de vencimento</h3>
+						<h3>%@DUE-DATE-LABEL@%</h3>
 						<p class="info-box-content">%@DUE-DATE@%</p>
 					</div>
 					<div class="info-box last-box">
-						<h3>Valor</h3>
+						<h3>%@AMOUNT-LABEL@%</h3>
 						<p class="info-box-content">%@AMOUNT@%</p>
 					</div>
 				</div>
 				<div class="card-line">
 					<div>
-						<h3>Linha digitável</h3>
+						<h3>%@FORMATTED-TYPEABLE-LINE-LABEL@%</h3>
 						<p class="typeable-line">%@FORMATTED-TYPEABLE-LINE@%</p>
 					</div>
 				</div>
 				<div class="card-line">
 					<div>
-						<h3>Código de barras</h3>
+						<h3>%@BAR-CODE-LABEL@%</h3>
 						<p class="bar-code">%@BAR-CODE@%</p>
 					</div>
 				</div>

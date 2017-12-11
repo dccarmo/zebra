@@ -1,25 +1,28 @@
 import { connect, Dispatch } from 'react-redux';
 
 import { deselectBarcodeAction } from '../../../actions';
+import I18n from '../../../constants/i18n';
 import { WebServerStatus } from '../../../models/WebServerInfo';
 import { AppStore } from '../../../stores';
 import Banner, { BannerDispatchProps, BannerStateProps } from '../Banner';
 
 function mapStateToProps(state: AppStore): BannerStateProps {
-    let description = 'Servidor Desconectado';
+    let description = I18n.t('boletoDetail.banner.status.default');
 
     switch (state.webServerInfo.status) {
         case WebServerStatus.Online:
-            description = `Acesse o boleto em: ${state.webServerInfo.url}`;
+            description = I18n.t('boletoDetail.banner.status.online', {
+                url: state.webServerInfo.url,
+            });
             break;
 
         case WebServerStatus.Error:
         case WebServerStatus.Offline:
-            description = 'Erro ao iniciar o servidor';
+            description = I18n.t('boletoDetail.banner.status.errorOffline');
             break;
 
         case WebServerStatus.Starting:
-            description = 'Servidor Iniciando';
+            description = I18n.t('boletoDetail.banner.status.starting');
             break;
     }
 

@@ -13,6 +13,7 @@ import { Clipboard, ScrollView } from 'react-native';
 import Card from '../../../components/Card';
 import TouchableButton from '../../../components/TouchableButton';
 import { colors } from '../../../constants';
+import I18n from '../../../constants/i18n';
 import { formatDate } from '../../../utilities/FormatUtils';
 import styles from './styles';
 
@@ -38,7 +39,7 @@ function renderFirstRow(props: DetailStateProps): JSX.Element {
     if (props.bank) {
         content.push(
             <View key="bank" style={styles.dataBox}>
-                <Text style={styles.dataBoxTitle}>Banco</Text>
+                <Text style={styles.dataBoxTitle}>{I18n.t('global.bank')}</Text>
                 <Text style={styles.dataBoxText}>{props.bank}</Text>
             </View>,
         );
@@ -47,7 +48,9 @@ function renderFirstRow(props: DetailStateProps): JSX.Element {
     if (!props.bank && props.segment) {
         content.push(
             <View key="segment" style={styles.dataBox}>
-                <Text style={styles.dataBoxTitle}>Segmento</Text>
+                <Text style={styles.dataBoxTitle}>
+                    {I18n.t('global.segment')}
+                </Text>
                 <Text style={styles.dataBoxText}>{props.segment}</Text>
             </View>,
         );
@@ -58,7 +61,7 @@ function renderFirstRow(props: DetailStateProps): JSX.Element {
             content.push(
                 <View key="dueDate" style={styles.dataBox}>
                     <Text style={styles.dataBoxTitleRight}>
-                        Data de Vencimento
+                        {I18n.t('global.dueDate')}
                     </Text>
                     <Text style={styles.dataBoxTextRight}>
                         {formatDate(props.dueDate)}
@@ -68,7 +71,9 @@ function renderFirstRow(props: DetailStateProps): JSX.Element {
         } else {
             content.push(
                 <View key="dueDate" style={styles.dataBox}>
-                    <Text style={styles.dataBoxTitle}>Data de Vencimento</Text>
+                    <Text style={styles.dataBoxTitle}>
+                        {I18n.t('global.dueDate')}
+                    </Text>
                     <Text style={styles.dataBoxText}>
                         {formatDate(props.dueDate)}
                     </Text>
@@ -93,7 +98,7 @@ const BoletoDetail: React.SFC<
                         onChangeText={(text) =>
                             props.onChangeTitle(props.barcode, text)
                         }
-                        placeholder={'Insira um título'}
+                        placeholder={I18n.t('boletoDetail.detail.titlePlaceholder')}
                         returnKeyType={'done'}
                         style={styles.title}
                         defaultValue={props.title ? props.title : undefined}
@@ -102,7 +107,9 @@ const BoletoDetail: React.SFC<
                     {renderFirstRow(props)}
                     <View style={styles.row}>
                         <View style={styles.dataBox}>
-                            <Text style={styles.dataBoxTitle}>Valor</Text>
+                            <Text style={styles.dataBoxTitle}>
+                                {I18n.t('global.amount')}
+                            </Text>
                             <Text style={styles.dataBoxText}>
                                 {props.amount}
                             </Text>
@@ -111,7 +118,7 @@ const BoletoDetail: React.SFC<
                     <View style={styles.row}>
                         <View style={styles.dataBox}>
                             <Text style={styles.dataBoxTitle}>
-                                Linha digitável
+                                {I18n.t('global.typeableLine')}
                             </Text>
                             <ScrollView
                                 horizontal={true}
@@ -123,7 +130,7 @@ const BoletoDetail: React.SFC<
 
                                         if (Platform.OS === 'android') {
                                             ToastAndroid.show(
-                                                'Copiado!',
+                                                I18n.t('boletoDetail.detail.copied'),
                                                 ToastAndroid.SHORT,
                                             );
                                         }
@@ -141,7 +148,7 @@ const BoletoDetail: React.SFC<
                     <View style={styles.row}>
                         <View style={styles.dataBox}>
                             <Text style={styles.dataBoxTitle}>
-                                Código de barras
+                                {I18n.t('global.barcode')}
                             </Text>
                             <ScrollView
                                 horizontal={true}
@@ -153,7 +160,7 @@ const BoletoDetail: React.SFC<
 
                                         if (Platform.OS === 'android') {
                                             ToastAndroid.show(
-                                                'Copiado!',
+                                                I18n.t('boletoDetail.detail.copied'),
                                                 ToastAndroid.SHORT,
                                             );
                                         }
@@ -177,8 +184,8 @@ const BoletoDetail: React.SFC<
                     <View style={styles.actionButton}>
                         <Text style={styles.actionButtonText}>
                             {props.paid
-                                ? 'Marcar como não pago'
-                                : 'Marcar como pago'}
+                                ? I18n.t('boletoDetail.detail.markAsPending')
+                                : I18n.t('boletoDetail.detail.markAsPaid')}
                         </Text>
                     </View>
                 </TouchableButton>

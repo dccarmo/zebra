@@ -1,10 +1,10 @@
-import { NavigationActions } from "react-navigation";
-import { delay } from "redux-saga";
-import { all, call, put, takeEvery } from "redux-saga/effects";
+import { NavigationActions } from 'react-navigation';
+import { delay } from 'redux-saga';
+import { all, call, put, takeEvery } from 'redux-saga/effects';
 
-import { Action } from "redux";
-import { isType } from "typescript-fsa";
-import { addBoletoAction, selectBarcodeAction } from "../actions/index";
+import { Action } from 'redux';
+import { isType } from 'typescript-fsa';
+import { addBoletoAction, selectBarcodeAction } from '../actions/index';
 
 export function* addedBoletoSaga(action: Action) {
     if (isType(action, addBoletoAction)) {
@@ -19,7 +19,7 @@ export function* watchAddedBoleto() {
 }
 
 export function* selectedBoletoSaga() {
-    yield put(NavigationActions.navigate({ routeName: "BoletoDetail" }));
+    yield put(NavigationActions.navigate({ routeName: 'BoletoDetail' }));
 }
 
 export function* watchSelectedBoleto() {
@@ -27,8 +27,5 @@ export function* watchSelectedBoleto() {
 }
 
 export default function* navigationSagas() {
-    yield all([
-        watchAddedBoleto(),
-        watchSelectedBoleto(),
-    ]);
+    yield all([watchAddedBoleto(), watchSelectedBoleto()]);
 }

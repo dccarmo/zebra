@@ -1,8 +1,8 @@
-import { NavigationRouteConfigMap, StackNavigator } from "react-navigation";
+import { NavigationRouteConfigMap, StackNavigator } from 'react-navigation';
 
-import BarcodeReader from "../screens/BarcodeReader";
-import BoletoDetail from "../screens/BoletoDetail";
-import BoletoList from "../screens/BoletoList";
+import BarcodeReader from '../screens/BarcodeReader';
+import BoletoDetail from '../screens/BoletoDetail';
+import BoletoList from '../screens/BoletoList';
 
 const routeConfigMap: NavigationRouteConfigMap = {
     BarcodeReader: { screen: BarcodeReader },

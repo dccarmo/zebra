@@ -1,12 +1,12 @@
-import * as checkdigit from "checkdigit";
+import * as checkdigit from 'checkdigit';
 
-import { baseDay, baseMonth, baseYear } from "../constants";
-import { bankName } from "../constants/banks";
-import { segmentName } from "../constants/segments";
+import { baseDay, baseMonth, baseYear } from '../constants';
+import { bankName } from '../constants/banks';
+import { segmentName } from '../constants/segments';
 
 interface Boleto {
     barcode: string;
-    title: string|null;
+    title: string | null;
     paid: boolean;
 }
 
@@ -15,7 +15,7 @@ export enum BoletoType {
     Collection,
 }
 
-export function getTitle(boleto: Boleto): string|null {
+export function getTitle(boleto: Boleto): string | null {
     if (boleto.title) {
         return boleto.title;
     }
@@ -28,7 +28,7 @@ export function getTitle(boleto: Boleto): string|null {
 }
 
 export function getBarcodeType(barcode: string): BoletoType {
-    if (barcode.charAt(0) === "8") {
+    if (barcode.charAt(0) === '8') {
         return BoletoType.Collection;
     }
 
@@ -59,15 +59,19 @@ export function getFormattedTypeableLine(barcode: string): string {
     let seqs = getCollectionTypeableLineSeqs(barcode);
 
     if (getBarcodeType(barcode) === BoletoType.Collection) {
-        return `${seqs[0]}-${seqs[1]} ${seqs[2]}-${seqs[3]} ${seqs[4]}-${seqs[5]} ${seqs[6]}-${seqs[7]}`;
+        return `${seqs[0]}-${seqs[1]} ${seqs[2]}-${seqs[3]} ${seqs[4]}-${
+            seqs[5]
+        } ${seqs[6]}-${seqs[7]}`;
     }
 
     seqs = getBankTypeableLineSeq(barcode);
 
-    return `${seqs[0]}.${seqs[1]} ${seqs[2]}.${seqs[3]} ${seqs[4]}.${seqs[5]} ${seqs[6]} ${seqs[7]}`;
+    return `${seqs[0]}.${seqs[1]} ${seqs[2]}.${seqs[3]} ${seqs[4]}.${seqs[5]} ${
+        seqs[6]
+    } ${seqs[7]}`;
 }
 
-export function getBarcodeBank(barcode: string): string|null {
+export function getBarcodeBank(barcode: string): string | null {
     if (getBarcodeType(barcode) === BoletoType.Collection) {
         return null;
     }
@@ -77,7 +81,7 @@ export function getBarcodeBank(barcode: string): string|null {
     return bankName(code);
 }
 
-export function getBarcodeSegment(barcode: string): string|null {
+export function getBarcodeSegment(barcode: string): string | null {
     if (getBarcodeType(barcode) === BoletoType.Bank) {
         return null;
     }
@@ -87,7 +91,7 @@ export function getBarcodeSegment(barcode: string): string|null {
     return segmentName(code);
 }
 
-export function getBarcodeDueDate(barcode: string): Date|null {
+export function getBarcodeDueDate(barcode: string): Date | null {
     if (getBarcodeType(barcode) === BoletoType.Collection) {
         return null;
     }
@@ -118,7 +122,8 @@ function getCollectionTypeableLineSeqs(barcode: string): string[] {
     const thirdSeq = barcode.substring(22, 33);
     const fourthSeq = barcode.substring(33, 44);
 
-    return [firstSeq,
+    return [
+        firstSeq,
         checkdigit.mod10.create(firstSeq),
         secondSeq,
         checkdigit.mod10.create(secondSeq),
@@ -130,7 +135,10 @@ function getCollectionTypeableLineSeqs(barcode: string): string[] {
 }
 
 function getBankTypeableLineSeq(barcode: string): string[] {
-    let firstSeq = barcode.substring(0, 4) + barcode.substring(19, 20) + barcode.substring(20, 24);
+    let firstSeq =
+        barcode.substring(0, 4) +
+        barcode.substring(19, 20) +
+        barcode.substring(20, 24);
     firstSeq += checkdigit.mod10.create(firstSeq);
 
     let secondSeq = barcode.substring(24, 29) + barcode.substring(29, 34);
@@ -143,13 +151,16 @@ function getBankTypeableLineSeq(barcode: string): string[] {
 
     const fifthSeq = barcode.substring(5, 19);
 
-    const typeableLine = [firstSeq,
+    const typeableLine = [
+        firstSeq,
         secondSeq,
         thirdSeq,
         fourthSeq,
-        fifthSeq].reduce((result, seq) => result + seq);
+        fifthSeq,
+    ].reduce((result, seq) => result + seq);
 
-    return [typeableLine.substring(0, 5),
+    return [
+        typeableLine.substring(0, 5),
         typeableLine.substring(5, 10),
         typeableLine.substring(10, 15),
         typeableLine.substring(15, 21),

@@ -1,14 +1,17 @@
-import { Action } from "redux";
+import { Action } from 'redux';
 
-import BoletoListNavigator from "../navigators/BoletoListNavigator";
+import BoletoListNavigator from '../navigators/BoletoListNavigator';
 
 const initialState = BoletoListNavigator.router.getStateForAction(
-    BoletoListNavigator.router.getActionForPathAndParams("BoletoList"),
+    BoletoListNavigator.router.getActionForPathAndParams('BoletoList'),
     null,
 );
 
 function navReducer(state: any = initialState, action: Action): any {
-    const nextState = BoletoListNavigator.router.getStateForAction(action, state);
+    const nextState = BoletoListNavigator.router.getStateForAction(
+        action,
+        state,
+    );
 
     return nextState || state;
 }

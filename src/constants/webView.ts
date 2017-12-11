@@ -1,7 +1,6 @@
 // tslint:disable:max-line-length
 
 const webView = `
-
 <!doctype html>
 <html class="no-js" lang="">
     <head>
@@ -353,8 +352,6 @@ const webView = `
 		</div>
     </body>
 </html>
-
-
 `;
 
 export default webView;

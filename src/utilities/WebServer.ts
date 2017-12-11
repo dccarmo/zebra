@@ -1,7 +1,7 @@
-import StaticServer from "react-native-static-server";
+import StaticServer from 'react-native-static-server';
 
-import { escapeRegExp } from "lodash";
-import webView from "../constants/webView";
+import { escapeRegExp } from 'lodash';
+import webView from '../constants/webView';
 import Boleto, {
     BoletoType,
     getBarcodeAmount,
@@ -10,11 +10,11 @@ import Boleto, {
     getBarcodeSegment,
     getBarcodeType,
     getFormattedTypeableLine,
-} from "../models/Boleto";
-import { formatAmount, formatDate } from "./FormatUtils";
+} from '../models/Boleto';
+import { formatAmount, formatDate } from './FormatUtils';
 
 function replaceAll(str: string, find: string, replace: string): string {
-    return str.replace(new RegExp(escapeRegExp(find), "g"), replace);
+    return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
 }
 
 class WebServer extends StaticServer {
@@ -24,14 +24,14 @@ class WebServer extends StaticServer {
         if (boleto.title) {
             hydratedWebView = replaceAll(
                 hydratedWebView,
-                "%@TITLE@%",
+                '%@TITLE@%',
                 boleto.title,
             );
         } else {
             hydratedWebView = replaceAll(
                 hydratedWebView,
-                "%@TITLE@%",
-                "Sem Título",
+                '%@TITLE@%',
+                'Sem Título',
             );
         }
 
@@ -43,19 +43,19 @@ class WebServer extends StaticServer {
         ) {
             hydratedWebView = replaceAll(
                 hydratedWebView,
-                "%@SEGMENT@%",
+                '%@SEGMENT@%',
                 segment,
             );
         } else {
-            hydratedWebView = replaceAll(hydratedWebView, "%@SEGMENT@%", "-");
+            hydratedWebView = replaceAll(hydratedWebView, '%@SEGMENT@%', '-');
         }
 
         const bank = getBarcodeBank(boleto.barcode);
 
         if (bank && getBarcodeType(boleto.barcode) === BoletoType.Bank) {
-            hydratedWebView = replaceAll(hydratedWebView, "%@BANK@%", bank);
+            hydratedWebView = replaceAll(hydratedWebView, '%@BANK@%', bank);
         } else {
-            hydratedWebView = replaceAll(hydratedWebView, "%@BANK@%", "-");
+            hydratedWebView = replaceAll(hydratedWebView, '%@BANK@%', '-');
         }
 
         const dueDate = getBarcodeDueDate(boleto.barcode);
@@ -63,26 +63,26 @@ class WebServer extends StaticServer {
         if (dueDate && getBarcodeType(boleto.barcode) === BoletoType.Bank) {
             hydratedWebView = replaceAll(
                 hydratedWebView,
-                "%@DUE-DATE@%",
+                '%@DUE-DATE@%',
                 formatDate(dueDate),
             );
         } else {
-            hydratedWebView = replaceAll(hydratedWebView, "%@DUE-DATE@%", "-");
+            hydratedWebView = replaceAll(hydratedWebView, '%@DUE-DATE@%', '-');
         }
 
         hydratedWebView = replaceAll(
             hydratedWebView,
-            "%@AMOUNT@%",
+            '%@AMOUNT@%',
             `${formatAmount(getBarcodeAmount(boleto.barcode))}`,
         );
         hydratedWebView = replaceAll(
             hydratedWebView,
-            "%@FORMATTED-TYPEABLE-LINE@%",
+            '%@FORMATTED-TYPEABLE-LINE@%',
             getFormattedTypeableLine(boleto.barcode),
         );
         hydratedWebView = replaceAll(
             hydratedWebView,
-            "%@BAR-CODE@%",
+            '%@BAR-CODE@%',
             boleto.barcode,
         );
 

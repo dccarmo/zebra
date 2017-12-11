@@ -4,11 +4,11 @@ import ActionButton from 'react-native-action-button';
 
 import { colors } from '../../constants';
 
-export interface AddActionButtonProps extends ViewProperties {
+export interface AddActionButtonProps {
     onPress: () => void;
 }
 
-const AddActionButton: React.SFC<AddActionButtonProps> = (props) => (
+const AddActionButton: React.SFC<AddActionButtonProps & ViewProperties> = (props) => (
     <ActionButton
         {...props}
         buttonColor={style.button.color}

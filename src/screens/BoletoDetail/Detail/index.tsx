@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
+import { Text, TextInput, TouchableWithoutFeedback, View, ViewProperties } from 'react-native';
 
 import { ScrollView, Share } from 'react-native';
 import Card from '../../../components/Card';
@@ -87,11 +87,11 @@ function presentShareModal(message: string) {
 }
 
 const BoletoDetail: React.SFC<
-    DetailStateProps & DetailDispatchProps
+    DetailStateProps & DetailDispatchProps & ViewProperties
 > = (props) => {
     return (
-        <View style={styles.container}>
-            <Card backgroundColor={colors.white}>
+        <View {...props}>
+            <Card style={{ backgroundColor: colors.white }}>
                 <View style={styles.content}>
                     <TextInput
                         autoCapitalize={'words'}

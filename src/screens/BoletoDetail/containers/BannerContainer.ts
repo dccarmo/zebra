@@ -1,12 +1,12 @@
-import { connect, Dispatch } from "react-redux";
+import { connect, Dispatch } from 'react-redux';
 
-import { deselectBarcodeAction } from "../../actions";
-import { WebServerStatus } from "../../models/WebServerInfo";
-import { AppStore } from "../../stores";
-import Banner, { BannerDispatchProps, BannerStateProps } from "./Banner";
+import { deselectBarcodeAction } from '../../../actions';
+import { WebServerStatus } from '../../../models/WebServerInfo';
+import { AppStore } from '../../../stores';
+import Banner, { BannerDispatchProps, BannerStateProps } from '../Banner';
 
 function mapStateToProps(state: AppStore): BannerStateProps {
-    let description = "Servidor Desconectado";
+    let description = 'Servidor Desconectado';
 
     switch (state.webServerInfo.status) {
         case WebServerStatus.Online:
@@ -15,11 +15,11 @@ function mapStateToProps(state: AppStore): BannerStateProps {
 
         case WebServerStatus.Error:
         case WebServerStatus.Offline:
-            description = "Erro ao iniciar o servidor";
+            description = 'Erro ao iniciar o servidor';
             break;
 
         case WebServerStatus.Starting:
-            description = "Servidor Iniciando";
+            description = 'Servidor Iniciando';
             break;
     }
 
@@ -35,6 +35,6 @@ function mapDispatchToProps(dispatch: Dispatch<any>): BannerDispatchProps {
     };
 }
 
-const WebServerBanner = connect(mapStateToProps, mapDispatchToProps)(Banner);
+const BannerContainer = connect(mapStateToProps, mapDispatchToProps)(Banner);
 
-export default WebServerBanner;
+export default BannerContainer;

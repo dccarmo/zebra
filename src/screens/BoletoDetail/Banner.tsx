@@ -1,9 +1,9 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import Card from "../../components/Card";
-import { colors } from "../../constants";
-import { WebServerStatus } from "../../models/WebServerInfo";
+import Card from '../../components/Card';
+import { colors } from '../../constants';
+import { WebServerStatus } from '../../models/WebServerInfo';
 
 export interface BannerStateProps {
     description: string;
@@ -43,7 +43,7 @@ class Banner extends React.PureComponent<BannerProps> {
     render() {
         return (
             <View style={styles.container}>
-                <Card backgroundColor={cardBackgroundColor(this.props.status)}>
+                <Card style={{ backgroundColor: cardBackgroundColor(this.props.status) }}>
                     <View style={styles.content}>
                         <Text style={styles.description}>
                             {this.props.description}
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     },
     description: {
         color: colors.white,
-        textAlign: "center",
+        textAlign: 'center',
     },
 });
 

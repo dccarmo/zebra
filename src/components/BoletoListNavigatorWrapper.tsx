@@ -1,20 +1,20 @@
-import React from "react";
-import { BackHandler, Platform } from "react-native";
-import { addNavigationHelpers, NavigationActions } from "react-navigation";
+import React from 'react';
+import { BackHandler, Platform } from 'react-native';
+import { addNavigationHelpers, NavigationActions } from 'react-navigation';
 
-import BoletoListNavigator from "../navigators/BoletoListNavigator";
+import BoletoListNavigator from '../navigators/BoletoListNavigator';
 
 class BoletoListNavigatorWrapper extends React.Component<any> {
     componentDidMount() {
-        if (Platform.OS === "android") {
-            BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
+        if (Platform.OS === 'android') {
+            BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
         }
     }
 
     componentWillUnmount() {
-        if (Platform.OS === "android") {
+        if (Platform.OS === 'android') {
             BackHandler.removeEventListener(
-                "hardwareBackPress",
+                'hardwareBackPress',
                 this.onBackPress,
             );
         }

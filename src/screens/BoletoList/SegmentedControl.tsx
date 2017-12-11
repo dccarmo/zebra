@@ -1,10 +1,15 @@
 import React from 'react';
-import { Platform, SegmentedControlIOS, View, ViewProperties } from 'react-native';
+import {
+    Platform,
+    SegmentedControlIOS,
+    View,
+    ViewProperties,
+} from 'react-native';
 import { TabBar, TabViewAnimated } from 'react-native-tab-view';
 
 import { colors } from '../../constants';
 
-export interface SegmentedControlProps extends ViewProperties {
+export interface SegmentedControlProps {
     onIndexChange: (index: number) => void;
     initialSelectedIndex: number;
     values: string[];
@@ -18,7 +23,7 @@ interface SegmentedControlState {
 }
 
 class SegmentedControl extends React.Component<
-    SegmentedControlProps,
+    SegmentedControlProps & ViewProperties,
     SegmentedControlState
 > {
     constructor(props: SegmentedControlProps) {
@@ -39,6 +44,7 @@ class SegmentedControl extends React.Component<
         if (Platform.OS === 'android') {
             return (
                 <TabViewAnimated
+                    {...this.props}
                     navigationState={this.state.android}
                     onIndexChange={this.handleIndexChange.bind(this)}
                     renderHeader={this.renderHeader}

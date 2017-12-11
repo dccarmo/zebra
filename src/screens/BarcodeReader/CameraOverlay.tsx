@@ -5,11 +5,11 @@ import Camera from 'react-native-camera';
 
 import CloseButtonContainer from './containers/CloseButtonContainer';
 
-export interface CameraOverlayProps extends ViewProperties {
+export interface CameraOverlayProps {
     onBarcodeRead: (data: any) => void;
 }
 
-class CameraOverlay extends React.Component<CameraOverlayProps> {
+class CameraOverlay extends React.Component<CameraOverlayProps & ViewProperties> {
     onBarcodeRead: (data: any) => void;
 
     constructor(props: CameraOverlayProps) {

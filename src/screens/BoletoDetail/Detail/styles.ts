@@ -1,20 +1,16 @@
-import { StyleSheet } from "react-native";
-import { colors } from "../../../constants";
+import { StyleSheet } from 'react-native';
+import { colors } from '../../../constants';
 
 const styles = StyleSheet.create({
     actionButton: {
-        alignItems: "center",
+        alignItems: 'center',
         height: 60,
-        justifyContent: "center",
+        justifyContent: 'center',
     },
     actionButtonList: {
         marginVertical: 16,
     },
-    actionButtonText: { fontSize: 16, fontWeight: "bold", color: colors.monza },
-    container: {
-        marginHorizontal: 16,
-        marginVertical: 16,
-    },
+    actionButtonText: { fontSize: 16, fontWeight: 'bold', color: colors.monza },
     content: {
         padding: 16,
     },
@@ -29,7 +25,7 @@ const styles = StyleSheet.create({
     dataBoxTextRight: {
         color: colors.mineShaft,
         fontSize: 20,
-        textAlign: "right",
+        textAlign: 'right',
     },
     dataBoxTitle: {
         color: colors.dustyGray,
@@ -40,18 +36,18 @@ const styles = StyleSheet.create({
         color: colors.dustyGray,
         fontSize: 16,
         marginBottom: 8,
-        textAlign: "right",
+        textAlign: 'right',
     },
     row: {
         flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     title: {
         color: colors.mineShaft,
         flex: 1,
         fontSize: 24,
-        justifyContent: "space-between",
+        justifyContent: 'space-between',
     },
 });
 

@@ -1,7 +1,15 @@
 import React from 'react';
-import { Text, TextInput, TouchableWithoutFeedback, View, ViewProperties } from 'react-native';
+import {
+    Platform,
+    Text,
+    TextInput,
+    ToastAndroid,
+    TouchableWithoutFeedback,
+    View,
+    ViewProperties,
+} from 'react-native';
 
-import { ScrollView, Share } from 'react-native';
+import { Clipboard, ScrollView } from 'react-native';
 import Card from '../../../components/Card';
 import TouchableButton from '../../../components/TouchableButton';
 import { colors } from '../../../constants';
@@ -72,20 +80,6 @@ function renderFirstRow(props: DetailStateProps): JSX.Element {
     return <View style={styles.row}>{content}</View>;
 }
 
-function presentShareModal(message: string) {
-    Share.share(
-        {
-            message,
-            title: undefined,
-            url: undefined,
-        },
-        {
-            dialogTitle: undefined,
-            excludedActivityTypes: [],
-        },
-    ).catch(() => null);
-}
-
 const BoletoDetail: React.SFC<
     DetailStateProps & DetailDispatchProps & ViewProperties
 > = (props) => {
@@ -124,9 +118,16 @@ const BoletoDetail: React.SFC<
                                 showsHorizontalScrollIndicator={false}
                             >
                                 <TouchableWithoutFeedback
-                                    onPress={() =>
-                                        presentShareModal(props.typeableLine)
-                                    }
+                                    onPress={() => {
+                                        Clipboard.setString(props.typeableLine);
+
+                                        if (Platform.OS === 'android') {
+                                            ToastAndroid.show(
+                                                'Copiado!',
+                                                ToastAndroid.SHORT,
+                                            );
+                                        }
+                                    }}
                                 >
                                     <View>
                                         <Text style={styles.dataBoxText}>
@@ -147,9 +148,16 @@ const BoletoDetail: React.SFC<
                                 showsHorizontalScrollIndicator={false}
                             >
                                 <TouchableWithoutFeedback
-                                    onPress={() =>
-                                        presentShareModal(props.barcode)
-                                    }
+                                    onPress={() => {
+                                        Clipboard.setString(props.barcode);
+
+                                        if (Platform.OS === 'android') {
+                                            ToastAndroid.show(
+                                                'Copiado!',
+                                                ToastAndroid.SHORT,
+                                            );
+                                        }
+                                    }}
                                 >
                                     <View>
                                         <Text style={styles.dataBoxText}>

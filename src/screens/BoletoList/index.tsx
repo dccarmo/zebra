@@ -4,6 +4,7 @@ import { Platform, StyleSheet, View } from 'react-native';
 import { maroonHeaderStyle } from '../../constants';
 import { colors } from '../../constants';
 
+import I18n from '../../constants/i18n';
 import AddButtonContainer from './containers/AddButtonContainer';
 import ListContainer from './containers/ListContainer';
 import SegmentedControl from './SegmentedControl';
@@ -44,7 +45,11 @@ class BoletoList extends React.Component<{}, BoletoListState> {
                     onIndexChange={(index) =>
                         this.setState({ selectedIndex: index })
                     }
-                    values={['Pendentes', 'Pagos', 'Todos']}
+                    values={[
+                        I18n.t('boletoList.filter.pending'),
+                        I18n.t('boletoList.filter.paid'),
+                        I18n.t('boletoList.filter.all'),
+                    ]}
                 >
                     <ListContainer selectedFilter={this.state.selectedIndex} />
                 </SegmentedControl>

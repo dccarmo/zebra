@@ -1,6 +1,7 @@
 import { compareAsc, compareDesc, startOfToday } from 'date-fns';
 import { connect } from 'react-redux';
 
+import I18n from '../../../constants/i18n';
 import Boleto, {
     getBarcodeAmount,
     getBarcodeDueDate,
@@ -57,7 +58,7 @@ function mapStateToProps(
         barcode: boleto.barcode,
         dueDate: getBarcodeDueDate(boleto.barcode),
         paid: boleto.paid,
-        title: getTitle(boleto) ? getTitle(boleto)! : 'Sem Título',
+        title: getTitle(boleto) ? getTitle(boleto)! : I18n.t('boletoList.listContainer.noTitle'),
     }));
 
     if (ownProps.selectedFilter === FilterOption.Pending) {

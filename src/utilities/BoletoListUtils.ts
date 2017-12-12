@@ -4,6 +4,7 @@ import ptLocale from 'date-fns/locale/pt';
 import { groupBy, map } from 'lodash';
 import S from 'string';
 
+import I18n from '../constants/i18n';
 import { ItemStateProps } from '../screens/BoletoList/Item';
 import { BoletoListSectionData } from '../screens/BoletoList/List';
 
@@ -32,7 +33,7 @@ export function mapNextDaysItemsToSection(
 
     return {
         data: nearFutureItems,
-        title: 'Próximos 7 dias',
+        title: I18n.t('boletoListUtils.nearFutureTitle'),
     };
 }
 
@@ -87,7 +88,7 @@ export function mapItemsToMonthlySections(
 
         return {
             data: monthItems,
-            title: 'Desconhecido',
+            title: I18n.t('boletoListUtils.unknownTitle'),
         };
     });
 

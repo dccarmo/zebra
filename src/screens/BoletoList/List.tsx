@@ -8,6 +8,7 @@ import {
     View,
 } from 'react-native';
 
+import I18n from '../../constants/i18n';
 import { colors } from '../../constants/index';
 import ItemContainer from './containers/ItemContainer';
 import { ItemStateProps } from './Item';
@@ -25,7 +26,7 @@ const List: React.SFC<ListProps> = (props) => {
     if (props.sections.length === 0) {
         return (
             <View style={styles.emptyContainer}>
-                <Text style={styles.emptyText}>Nenhum boleto encontrado</Text>
+                <Text style={styles.emptyText}>{I18n.t('boletoList.list.empty')}</Text>
             </View>
         );
     }

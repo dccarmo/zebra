@@ -20,8 +20,25 @@ I18n.translations = {
                 titlePlaceholder: 'Insert title',
             },
             shareBarButton: {
-                defaultMessage: 'No Boleto was selected',
+                defaultMessage: 'No boleto selected',
             },
+        },
+        boletoList: {
+            filter: {
+                all: 'All',
+                paid: 'Paid',
+                pending: 'Pending',
+            },
+            list: {
+                empty: 'No boleto found',
+            },
+            listContainer: {
+                noTitle: 'No Title',
+            },
+        },
+        boletoListUtils: {
+            nearFutureTitle: 'Next 7 days',
+            unknownTitle: 'Unknown',
         },
         global: {
             amount: 'Amount',
@@ -29,6 +46,8 @@ I18n.translations = {
             barcode: 'Barcode',
             dueDate: 'Due Date',
             segment: 'Segment',
+            today: 'Today',
+            tomorrow: 'Tomorrow',
             typeableLine: 'Typeable Line',
         },
     },
@@ -49,8 +68,25 @@ I18n.translations = {
                 titlePlaceholder: 'Insira um título',
             },
             shareBarButton: {
-                defaultMessage: 'Nenhum Boleto selecionado',
+                defaultMessage: 'Nenhum boleto selecionado',
             },
+        },
+        boletoList: {
+            filter: {
+                all: 'Todos',
+                paid: 'Pagos',
+                pending: 'Pendentes',
+            },
+            list: {
+                empty: 'Nenhum boleto encontrado',
+            },
+            listContainer: {
+                noTitle: 'Sem Título',
+            },
+        },
+        boletoListUtils: {
+            nearFutureTitle: 'Próximos 7 dias',
+            unknownTitle: 'Desconhecido',
         },
         global: {
             amount: 'Valor',
@@ -58,6 +94,8 @@ I18n.translations = {
             barcode: 'Código de Barras',
             dueDate: 'Data de Vencimento',
             segment: 'Segmento',
+            today: 'Hoje',
+            tomorrow: 'Amanhã',
             typeableLine: 'Linha Digitável',
         },
     },

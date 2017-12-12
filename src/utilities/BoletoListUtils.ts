@@ -1,5 +1,6 @@
 import { addDays, isThisYear, isWithinRange } from 'date-fns';
 import format from 'date-fns/format';
+import enLocale from 'date-fns/locale/en';
 import ptLocale from 'date-fns/locale/pt';
 import { groupBy, map } from 'lodash';
 import S from 'string';
@@ -67,22 +68,26 @@ export function mapItemsToMonthlySections(
     );
     const monthlySections = map(monthlyItems, (monthItems) => {
         const dueDate = monthItems[0].dueDate;
+        const preferredLanguage: string = I18n.locale;
+        let locale: any = ptLocale;
+
+        if (!preferredLanguage.includes('pt')) {
+            locale = enLocale;
+        }
 
         if (dueDate) {
             if (!isThisYear(dueDate)) {
                 return {
                     data: monthItems,
                     title: S(
-                        format(dueDate, 'MMMM YYYY', { locale: ptLocale }),
+                        format(dueDate, 'MMMM YYYY', { locale }),
                     ).capitalize().s,
                 };
             }
 
             return {
                 data: monthItems,
-                title: S(
-                    format(dueDate, 'MMMM', { locale: ptLocale }),
-                ).capitalize().s,
+                title: S(format(dueDate, 'MMMM', { locale })).capitalize().s,
             };
         }
 

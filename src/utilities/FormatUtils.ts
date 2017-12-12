@@ -1,7 +1,6 @@
 import * as accounting from 'accounting';
 import { isToday, isTomorrow } from 'date-fns';
 import format from 'date-fns/format';
-import ptLocale from 'date-fns/locale/pt';
 
 import I18n from '../constants/i18n';
 
@@ -24,5 +23,5 @@ export function formatDate(date: Date): string {
         return I18n.t('global.tomorrow');
     }
 
-    return format(date, 'D/MM/YYYY', { locale: ptLocale });
+    return format(date, 'D/MM/YYYY');
 }

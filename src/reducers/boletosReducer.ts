@@ -18,46 +18,55 @@ if (__DEV__) {
     initialStateByBarcode = {
         '02191618900000166510010847800017732009402163': {
             barcode: '02191618900000166510010847800017732009402163',
+            dateAdded: Date.now(),
             paid: true,
             title: null,
         },
         '24891735200000300000010847800017732009402163': {
             barcode: '24891735200000300000010847800017732009402163',
+            dateAdded: Date.now(),
             paid: false,
             title: null,
         },
         '24891735600000300000010847800017732009402163': {
             barcode: '24891735600000300000010847800017732009402163',
+            dateAdded: Date.now(),
             paid: false,
             title: 'Creche',
         },
         '24991735300000300000010847800017732009402163': {
             barcode: '24891735300000300000010847800017732009402163',
+            dateAdded: Date.now(),
             paid: false,
             title: null,
         },
         '39991611800001264300010847800017732009402163': {
             barcode: '39991611800001264300010847800017732009402163',
+            dateAdded: Date.now(),
             paid: true,
             title: null,
         },
         '49491739000001734510010847800017732009402163': {
             barcode: '49491739000001734510010847800017732009402163',
+            dateAdded: Date.now(),
             paid: false,
             title: null,
         },
         '75291735500345700000010847800017732009402163': {
             barcode: '75291735500345700000010847800017732009402163',
+            dateAdded: Date.now(),
             paid: false,
             title: null,
         },
         '83680000004560000820999989421070019693993499': {
             barcode: '83680000004560000820999989421070019693993499',
+            dateAdded: Date.now(),
             paid: false,
             title: null,
         },
         '85680000001200000820999989421070019693993499': {
             barcode: '85680000001200000820999989421070019693993499',
+            dateAdded: Date.now(),
             paid: false,
             title: null,
         },
@@ -87,7 +96,12 @@ function byBarcode(
 
         return {
             ...state,
-            [action.payload.barcode]: action.payload,
+            [action.payload.barcode]: {
+                barcode: action.payload.barcode,
+                dateAdded: Date.now(),
+                paid: false,
+                title: null,
+            },
         };
     }
 

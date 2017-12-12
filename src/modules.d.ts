@@ -1,10 +1,11 @@
 declare module 'checkdigit';
+declare module 'lolex';
 declare module 'react-native-action-button';
 declare module 'react-native-camera';
+declare module 'react-native-i18n';
 declare module 'react-native-navigation';
 declare module 'react-native-static-server';
 declare module 'react-native-tab-view';
 declare module 'redux-persist';
 declare module 'redux-persist/es/integration/react';
 declare module 'redux-persist/es/storage';
-declare module 'react-native-i18n';

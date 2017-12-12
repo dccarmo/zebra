@@ -10,8 +10,6 @@ function mapDispatchToProps(dispatch: Dispatch<any>): CameraOverlayProps {
             dispatch(
                 addBoletoAction({
                     barcode: barcode.data,
-                    paid: false,
-                    title: null,
                 }),
             ),
     };

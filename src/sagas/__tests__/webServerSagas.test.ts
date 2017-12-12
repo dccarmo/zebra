@@ -8,6 +8,7 @@ import { startWebServerSaga, stopWebServerSaga } from '../webServerSagas';
 
 const mockBoleto = {
     barcode: '02191618900000166510010847800017732009402163',
+    dateAdded: Date.now(),
     paid: true,
     title: '',
 };

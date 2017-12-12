@@ -1,3 +1,5 @@
+import lolex from 'lolex';
+
 import {
     addBoletoAction,
     toggleBoletoPaidAction,
@@ -8,11 +10,20 @@ import boletosReducer from '../boletosReducer';
 
 const mockBoleto = {
     barcode: '02191618900000166510010847800017732009402163',
-    paid: true,
+    dateAdded: 0,
+    paid: false,
     title: null,
 };
 
 describe('Boleto Reducer', () => {
+    beforeAll(() => {
+        lolex.install();
+    });
+
+    afterAll(() => {
+        lolex.uninstall();
+    });
+
     it('should add a boleto', () => {
         const state: BoletoStore = { allBarcodes: [], byBarcode: {} };
 
@@ -73,7 +84,7 @@ describe('Boleto Reducer', () => {
             byBarcode: {
                 '02191618900000166510010847800017732009402163': {
                     ...mockBoleto,
-                    paid: false,
+                    paid: true,
                 },
             },
         });

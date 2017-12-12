@@ -6,6 +6,7 @@ import { segmentName } from '../constants/segments';
 
 interface Boleto {
     barcode: string;
+    dateAdded: number;
     title: string | null;
     paid: boolean;
 }

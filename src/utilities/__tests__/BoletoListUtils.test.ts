@@ -29,7 +29,7 @@ const mockNextDaysItems: ItemStateProps[] = [
 
 const mockNextDayItemsSession: BoletoListSectionData = {
     data: mockNextDaysItems,
-    title: 'Próximos 7 dias',
+    title: 'Next 7 days',
 };
 
 const mockNotNextDaysItems: ItemStateProps[] = [
@@ -77,14 +77,14 @@ const mockMonthlySections: BoletoListSectionData[] = [
     },
     {
         data: [createItem(null), createItem(null)],
-        title: 'Desconhecido',
+        title: 'Unknown',
     },
 ];
 
 const mockSortedMonthlySections: BoletoListSectionData[] = [
     {
         data: [createItem(null), createItem(null)],
-        title: 'Desconhecido',
+        title: 'Unknown',
     },
     {
         data: [createItem(addDays(startDay, 30))],

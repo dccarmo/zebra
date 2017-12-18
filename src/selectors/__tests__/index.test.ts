@@ -8,12 +8,14 @@ import { AppStore, BoletoStore } from '../../stores';
 
 const mockPaidBoleto = {
     barcode: '02191618900000166510010847800017732009402163',
+    dateAdded: Date.now(),
     paid: true,
     title: '',
 };
 
 const mockPendingBoleto = {
     barcode: '77591618900000166510010847800017732009402163',
+    dateAdded: Date.now(),
     paid: false,
     title: '',
 };

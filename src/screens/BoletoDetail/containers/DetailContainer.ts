@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
-
 import { Dispatch } from 'redux';
+
 import {
+    requestDeleteBoletoAction,
     toggleBoletoPaidAction,
     updateBoletoTitleAction,
 } from '../../../actions/index';
@@ -25,6 +26,9 @@ function mapDispatchToProps(dispatch: Dispatch<any>): DetailDispatchProps {
     return {
         onChangeTitle: (barcode, title) =>
             dispatch(updateBoletoTitleAction({ barcode, title })),
+        onDeleteBoleto: (barcode) => {
+            dispatch(requestDeleteBoletoAction({ barcode }));
+        },
         onTogglePaid: (barcode) => dispatch(toggleBoletoPaidAction({ barcode })),
     };
 }

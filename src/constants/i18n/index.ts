@@ -13,8 +13,14 @@ I18n.translations = {
                     starting: 'Starting server',
                 },
             },
+            delete: {
+                cancelButton: 'Cancel',
+                confirmButton: 'Delete',
+                title: 'Delete this boleto?',
+            },
             detail: {
                 copied: 'Copied!',
+                deleteButton: 'Delete boleto',
                 markAsPaid: 'Mark as paid',
                 markAsPending: 'Mark as pending',
                 titlePlaceholder: 'Insert title',
@@ -61,8 +67,14 @@ I18n.translations = {
                     starting: 'Servidor iniciando',
                 },
             },
+            delete: {
+                cancelButton: 'Cancelar',
+                confirmButton: 'Excluir',
+                title: 'Deseja excluir este boleto?',
+            },
             detail: {
                 copied: 'Copiado!',
+                deleteButton: 'Excluir boleto',
                 markAsPaid: 'Marcar como pago',
                 markAsPending: 'Marcar como pendente',
                 titlePlaceholder: 'Insira um título',

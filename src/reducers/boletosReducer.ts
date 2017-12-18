@@ -6,6 +6,7 @@ import { isType } from 'typescript-fsa';
 
 import {
     addBoletoAction,
+    deleteBoletoAction,
     toggleBoletoPaidAction,
     updateBoletoTitleAction,
 } from '../actions';
@@ -105,6 +106,12 @@ function byBarcode(
         };
     }
 
+    if (isType(action, deleteBoletoAction)) {
+        const { [action.payload.barcode]: _, ...newState } = state;
+
+        return newState;
+    }
+
     if (isType(action, updateBoletoTitleAction)) {
         const boleto = state[action.payload.barcode];
 
@@ -144,6 +151,10 @@ function allBarcodes(
         const newState = [...state, action.payload.barcode];
 
         return Array.from(new Set(newState));
+    }
+
+    if (isType(action, deleteBoletoAction)) {
+        return state.filter((barcode) => barcode !== action.payload.barcode);
     }
 
     return state;

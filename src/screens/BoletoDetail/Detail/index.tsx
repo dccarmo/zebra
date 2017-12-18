@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Alert,
     Platform,
     Text,
     TextInput,
@@ -30,6 +31,7 @@ export interface DetailStateProps {
 
 export interface DetailDispatchProps {
     onChangeTitle: (barcode: string, title: string) => void;
+    onDeleteBoleto: (barcode: string) => void;
     onTogglePaid: (barcode: string) => void;
 }
 
@@ -98,7 +100,9 @@ const BoletoDetail: React.SFC<
                         onChangeText={(text) =>
                             props.onChangeTitle(props.barcode, text)
                         }
-                        placeholder={I18n.t('boletoDetail.detail.titlePlaceholder')}
+                        placeholder={I18n.t(
+                            'boletoDetail.detail.titlePlaceholder',
+                        )}
                         returnKeyType={'done'}
                         style={styles.title}
                         defaultValue={props.title ? props.title : undefined}
@@ -130,7 +134,9 @@ const BoletoDetail: React.SFC<
 
                                         if (Platform.OS === 'android') {
                                             ToastAndroid.show(
-                                                I18n.t('boletoDetail.detail.copied'),
+                                                I18n.t(
+                                                    'boletoDetail.detail.copied',
+                                                ),
                                                 ToastAndroid.SHORT,
                                             );
                                         }
@@ -160,7 +166,9 @@ const BoletoDetail: React.SFC<
 
                                         if (Platform.OS === 'android') {
                                             ToastAndroid.show(
-                                                I18n.t('boletoDetail.detail.copied'),
+                                                I18n.t(
+                                                    'boletoDetail.detail.copied',
+                                                ),
                                                 ToastAndroid.SHORT,
                                             );
                                         }
@@ -186,6 +194,26 @@ const BoletoDetail: React.SFC<
                             {props.paid
                                 ? I18n.t('boletoDetail.detail.markAsPending')
                                 : I18n.t('boletoDetail.detail.markAsPaid')}
+                        </Text>
+                    </View>
+                </TouchableButton>
+                <TouchableButton
+                    onPress={() =>
+                        Alert.alert(I18n.t('boletoDetail.delete.title'), undefined, [
+                            {
+                                text: I18n.t('boletoDetail.delete.cancelButton'),
+                            },
+                            {
+                                onPress: () =>
+                                    props.onDeleteBoleto(props.barcode),
+                                text: I18n.t('boletoDetail.delete.confirmButton'),
+                            },
+                        ])
+                    }
+                >
+                    <View style={styles.actionButton}>
+                        <Text style={styles.actionButtonText}>
+                            {I18n.t('boletoDetail.detail.deleteButton')}
                         </Text>
                     </View>
                 </TouchableButton>

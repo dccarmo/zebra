@@ -11,11 +11,13 @@ import {
 } from 'react-native';
 
 import { Clipboard, ScrollView } from 'react-native';
+import { connect } from 'react-redux';
 import Card from '../../../components/Card';
 import TouchableButton from '../../../components/TouchableButton';
 import { colors } from '../../../constants';
 import I18n from '../../../constants/i18n';
 import { formatDate } from '../../../utilities/FormatUtils';
+import { mapDispatchToProps, mapStateToProps } from './container';
 import styles from './styles';
 
 export interface DetailStateProps {
@@ -87,7 +89,7 @@ function renderFirstRow(props: DetailStateProps): JSX.Element {
     return <View style={styles.row}>{content}</View>;
 }
 
-const BoletoDetail: React.SFC<
+const Detail: React.SFC<
     DetailStateProps & DetailDispatchProps & ViewProperties
 > = (props) => {
     return (
@@ -199,16 +201,24 @@ const BoletoDetail: React.SFC<
                 </TouchableButton>
                 <TouchableButton
                     onPress={() =>
-                        Alert.alert(I18n.t('boletoDetail.delete.title'), undefined, [
-                            {
-                                text: I18n.t('boletoDetail.delete.cancelButton'),
-                            },
-                            {
-                                onPress: () =>
-                                    props.onDeleteBoleto(props.barcode),
-                                text: I18n.t('boletoDetail.delete.confirmButton'),
-                            },
-                        ])
+                        Alert.alert(
+                            I18n.t('boletoDetail.delete.title'),
+                            undefined,
+                            [
+                                {
+                                    text: I18n.t(
+                                        'boletoDetail.delete.cancelButton',
+                                    ),
+                                },
+                                {
+                                    onPress: () =>
+                                        props.onDeleteBoleto(props.barcode),
+                                    text: I18n.t(
+                                        'boletoDetail.delete.confirmButton',
+                                    ),
+                                },
+                            ],
+                        )
                     }
                 >
                     <View style={styles.actionButton}>
@@ -222,4 +232,4 @@ const BoletoDetail: React.SFC<
     );
 };
 
-export default BoletoDetail;
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);

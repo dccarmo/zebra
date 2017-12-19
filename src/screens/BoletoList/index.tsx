@@ -3,10 +3,10 @@ import { Platform, StyleSheet, View } from 'react-native';
 
 import { maroonHeaderStyle } from '../../constants';
 import { colors } from '../../constants';
-
 import I18n from '../../constants/i18n';
-import AddButtonContainer from './containers/AddButtonContainer';
-import ListContainer from './containers/ListContainer';
+import AddActionButton from './AddActionButton';
+import AddBarButton from './AddBarButton';
+import List from './List';
 import SegmentedControl from './SegmentedControl';
 
 interface BoletoListState {
@@ -18,7 +18,7 @@ class BoletoList extends React.Component<{}, BoletoListState> {
         ...maroonHeaderStyle,
         headerRight:
             Platform.OS === 'ios' ? (
-                <AddButtonContainer style={{ marginRight: 16 }} />
+                <AddBarButton style={{ marginRight: 16 }} />
             ) : null,
         headerStyle: {
             backgroundColor: colors.monza,
@@ -51,9 +51,9 @@ class BoletoList extends React.Component<{}, BoletoListState> {
                         I18n.t('boletoList.filter.all'),
                     ]}
                 >
-                    <ListContainer selectedFilter={this.state.selectedIndex} />
+                    <List selectedFilter={this.state.selectedIndex} />
                 </SegmentedControl>
-                {Platform.OS === 'android' && <AddButtonContainer />}
+                {Platform.OS === 'android' && <AddActionButton />}
             </View>
         );
     }

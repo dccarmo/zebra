@@ -1,5 +1,4 @@
 import { compareAsc, compareDesc, startOfToday } from 'date-fns';
-import { connect } from 'react-redux';
 
 import I18n from '../../../constants/i18n';
 import Boleto, {
@@ -21,8 +20,8 @@ import {
     sortSections,
 } from '../../../utilities/BoletoListUtils';
 import { formatAmount } from '../../../utilities/FormatUtils';
-import { ItemStateProps } from '../Item';
-import List, { BoletoListSectionData, ListProps } from '../List';
+import { BoletoListSectionData, ListProps } from './';
+import { ItemStateProps } from './Item';
 
 export enum FilterOption {
     Pending,
@@ -30,11 +29,11 @@ export enum FilterOption {
     All,
 }
 
-interface ListContainerProps {
+export interface ListContainerProps {
     selectedFilter: FilterOption;
 }
 
-function mapStateToProps(
+export function mapStateToProps(
     state: AppStore,
     ownProps: ListContainerProps,
 ): ListProps {
@@ -98,9 +97,3 @@ function mapStateToProps(
         ),
     };
 }
-
-const ListContainer = connect(mapStateToProps)(
-    List,
-);
-
-export default ListContainer;

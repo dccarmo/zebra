@@ -1,7 +1,7 @@
 import { addDays, compareDesc, startOfDay, subDays } from 'date-fns';
 
-import { ItemStateProps } from '../../screens/BoletoList/Item';
 import { BoletoListSectionData } from '../../screens/BoletoList/List';
+import { ItemStateProps } from '../../screens/BoletoList/List/Item';
 import {
     filterItemsByNotNextDays,
     mapItemsToMonthlySections,

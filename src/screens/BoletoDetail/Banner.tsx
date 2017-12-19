@@ -1,9 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 
+import { deselectBarcodeAction } from '../../actions/index';
 import Card from '../../components/Card';
 import { colors } from '../../constants';
+import I18n from '../../constants/i18n';
 import { WebServerStatus } from '../../models/WebServerInfo';
+import { AppStore } from '../../stores/index';
 
 export interface BannerStateProps {
     description: string;
@@ -43,7 +48,11 @@ class Banner extends React.PureComponent<BannerProps> {
     render() {
         return (
             <View style={styles.container}>
-                <Card style={{ backgroundColor: cardBackgroundColor(this.props.status) }}>
+                <Card
+                    style={{
+                        backgroundColor: cardBackgroundColor(this.props.status),
+                    }}
+                >
                     <View style={styles.content}>
                         <Text style={styles.description}>
                             {this.props.description}
@@ -69,4 +78,36 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Banner;
+function mapStateToProps(state: AppStore): BannerStateProps {
+    let description = I18n.t('boletoDetail.banner.status.default');
+
+    switch (state.webServerInfo.status) {
+        case WebServerStatus.Online:
+            description = I18n.t('boletoDetail.banner.status.online', {
+                url: state.webServerInfo.url,
+            });
+            break;
+
+        case WebServerStatus.Error:
+        case WebServerStatus.Offline:
+            description = I18n.t('boletoDetail.banner.status.errorOffline');
+            break;
+
+        case WebServerStatus.Starting:
+            description = I18n.t('boletoDetail.banner.status.starting');
+            break;
+    }
+
+    return {
+        description,
+        status: state.webServerInfo.status,
+    };
+}
+
+function mapDispatchToProps(dispatch: Dispatch<any>): BannerDispatchProps {
+    return {
+        componentWillUnmount: () => dispatch(deselectBarcodeAction()),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Banner);

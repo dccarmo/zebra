@@ -6,8 +6,8 @@ import { groupBy, map } from 'lodash';
 import S from 'string';
 
 import I18n from '../constants/i18n';
-import { ItemStateProps } from '../screens/BoletoList/Item';
 import { BoletoListSectionData } from '../screens/BoletoList/List';
+import { ItemStateProps } from '../screens/BoletoList/List/Item';
 
 type DateComparison = (l: Date, r: Date) => number;
 

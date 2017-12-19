@@ -7,10 +7,13 @@ import {
     View,
     ViewStyle,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 
-import Card from '../../../components/Card';
-import { colors } from '../../../constants';
-import { formatDate } from '../../../utilities/FormatUtils';
+import { selectBarcodeAction } from '../../../../actions/index';
+import Card from '../../../../components/Card';
+import { colors } from '../../../../constants';
+import { formatDate } from '../../../../utilities/FormatUtils';
 import styles from './styles';
 
 export interface ItemStateProps {
@@ -97,11 +100,15 @@ function renderContent(props: ItemProps): JSX.Element {
 }
 
 const Item: React.SFC<ItemStateProps & ItemDispatchProps> = (props) => {
-    return (
-        <Card style={styles.card}>
-            {renderContent(props)}
-        </Card>
-    );
+    return <Card style={styles.card}>{renderContent(props)}</Card>;
 };
 
-export default Item;
+function mapDispatchToProps(dispatch: Dispatch<any>): ItemDispatchProps {
+    return {
+        onSelect: (barcode: string) => {
+            dispatch(selectBarcodeAction(barcode));
+        },
+    };
+}
+
+export default connect(null, mapDispatchToProps)(Item);

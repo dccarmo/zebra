@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CameraOverlayContainer from './containers/CameraOverlayContainer';
+import CameraOverlay from './CameraOverlay';
 
 class BarcodeReader extends React.Component {
     static navigationOptions = {
@@ -9,7 +9,7 @@ class BarcodeReader extends React.Component {
 
     render() {
         return (
-            <CameraOverlayContainer style={{ flex: 1 }} />
+            <CameraOverlay style={{ flex: 1 }} />
         );
     }
 }

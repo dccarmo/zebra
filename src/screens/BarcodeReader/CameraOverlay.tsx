@@ -2,14 +2,19 @@ import { once } from 'lodash';
 import React from 'react';
 import { StyleSheet, View, ViewProperties } from 'react-native';
 import Camera from 'react-native-camera';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 
-import CloseButtonContainer from './containers/CloseButtonContainer';
+import { addBoletoAction } from '../../actions/index';
+import CloseButton from './CloseButton';
 
 export interface CameraOverlayProps {
     onBarcodeRead: (data: any) => void;
 }
 
-class CameraOverlay extends React.Component<CameraOverlayProps & ViewProperties> {
+class CameraOverlay extends React.Component<
+    CameraOverlayProps & ViewProperties
+> {
     onBarcodeRead: (data: any) => void;
 
     constructor(props: CameraOverlayProps) {
@@ -31,7 +36,7 @@ class CameraOverlay extends React.Component<CameraOverlayProps & ViewProperties>
                     <View style={styles.leftStripe} />
                     <View style={styles.middleStripe} />
                     <View style={styles.rightStripe}>
-                        <CloseButtonContainer />
+                        <CloseButton />
                     </View>
                 </View>
             </Camera>
@@ -59,4 +64,15 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CameraOverlay;
+function mapDispatchToProps(dispatch: Dispatch<any>): CameraOverlayProps {
+    return {
+        onBarcodeRead: (barcode) =>
+            dispatch(
+                addBoletoAction({
+                    barcode: barcode.data,
+                }),
+            ),
+    };
+}
+
+export default connect(null, mapDispatchToProps)(CameraOverlay);

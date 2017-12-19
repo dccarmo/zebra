@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import {
@@ -16,13 +15,13 @@ import {
 import { getSelectedBoleto } from '../../../selectors';
 import { AppStore } from '../../../stores';
 import { formatAmount } from '../../../utilities/FormatUtils';
-import Detail, { DetailDispatchProps, DetailStateProps } from '../Detail';
+import { DetailDispatchProps, DetailStateProps } from './';
 
 function getAmount(barcode: string): string {
     return `${formatAmount(getBarcodeAmount(barcode))}`;
 }
 
-function mapDispatchToProps(dispatch: Dispatch<any>): DetailDispatchProps {
+export function mapDispatchToProps(dispatch: Dispatch<any>): DetailDispatchProps {
     return {
         onChangeTitle: (barcode, title) =>
             dispatch(updateBoletoTitleAction({ barcode, title })),
@@ -33,7 +32,7 @@ function mapDispatchToProps(dispatch: Dispatch<any>): DetailDispatchProps {
     };
 }
 
-function mapStateToProps(state: AppStore): DetailStateProps {
+export function mapStateToProps(state: AppStore): DetailStateProps {
     const boleto = getSelectedBoleto(state)!;
 
     return {
@@ -49,7 +48,3 @@ function mapStateToProps(state: AppStore): DetailStateProps {
         typeableLine: getFormattedTypeableLine(boleto.barcode),
     };
 }
-
-const DetailContainer = connect(mapStateToProps, mapDispatchToProps)(Detail);
-
-export default DetailContainer;

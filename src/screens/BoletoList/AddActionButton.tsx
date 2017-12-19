@@ -1,6 +1,8 @@
 import React from 'react';
 import { Image, ViewProperties } from 'react-native';
 import ActionButton from 'react-native-action-button';
+import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 
 import { colors } from '../../constants';
 
@@ -8,7 +10,9 @@ export interface AddActionButtonProps {
     onPress: () => void;
 }
 
-const AddActionButton: React.SFC<AddActionButtonProps & ViewProperties> = (props) => (
+const AddActionButton: React.SFC<
+    AddActionButtonProps & ViewProperties
+> = (props) => (
     <ActionButton
         {...props}
         buttonColor={style.button.color}
@@ -27,4 +31,13 @@ export const style = {
     },
 };
 
-export default AddActionButton;
+function mapDispatchToProps(dispatch: any) {
+    return {
+        onPress: () =>
+            dispatch(
+                NavigationActions.navigate({ routeName: 'BarcodeReader' }),
+            ),
+    };
+}
+
+export default connect(null, mapDispatchToProps)(AddActionButton);

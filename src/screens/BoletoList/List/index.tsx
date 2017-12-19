@@ -7,12 +7,14 @@ import {
     Text,
     View,
 } from 'react-native';
+import { connect } from 'react-redux';
 
-import I18n from '../../constants/i18n';
-import { colors } from '../../constants/index';
-import ItemContainer from './containers/ItemContainer';
-import { ItemStateProps } from './Item';
+import I18n from '../../../constants/i18n';
+import { colors } from '../../../constants/index';
+import Item, { ItemStateProps } from './Item';
 import SectionHeader from './SectionHeader';
+
+import { mapStateToProps } from './container';
 
 export interface BoletoListSectionData extends SectionListData<ItemStateProps> {
     title: string;
@@ -26,7 +28,9 @@ const List: React.SFC<ListProps> = (props) => {
     if (props.sections.length === 0) {
         return (
             <View style={styles.emptyContainer}>
-                <Text style={styles.emptyText}>{I18n.t('boletoList.list.empty')}</Text>
+                <Text style={styles.emptyText}>
+                    {I18n.t('boletoList.list.empty')}
+                </Text>
             </View>
         );
     }
@@ -35,7 +39,7 @@ const List: React.SFC<ListProps> = (props) => {
         <SectionList
             keyExtractor={(_, index) => `${index}`}
             sections={props.sections}
-            renderItem={(data) => <ItemContainer {...data.item} />}
+            renderItem={(data) => <Item {...data.item} />}
             renderSectionHeader={(info) =>
                 info.section.title ? (
                     <SectionHeader title={info.section.title} />
@@ -62,4 +66,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default List;
+export default connect(mapStateToProps)(List);

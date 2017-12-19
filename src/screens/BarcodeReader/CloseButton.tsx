@@ -1,5 +1,7 @@
 import React from 'react';
 import { Image } from 'react-native';
+import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 
 import TouchableButton from '../../components/TouchableButton';
 
@@ -13,4 +15,10 @@ const CloseButton: React.SFC<CloseButtonProps> = (props) => (
     </TouchableButton>
 );
 
-export default CloseButton;
+function mapDispatchToProps(dispatch: any): CloseButtonProps {
+    return {
+        onPress: () => dispatch(NavigationActions.back()),
+    };
+}
+
+export default connect(null, mapDispatchToProps)(CloseButton);

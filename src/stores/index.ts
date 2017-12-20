@@ -11,6 +11,5 @@ export interface BoletoStore {
 export interface AppStore {
     boletos: BoletoStore;
     navigation: NavigationState;
-    selectedBarcode: string | null;
     webServerInfo: WebServerInfo;
 }

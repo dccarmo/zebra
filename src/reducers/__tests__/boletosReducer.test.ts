@@ -5,8 +5,8 @@ import {
     toggleBoletoPaidAction,
     updateBoletoTitleAction,
 } from '../../actions';
-import { BoletoStore } from '../../stores';
-import boletosReducer from '../boletosReducer';
+import { AppStore, BoletoStore } from '../../stores';
+import boletosReducer, { getAllBoletos, getPaidBoletos, getPendingBoletos } from '../boletosReducer';
 
 const mockBoleto = {
     barcode: '02191618900000166510010847800017732009402163',
@@ -14,6 +14,87 @@ const mockBoleto = {
     paid: false,
     title: null,
 };
+
+const mockPaidBoleto = {
+    barcode: '02191618900000166510010847800017732009402163',
+    dateAdded: Date.now(),
+    paid: true,
+    title: '',
+};
+
+const mockPendingBoleto = {
+    barcode: '77591618900000166510010847800017732009402163',
+    dateAdded: Date.now(),
+    paid: false,
+    title: '',
+};
+
+const mockAppStore: AppStore = {
+    boletos: {
+        allBarcodes: [],
+        byBarcode: {},
+    },
+    navigation: {} as any,
+    webServerInfo: {} as any,
+};
+
+describe('Boletos selectors', () => {
+    it('should return empty for empty state', () => {
+        expect(getPendingBoletos(mockAppStore)).toEqual([]);
+    });
+
+    it('should return no boletos', () => {
+        const boletos: BoletoStore = {
+            allBarcodes: [mockPaidBoleto.barcode],
+            byBarcode: { [mockPaidBoleto.barcode]: mockPaidBoleto },
+        };
+
+        expect(getPendingBoletos({ ...mockAppStore, boletos })).toEqual([]);
+    });
+
+    it('should return the pending boleto', () => {
+        const boletos: BoletoStore = {
+            allBarcodes: [mockPaidBoleto.barcode, mockPendingBoleto.barcode],
+            byBarcode: {
+                [mockPaidBoleto.barcode]: mockPaidBoleto,
+                [mockPendingBoleto.barcode]: mockPendingBoleto,
+            },
+        };
+
+        expect(getPendingBoletos({ ...mockAppStore, boletos })).toEqual([
+            mockPendingBoleto,
+        ]);
+    });
+
+    it('should return the paid boleto', () => {
+        const boletos: BoletoStore = {
+            allBarcodes: [mockPaidBoleto.barcode, mockPendingBoleto.barcode],
+            byBarcode: {
+                [mockPaidBoleto.barcode]: mockPaidBoleto,
+                [mockPendingBoleto.barcode]: mockPendingBoleto,
+            },
+        };
+
+        expect(getPaidBoletos({ ...mockAppStore, boletos })).toEqual([
+            mockPaidBoleto,
+        ]);
+    });
+
+    it('should return all boletos', () => {
+        const boletos: BoletoStore = {
+            allBarcodes: [mockPaidBoleto.barcode, mockPendingBoleto.barcode],
+            byBarcode: {
+                [mockPaidBoleto.barcode]: mockPaidBoleto,
+                [mockPendingBoleto.barcode]: mockPendingBoleto,
+            },
+        };
+
+        expect(getAllBoletos({ ...mockAppStore, boletos })).toEqual([
+            mockPaidBoleto,
+            mockPendingBoleto,
+        ]);
+    });
+});
 
 describe('Boleto Reducer', () => {
     beforeAll(() => {

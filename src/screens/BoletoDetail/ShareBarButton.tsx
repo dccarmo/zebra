@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, Share, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 
-import I18n from '../../constants/i18n';
 import { getFormattedTypeableLine } from '../../models/Boleto';
 import { AppStore } from '../../stores/index';
 
@@ -40,15 +39,13 @@ const ShareBarButton: React.SFC<ShareBarButtonProps> = (props) => {
     );
 };
 
-function mapStateToProps(state: AppStore): ShareBarButtonProps {
-    if (state.selectedBarcode) {
-        return {
-            message: getFormattedTypeableLine(state.selectedBarcode!),
-        };
-    }
+interface ShareBarButtonContainerProps {
+    barcode: string;
+}
 
+function mapStateToProps(_: AppStore, ownProps: ShareBarButtonContainerProps): ShareBarButtonProps {
     return {
-        message: I18n.t('boletoDetail.shareBarButton.defaultMessage'),
+        message: getFormattedTypeableLine(ownProps.barcode),
     };
 }
 

@@ -25,9 +25,6 @@ I18n.translations = {
                 markAsPending: 'Mark as pending',
                 titlePlaceholder: 'Insert title',
             },
-            shareBarButton: {
-                defaultMessage: 'No boleto selected',
-            },
         },
         boletoList: {
             filter: {
@@ -78,9 +75,6 @@ I18n.translations = {
                 markAsPaid: 'Marcar como pago',
                 markAsPending: 'Marcar como pendente',
                 titlePlaceholder: 'Insira um título',
-            },
-            shareBarButton: {
-                defaultMessage: 'Nenhum boleto selecionado',
             },
         },
         boletoList: {

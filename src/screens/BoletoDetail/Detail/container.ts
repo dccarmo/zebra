@@ -12,10 +12,14 @@ import {
     getBarcodeSegment,
     getFormattedTypeableLine,
 } from '../../../models/Boleto';
-import { getSelectedBoleto } from '../../../selectors';
+import { getBoleto } from '../../../reducers/boletosReducer';
 import { AppStore } from '../../../stores';
 import { formatAmount } from '../../../utilities/FormatUtils';
 import { DetailDispatchProps, DetailStateProps } from './';
+
+interface DetailContainerProps {
+    barcode: string;
+}
 
 function getAmount(barcode: string): string {
     return `${formatAmount(getBarcodeAmount(barcode))}`;
@@ -32,8 +36,8 @@ export function mapDispatchToProps(dispatch: Dispatch<any>): DetailDispatchProps
     };
 }
 
-export function mapStateToProps(state: AppStore): DetailStateProps {
-    const boleto = getSelectedBoleto(state)!;
+export function mapStateToProps(state: AppStore, ownProps: DetailContainerProps): DetailStateProps {
+    const boleto = getBoleto(state, ownProps.barcode)!;
 
     return {
         amount: getAmount(boleto.barcode),

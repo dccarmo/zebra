@@ -106,7 +106,7 @@ const Item: React.SFC<ItemStateProps & ItemDispatchProps> = (props) => {
 function mapDispatchToProps(dispatch: Dispatch<any>): ItemDispatchProps {
     return {
         onSelect: (barcode: string) => {
-            dispatch(selectBarcodeAction(barcode));
+            dispatch(selectBarcodeAction({ barcode }));
         },
     };
 }

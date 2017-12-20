@@ -1,9 +1,10 @@
-import { includes } from 'lodash';
+import { includes, values } from 'lodash';
 import { Action } from 'redux';
 import { persistCombineReducers } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
 import { isType } from 'typescript-fsa';
 
+import { createSelector } from 'reselect';
 import {
     addBoletoAction,
     deleteBoletoAction,
@@ -11,6 +12,7 @@ import {
     updateBoletoTitleAction,
 } from '../actions';
 import Boleto from '../models/Boleto';
+import { AppStore } from '../stores/index';
 
 let initialStateByBarcode: { [_: string]: Boleto } = {};
 let initialStateAllBarcodes: string[] = [];
@@ -85,6 +87,27 @@ if (__DEV__) {
         '85680000001200000820999989421070019693993499',
     ];
 }
+
+export const getBoleto = createSelector((state: AppStore, barcode: string) => {
+    return state.boletos.byBarcode[barcode];
+}, (boleto) => boleto);
+
+export const getPendingBoletos = createSelector(
+    (state: AppStore) =>
+        values(state.boletos.byBarcode).filter((boleto) => !boleto.paid),
+    (boletos) => boletos,
+);
+
+export const getPaidBoletos = createSelector(
+    (state: AppStore) =>
+        values(state.boletos.byBarcode).filter((boleto) => boleto.paid),
+    (boletos) => boletos,
+);
+
+export const getAllBoletos = createSelector(
+    (state: AppStore) => values(state.boletos.byBarcode),
+    (boletos) => boletos,
+);
 
 function byBarcode(
     state: { [_: string]: Boleto } = initialStateByBarcode,

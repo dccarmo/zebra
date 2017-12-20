@@ -1,7 +1,7 @@
 import { StatusBar } from 'react-native';
 import { all, call, select, takeEvery } from 'redux-saga/effects';
 
-import { getNavigationState } from '../selectors/index';
+import { getNavigationState } from '../reducers/navigationReducer';
 import { getCurrentRoute } from '../utilities/NavigationUtils';
 
 export function* updateStatusBarSaga() {

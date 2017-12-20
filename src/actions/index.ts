@@ -8,7 +8,7 @@ export const addBoletoAction = actionCreator<{ barcode: string }>('ADD_BOLETO');
 export const deleteBoletoAction = actionCreator<{ barcode: string }>('DELETE_BOLETO');
 export const deselectBarcodeAction = actionCreator('DESELECT_BARCODE');
 export const requestDeleteBoletoAction = actionCreator<{ barcode: string }>('REQUEST_DELETE_BOLETO');
-export const selectBarcodeAction = actionCreator<string>('SELECT_BARCODE');
+export const selectBarcodeAction = actionCreator<{ barcode: string }>('SELECT_BARCODE');
 export const toggleBoletoPaidAction = actionCreator<{
     barcode: string;
 }>('TOGGLE_BOLETO_PAID_ACTION');

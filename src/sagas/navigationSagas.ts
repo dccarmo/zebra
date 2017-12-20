@@ -12,7 +12,7 @@ import {
     selectBarcodeAction,
 } from '../actions/index';
 
-function runAfterNavigation() {
+export function runAfterNavigationChannel() {
     return eventChannel((emitter) => {
         InteractionManager.runAfterInteractions(() => {
             emitter(END);
@@ -24,13 +24,12 @@ function runAfterNavigation() {
 export function* addedBoletoSaga(action: Action) {
     if (isType(action, addBoletoAction)) {
         yield put(NavigationActions.back());
-        yield call(delay, 500);
-        const channel = yield call(runAfterNavigation);
+        const channel = yield call(runAfterNavigationChannel);
 
         try {
             yield take(channel);
         } finally {
-            yield put(selectBarcodeAction(action.payload.barcode));
+            yield put(selectBarcodeAction({ barcode: action.payload.barcode }));
         }
     }
 }
@@ -42,7 +41,7 @@ export function* watchAddedBoleto() {
 export function* requestedDeleteBoletoSaga(action: Action) {
     if (isType(action, requestDeleteBoletoAction)) {
         yield put(NavigationActions.back());
-        const channel = yield call(runAfterNavigation);
+        const channel = yield call(runAfterNavigationChannel);
 
         try {
             yield take(channel);
@@ -56,12 +55,19 @@ export function* watchRequestedDeleteBoleto() {
     yield takeEvery(requestDeleteBoletoAction, requestedDeleteBoletoSaga);
 }
 
-export function* selectedBoletoSaga() {
-    yield put(NavigationActions.navigate({ routeName: 'BoletoDetail' }));
+export function* selectBoletoSaga(action: Action) {
+    if (isType(action, selectBarcodeAction)) {
+        yield put(
+            NavigationActions.navigate({
+                params: { barcode: action.payload.barcode },
+                routeName: 'BoletoDetail',
+            }),
+        );
+    }
 }
 
 export function* watchSelectedBoleto() {
-    yield takeEvery(selectBarcodeAction, selectedBoletoSaga);
+    yield takeEvery(selectBarcodeAction, selectBoletoSaga);
 }
 
 export default function* navigationSagas() {

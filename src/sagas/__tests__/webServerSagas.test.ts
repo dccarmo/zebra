@@ -1,8 +1,8 @@
 import { call, put, select } from 'redux-saga/effects';
 
-import { updateWebServerInfoAction } from '../../actions';
+import { selectBarcodeAction, updateWebServerInfoAction } from '../../actions';
 import { WebServerStatus } from '../../models/WebServerInfo';
-import { getSelectedBoleto } from '../../selectors';
+import { getBoleto } from '../../reducers/boletosReducer';
 import { webServer } from '../../utilities/WebServer';
 import { startWebServerSaga, stopWebServerSaga } from '../webServerSagas';
 
@@ -19,10 +19,11 @@ const mockError = new Error('');
 
 describe('Web Server Sagas', () => {
     describe('starts the web server successfully', () => {
-        const gen = startWebServerSaga();
+        const action = selectBarcodeAction({ barcode: mockBoleto.barcode });
+        const gen = startWebServerSaga(action);
 
         it('get the selected boleto', () => {
-            expect(gen.next().value).toEqual(select(getSelectedBoleto));
+            expect(gen.next().value).toEqual(select(getBoleto, mockBoleto.barcode));
         });
 
         it('update web server info with starting', () => {
@@ -61,10 +62,11 @@ describe('Web Server Sagas', () => {
     });
 
     describe('starts the web server with error', () => {
-        const gen = startWebServerSaga();
+        const action = selectBarcodeAction({ barcode: mockBoleto.barcode });
+        const gen = startWebServerSaga(action);
 
         it('get the selected boleto', () => {
-            expect(gen.next().value).toEqual(select(getSelectedBoleto));
+            expect(gen.next().value).toEqual(select(getBoleto, mockBoleto.barcode));
         });
 
         it('update web server info with starting', () => {

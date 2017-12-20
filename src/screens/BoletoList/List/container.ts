@@ -10,7 +10,7 @@ import {
     getAllBoletos,
     getPaidBoletos,
     getPendingBoletos,
-} from '../../../selectors';
+} from '../../../reducers/boletosReducer';
 import { AppStore } from '../../../stores';
 import {
     filterItemsByNotNextDays,

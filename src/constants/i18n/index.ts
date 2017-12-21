@@ -5,6 +5,11 @@ I18n.fallbacks = true;
 I18n.translations = {
     en: {
         boletoDetail: {
+            actions: {
+                deleteButton: 'Delete boleto',
+                markAsPaid: 'Mark as paid',
+                markAsPending: 'Mark as pending',
+            },
             banner: {
                 status: {
                     default: 'Servidor offline',
@@ -20,9 +25,6 @@ I18n.translations = {
             },
             detail: {
                 copied: 'Copied!',
-                deleteButton: 'Delete boleto',
-                markAsPaid: 'Mark as paid',
-                markAsPending: 'Mark as pending',
                 titlePlaceholder: 'Insert title',
             },
         },
@@ -56,6 +58,11 @@ I18n.translations = {
     },
     pt: {
         boletoDetail: {
+            actions: {
+                deleteButton: 'Excluir boleto',
+                markAsPaid: 'Marcar como pago',
+                markAsPending: 'Marcar como pendente',
+            },
             banner: {
                 status: {
                     default: 'Servidor desconectado',
@@ -71,9 +78,6 @@ I18n.translations = {
             },
             detail: {
                 copied: 'Copiado!',
-                deleteButton: 'Excluir boleto',
-                markAsPaid: 'Marcar como pago',
-                markAsPending: 'Marcar como pendente',
                 titlePlaceholder: 'Insira um título',
             },
         },

@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    Alert,
     Platform,
     Text,
     TextInput,
@@ -13,7 +12,6 @@ import {
 import { Clipboard, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import Card from '../../../components/Card';
-import TouchableButton from '../../../components/TouchableButton';
 import { colors } from '../../../constants';
 import I18n from '../../../constants/i18n';
 import { formatDate } from '../../../utilities/FormatUtils';
@@ -25,7 +23,6 @@ export interface DetailStateProps {
     bank: string | null;
     barcode: string;
     dueDate: Date | null;
-    paid: boolean;
     segment: string | null;
     title: string | null;
     typeableLine: string;
@@ -33,8 +30,6 @@ export interface DetailStateProps {
 
 export interface DetailDispatchProps {
     onChangeTitle: (barcode: string, title: string) => void;
-    onDeleteBoleto: (barcode: string) => void;
-    onTogglePaid: (barcode: string) => void;
 }
 
 function renderFirstRow(props: DetailStateProps): JSX.Element {
@@ -94,7 +89,7 @@ const Detail: React.SFC<
 > = (props) => {
     return (
         <View {...props}>
-            <Card style={{ backgroundColor: colors.white }}>
+            <Card style={styles.card}>
                 <View style={styles.content}>
                     <TextInput
                         autoCapitalize={'words'}
@@ -187,47 +182,6 @@ const Detail: React.SFC<
                     </View>
                 </View>
             </Card>
-            <View style={styles.actionButtonList}>
-                <TouchableButton
-                    onPress={() => props.onTogglePaid(props.barcode)}
-                >
-                    <View style={styles.actionButton}>
-                        <Text style={styles.actionButtonText}>
-                            {props.paid
-                                ? I18n.t('boletoDetail.detail.markAsPending')
-                                : I18n.t('boletoDetail.detail.markAsPaid')}
-                        </Text>
-                    </View>
-                </TouchableButton>
-                <TouchableButton
-                    onPress={() =>
-                        Alert.alert(
-                            I18n.t('boletoDetail.delete.title'),
-                            undefined,
-                            [
-                                {
-                                    text: I18n.t(
-                                        'boletoDetail.delete.cancelButton',
-                                    ),
-                                },
-                                {
-                                    onPress: () =>
-                                        props.onDeleteBoleto(props.barcode),
-                                    text: I18n.t(
-                                        'boletoDetail.delete.confirmButton',
-                                    ),
-                                },
-                            ],
-                        )
-                    }
-                >
-                    <View style={styles.actionButton}>
-                        <Text style={styles.actionButtonText}>
-                            {I18n.t('boletoDetail.detail.deleteButton')}
-                        </Text>
-                    </View>
-                </TouchableButton>
-            </View>
         </View>
     );
 };

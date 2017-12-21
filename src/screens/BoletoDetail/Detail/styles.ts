@@ -2,15 +2,11 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../../constants';
 
 const styles = StyleSheet.create({
-    actionButton: {
-        alignItems: 'center',
-        height: 60,
-        justifyContent: 'center',
+    card: {
+        backgroundColor: colors.white,
+        marginHorizontal: 16,
+        marginTop: 16,
     },
-    actionButtonList: {
-        marginVertical: 16,
-    },
-    actionButtonText: { fontSize: 16, fontWeight: 'bold', color: colors.monza },
     content: {
         padding: 16,
     },

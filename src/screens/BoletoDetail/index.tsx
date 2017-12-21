@@ -8,6 +8,7 @@ import {
 } from 'react-navigation';
 
 import { maroonHeaderStyle } from '../../constants';
+import Actions from './Actions';
 import Banner from './Banner';
 import Detail from './Detail';
 import ShareBarButton from './ShareBarButton';
@@ -40,8 +41,8 @@ class BoletoDetail extends React.Component<
                 <Banner />
                 <Detail
                     barcode={this.props.navigation.state.params.barcode}
-                    style={{ margin: 16 }}
                 />
+                <Actions barcode={this.props.navigation.state.params.barcode} />
             </ScrollView>
         );
     }

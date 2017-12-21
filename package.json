@@ -22,6 +22,7 @@
 		"react-native-action-button": "^2.8.1",
 		"react-native-camera": "dccarmo/react-native-camera",
 		"react-native-i18n": "dccarmo/react-native-i18n",
+		"react-native-push-notification": "^3.0.2",
 		"react-native-static-server": "dccarmo/react-native-static-server",
 		"react-native-tab-view": "0.0.69",
 		"react-navigation": "^1.0.0-beta.21",

@@ -15,10 +15,10 @@ describe('Format Utilities', () => {
     });
 
     it('should format the date for today', () => {
-        expect(formatDate(new Date())).toEqual('Hoje');
+        expect(formatDate(new Date())).toEqual('Today');
     });
 
     it('should format the date for tomorrow', () => {
-        expect(formatDate(addDays(new Date(), 1))).toEqual('Amanhã');
+        expect(formatDate(addDays(new Date(), 1))).toEqual('Tomorrow');
     });
 });

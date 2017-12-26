@@ -60,7 +60,7 @@ const mockItems: ItemStateProps[] = [
 const mockMonthlySections: BoletoListSectionData[] = [
     {
         data: [createItem(subDays(startDay, 60))],
-        title: 'Setembro',
+        title: 'September',
     },
     {
         data: [
@@ -69,11 +69,11 @@ const mockMonthlySections: BoletoListSectionData[] = [
             createItem(subDays(startDay, 3)),
             createItem(subDays(startDay, 20)),
         ],
-        title: 'Novembro',
+        title: 'November',
     },
     {
         data: [createItem(addDays(startDay, 30))],
-        title: 'Dezembro',
+        title: 'December',
     },
     {
         data: [createItem(null), createItem(null)],
@@ -88,7 +88,7 @@ const mockSortedMonthlySections: BoletoListSectionData[] = [
     },
     {
         data: [createItem(addDays(startDay, 30))],
-        title: 'Dezembro',
+        title: 'December',
     },
     {
         data: [
@@ -97,11 +97,11 @@ const mockSortedMonthlySections: BoletoListSectionData[] = [
             createItem(subDays(startDay, 3)),
             createItem(subDays(startDay, 20)),
         ],
-        title: 'Novembro',
+        title: 'November',
     },
     {
         data: [createItem(subDays(startDay, 60))],
-        title: 'Setembro',
+        title: 'September',
     },
 ];
 

@@ -7,7 +7,9 @@ import { isType } from 'typescript-fsa';
 import { createSelector } from 'reselect';
 import {
     addBoletoAction,
+    createReminderAction,
     deleteBoletoAction,
+    deleteReminderAction,
     toggleBoletoPaidAction,
     updateBoletoTitleAction,
 } from '../actions';
@@ -23,54 +25,63 @@ if (__DEV__) {
             barcode: '02191618900000166510010847800017732009402163',
             dateAdded: Date.now(),
             paid: true,
+            reminderId: null,
             title: null,
         },
         '24891735200000300000010847800017732009402163': {
             barcode: '24891735200000300000010847800017732009402163',
             dateAdded: Date.now(),
             paid: false,
+            reminderId: null,
             title: null,
         },
         '24891735600000300000010847800017732009402163': {
             barcode: '24891735600000300000010847800017732009402163',
             dateAdded: Date.now(),
             paid: false,
+            reminderId: null,
             title: 'Creche',
         },
         '24991735300000300000010847800017732009402163': {
             barcode: '24891735300000300000010847800017732009402163',
             dateAdded: Date.now(),
             paid: false,
+            reminderId: null,
             title: null,
         },
         '39991611800001264300010847800017732009402163': {
             barcode: '39991611800001264300010847800017732009402163',
             dateAdded: Date.now(),
             paid: true,
+            reminderId: null,
             title: null,
         },
         '49491739000001734510010847800017732009402163': {
             barcode: '49491739000001734510010847800017732009402163',
             dateAdded: Date.now(),
             paid: false,
+            reminderId: null,
             title: null,
         },
         '75291735500345700000010847800017732009402163': {
             barcode: '75291735500345700000010847800017732009402163',
             dateAdded: Date.now(),
             paid: false,
+            reminderId: null,
             title: null,
         },
         '83680000004560000820999989421070019693993499': {
             barcode: '83680000004560000820999989421070019693993499',
             dateAdded: Date.now(),
             paid: false,
+            reminderId: null,
             title: null,
         },
         '85680000001200000820999989421070019693993499': {
             barcode: '85680000001200000820999989421070019693993499',
             dateAdded: Date.now(),
             paid: false,
+            reminderId: null,
             title: null,
         },
     };
@@ -91,6 +102,19 @@ if (__DEV__) {
 export const getBoleto = createSelector((state: AppStore, barcode: string) => {
     return state.boletos.byBarcode[barcode];
 }, (boleto) => boleto);
+
+export const getBoletoForReminder = createSelector(
+    (state: AppStore, reminderId: string) => {
+        for (const boleto of values(state.boletos.byBarcode)) {
+            if (boleto.reminderId === reminderId) {
+                return boleto;
+            }
+        }
+
+        return null;
+    },
+    (boleto) => boleto,
+);
 
 export const getPendingBoletos = createSelector(
     (state: AppStore) =>
@@ -124,6 +148,7 @@ function byBarcode(
                 barcode: action.payload.barcode,
                 dateAdded: Date.now(),
                 paid: false,
+                reminderId: null,
                 title: null,
             },
         };
@@ -155,6 +180,30 @@ function byBarcode(
             [action.payload.barcode]: {
                 ...boleto,
                 paid: !boleto.paid,
+            },
+        };
+    }
+
+    if (isType(action, createReminderAction.done)) {
+        const boleto = state[action.payload.params.barcode];
+
+        return {
+            ...state,
+            [action.payload.params.barcode]: {
+                ...boleto,
+                reminderId: action.payload.result.id,
+            },
+        };
+    }
+
+    if (isType(action, deleteReminderAction.done)) {
+        const boleto = state[action.payload.result.barcode];
+
+        return {
+            ...state,
+            [action.payload.result.barcode]: {
+                ...boleto,
+                reminderId: null,
             },
         };
     }

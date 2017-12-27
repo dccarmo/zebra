@@ -31,7 +31,8 @@
 		"redux-persist": "^5.4.0",
 		"redux-saga": "^0.16.0",
 		"reselect": "^3.0.1",
-		"string": "^3.3.3"
+		"string": "^3.3.3",
+		"uuid": "^3.1.0"
 	},
 	"devDependencies": {
 		"@types/accounting": "^0.4.0",
@@ -39,9 +40,11 @@
 		"@types/lodash": "^4.14.68",
 		"@types/react": "^16.0.5",
 		"@types/react-native": "^0.48.4",
+		"@types/react-native-push-notification": "^3.0.0",
 		"@types/react-navigation": "^1.0.20",
 		"@types/react-redux": "^5.0.14",
 		"@types/string": "0.0.29",
+		"@types/uuid": "^3.4.3",
 		"babel-jest": "^21.0.2",
 		"babel-preset-react-native": "^3.0.2",
 		"concurrently": "^3.5.0",
@@ -54,7 +57,7 @@
 		"ts-jest": "^21.2.3",
 		"tslint": "^5.4.3",
 		"typescript": "^2.6.2",
-		"typescript-fsa": "^2.3.1"
+		"typescript-fsa": "2.5.0"
 	},
 	"jest": {
 		"preset": "react-native",

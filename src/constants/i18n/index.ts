@@ -6,7 +6,9 @@ I18n.translations = {
     en: {
         boletoDetail: {
             actions: {
+                createReminder: 'Create reminder',
                 deleteButton: 'Delete boleto',
+                deleteReminder: 'Remove reminder',
                 markAsPaid: 'Mark as paid',
                 markAsPending: 'Mark as pending',
             },
@@ -59,7 +61,9 @@ I18n.translations = {
     pt: {
         boletoDetail: {
             actions: {
+                createReminder: 'Criar lembrete',
                 deleteButton: 'Excluir boleto',
+                deleteReminder: 'Remover lembrete',
                 markAsPaid: 'Marcar como pago',
                 markAsPending: 'Marcar como pendente',
             },

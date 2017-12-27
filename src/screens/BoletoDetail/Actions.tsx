@@ -4,22 +4,29 @@ import { Dispatch } from 'redux';
 
 import { connect } from 'react-redux';
 import {
+    createReminderAction,
+    deleteReminderAction,
     requestDeleteBoletoAction,
     toggleBoletoPaidAction,
 } from '../../actions/index';
 import TouchableButton from '../../components/TouchableButton';
 import { colors } from '../../constants';
 import I18n from '../../constants/i18n';
+import { getBarcodeDueDate } from '../../models/Boleto';
 import { getBoleto } from '../../reducers/boletosReducer';
 import { AppStore } from '../../stores/index';
 
 interface ActionsProps {
     barcode: string;
+    dueDate: Date | null;
+    reminderId: string | null;
     paid: boolean;
 }
 
 interface ActionsDispatchProps {
+    onCreateReminder: (barcode: string) => void;
     onDeleteBoleto: (barcode: string) => void;
+    onDeleteReminder: (barcode: string) => void;
     onTogglePaid: (barcode: string) => void;
 }
 
@@ -34,6 +41,23 @@ const Actions: React.SFC<ActionsProps & ActionsDispatchProps> = (props) => (
                 </Text>
             </View>
         </TouchableButton>
+        {props.dueDate &&
+            <TouchableButton
+                onPress={() =>
+                    props.reminderId
+                        ? props.onDeleteReminder(props.reminderId)
+                        : props.onCreateReminder(props.barcode)
+                }
+            >
+                <View style={styles.actionButton}>
+                    <Text style={styles.actionButtonText}>
+                        {props.reminderId
+                            ? I18n.t('boletoDetail.actions.deleteReminder')
+                            : I18n.t('boletoDetail.actions.createReminder')}
+                    </Text>
+                </View>
+            </TouchableButton>
+        }
         <TouchableButton
             onPress={() =>
                 Alert.alert(I18n.t('boletoDetail.delete.title'), undefined, [
@@ -74,9 +98,12 @@ interface ActionContainerProps {
 
 function mapDispatchToProps(dispatch: Dispatch<any>): ActionsDispatchProps {
     return {
-        onDeleteBoleto: (barcode) => {
-            dispatch(requestDeleteBoletoAction({ barcode }));
-        },
+        onCreateReminder: (barcode) =>
+            dispatch(createReminderAction.started({ barcode })),
+        onDeleteBoleto: (barcode) =>
+            dispatch(requestDeleteBoletoAction({ barcode })),
+        onDeleteReminder: (reminderId) =>
+            dispatch(deleteReminderAction.started({ id: reminderId })),
         onTogglePaid: (barcode) =>
             dispatch(toggleBoletoPaidAction({ barcode })),
     };
@@ -90,7 +117,9 @@ function mapStateToProps(
 
     return {
         barcode: boleto.barcode,
+        dueDate: getBarcodeDueDate(boleto.barcode),
         paid: boleto.paid,
+        reminderId: boleto.reminderId,
     };
 }
 

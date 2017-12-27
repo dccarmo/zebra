@@ -1,5 +1,4 @@
 import { NavigationActions } from 'react-navigation';
-import { delay } from 'redux-saga';
 import { call, put, take } from 'redux-saga/effects';
 
 import { addBoletoAction, selectBarcodeAction } from '../../actions/index';

@@ -9,6 +9,7 @@ interface Boleto {
     dateAdded: number;
     title: string | null;
     paid: boolean;
+    reminderId: string | null;
 }
 
 export enum BoletoType {

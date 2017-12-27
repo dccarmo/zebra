@@ -11,14 +11,14 @@ const initialWebServerInfo: WebServerInfo = {
 };
 
 function webServerInfoReducer(
-    webServerInfo: WebServerInfo = initialWebServerInfo,
+    state: WebServerInfo = initialWebServerInfo,
     action: Action,
 ): WebServerInfo {
     if (isType(action, updateWebServerInfoAction)) {
         return action.payload;
     }
 
-    return webServerInfo;
+    return state;
 }
 
 export default webServerInfoReducer;

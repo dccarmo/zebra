@@ -1,6 +1,6 @@
 import { InteractionManager } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import { delay, END, eventChannel } from 'redux-saga';
+import { END, eventChannel } from 'redux-saga';
 import { all, call, put, take, takeEvery } from 'redux-saga/effects';
 
 import { Action } from 'redux';

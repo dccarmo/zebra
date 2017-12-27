@@ -12,6 +12,7 @@ const mockBoleto = {
     barcode: '02191618900000166510010847800017732009402163',
     dateAdded: 0,
     paid: false,
+    reminderId: null,
     title: null,
 };
 
@@ -19,6 +20,7 @@ const mockPaidBoleto = {
     barcode: '02191618900000166510010847800017732009402163',
     dateAdded: Date.now(),
     paid: true,
+    reminderId: null,
     title: '',
 };
 
@@ -26,6 +28,7 @@ const mockPendingBoleto = {
     barcode: '77591618900000166510010847800017732009402163',
     dateAdded: Date.now(),
     paid: false,
+    reminderId: null,
     title: '',
 };
 
@@ -35,6 +38,10 @@ const mockAppStore: AppStore = {
         byBarcode: {},
     },
     navigation: {} as any,
+    reminders: {
+        allIds: [],
+        byId: {},
+    },
     webServerInfo: {} as any,
 };
 

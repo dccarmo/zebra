@@ -1,7 +1,7 @@
 import { InteractionManager } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { END, eventChannel } from 'redux-saga';
-import { all, call, put, take, takeEvery } from 'redux-saga/effects';
+import { all, call, put, take, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { Action } from 'redux';
 import { isType } from 'typescript-fsa';
@@ -67,7 +67,7 @@ export function* selectBoletoSaga(action: Action) {
 }
 
 export function* watchSelectedBoleto() {
-    yield takeEvery(selectBarcodeAction, selectBoletoSaga);
+    yield takeLatest(selectBarcodeAction, selectBoletoSaga);
 }
 
 export default function* navigationSagas() {

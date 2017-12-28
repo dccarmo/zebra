@@ -29,7 +29,7 @@ export const updateBoletoTitleAction = actionCreator<{
 
 export const createReminderAction = actionCreator.async<
     { barcode: string },
-    { id: string, dueDate: Date | null }
+    { id: string, dueDate: Date }
 >('CREATE_REMINDER');
 export const deleteReminderAction = actionCreator.async<{ id: string }, { barcode: string }>(
     'DELETE_REMINDER',

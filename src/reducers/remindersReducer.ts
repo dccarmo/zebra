@@ -1,4 +1,3 @@
-import { addHours, startOfDay } from 'date-fns';
 import { Action } from 'redux';
 import { persistCombineReducers } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
@@ -13,25 +12,23 @@ export const getReminder = createSelector((state: AppStore, id: string) => {
     return state.reminders.byId[id];
 }, (reminder) => reminder);
 
+export const getNumberOfReminders = createSelector((state: AppStore) => {
+    return state.reminders.allIds.length;
+}, (count) => count);
+
 export function byId(
     state: { [_: string]: Reminder } = {},
     action: Action,
 ): { [_: string]: Reminder } {
     if (isType(action, createReminderAction.done)) {
-        if (action.payload.result.dueDate) {
-            return {
-                ...state,
-                [action.payload.result.id]: {
-                    barcode: action.payload.params.barcode,
-                    date:
-                        addHours(
-                            startOfDay(action.payload.result.dueDate),
-                            10,
-                        ).getTime() / 1000,
-                    id: action.payload.result.id,
-                },
-            };
-        }
+        return {
+            ...state,
+            [action.payload.result.id]: {
+                barcode: action.payload.params.barcode,
+                date: action.payload.result.dueDate.getTime(),
+                id: action.payload.result.id,
+            },
+        };
     }
 
     if (isType(action, deleteReminderAction.done)) {

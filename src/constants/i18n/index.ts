@@ -57,6 +57,11 @@ I18n.translations = {
             tomorrow: 'Tomorrow',
             typeableLine: 'Typeable Line',
         },
+        reminderSagas: {
+            notification: {
+                message: 'Pay boleto',
+            },
+        },
     },
     pt: {
         boletoDetail: {
@@ -111,6 +116,11 @@ I18n.translations = {
             today: 'Hoje',
             tomorrow: 'Amanhã',
             typeableLine: 'Linha Digitável',
+        },
+        reminderSagas: {
+            notification: {
+                message: 'Pagar boleto',
+            },
         },
     },
 };

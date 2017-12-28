@@ -2,7 +2,8 @@ import { addHours, startOfDay } from 'date-fns';
 
 import { createReminderAction, deleteReminderAction } from '../../actions/index';
 import Reminder from '../../models/Reminder';
-import { allIds, byId } from '../remindersReducer';
+import { AppStore } from '../../stores/index';
+import { allIds, byId, getReminder, getNumberOfReminders } from '../remindersReducer';
 
 const mockCreateReminderAction = createReminderAction.done({
     params: { barcode: '1234' },
@@ -14,15 +15,40 @@ const mockDeleteReminderAction = deleteReminderAction.done({
     result: { barcode: '1234' },
 });
 
+const mockReminder: Reminder = {
+    barcode: '1234',
+    date: 0,
+    id: 'abc',
+};
+
 const mockByIdInitialState: { [_: string]: Reminder } = {
-    abc: {
-        barcode: '1234',
-        date: 0,
-        id: 'abc',
+    abc: mockReminder,
+};
+
+const mockAppStore: AppStore = {
+    boletos: {
+        allBarcodes: [],
+        byBarcode: {},
     },
+    navigation: {} as any,
+    reminders: {
+        allIds: ['abc'],
+        byId: mockByIdInitialState,
+    },
+    webServerInfo: {} as any,
 };
 
 const mockAllIdsInitialState: string[] = ['abc'];
+
+describe('reminders selectors', () => {
+    it('gets reminder', () => {
+        expect(getReminder(mockAppStore, 'abc')).toEqual(mockReminder);
+    });
+
+    it('gets number of reminders', () => {
+        expect(getNumberOfReminders(mockAppStore)).toBe(1);
+    });
+});
 
 describe('reminders reducer', () => {
     describe('by id', () => {
@@ -30,14 +56,7 @@ describe('reminders reducer', () => {
             expect(byId(undefined, mockCreateReminderAction)).toEqual({
                 abc: {
                     barcode: '1234',
-                    date:
-                        addHours(
-                            startOfDay(
-                                mockCreateReminderAction.payload.result
-                                    .dueDate!,
-                            ),
-                            10,
-                        ).getTime() / 1000,
+                    date: mockCreateReminderAction.payload.result.dueDate.getTime(),
                     id: 'abc',
                 },
             });

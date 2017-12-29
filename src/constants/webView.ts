@@ -338,8 +338,8 @@ const webView = `
 				</div>
 				<div class="card-line">
 					<div>
-						<h3>%@FORMATTED-TYPEABLE-LINE-LABEL@%</h3>
-						<p class="typeable-line">%@FORMATTED-TYPEABLE-LINE@%</p>
+						<h3>%@TYPEABLE-LINE-LABEL@%</h3>
+						<p class="typeable-line">%@TYPEABLE-LINE@%</p>
 					</div>
 				</div>
 				<div class="card-line">

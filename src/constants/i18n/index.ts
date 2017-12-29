@@ -62,6 +62,9 @@ I18n.translations = {
                 message: 'Pay boleto',
             },
         },
+        webServer: {
+            noTitle: 'No Title',
+        },
     },
     pt: {
         boletoDetail: {
@@ -121,6 +124,9 @@ I18n.translations = {
             notification: {
                 message: 'Pagar boleto',
             },
+        },
+        webServer: {
+            noTitle: 'Sem Título',
         },
     },
 };

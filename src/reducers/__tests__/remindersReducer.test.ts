@@ -1,9 +1,7 @@
-import { addHours, startOfDay } from 'date-fns';
-
 import { createReminderAction, deleteReminderAction } from '../../actions/index';
 import Reminder from '../../models/Reminder';
 import { AppStore } from '../../stores/index';
-import { allIds, byId, getReminder, getNumberOfReminders } from '../remindersReducer';
+import { allIds, byId, getNumberOfReminders, getReminder } from '../remindersReducer';
 
 const mockCreateReminderAction = createReminderAction.done({
     params: { barcode: '1234' },
